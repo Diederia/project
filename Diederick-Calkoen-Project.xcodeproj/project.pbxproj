@@ -7,14 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B963618BF177EEEF645CCD7 /* Pods_Diederick_Calkoen_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3C50E2E5CDB97B253A1591 /* Pods_Diederick_Calkoen_Project.framework */; };
 		E930D9821E247EB100563F0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E930D9811E247EB100563F0E /* AppDelegate.swift */; };
 		E930D9841E247EB100563F0E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E930D9831E247EB100563F0E /* ViewController.swift */; };
 		E930D9871E247EB100563F0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E930D9851E247EB100563F0E /* Main.storyboard */; };
 		E930D9891E247EB100563F0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E930D9881E247EB100563F0E /* Assets.xcassets */; };
 		E930D98C1E247EB100563F0E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E930D98A1E247EB100563F0E /* LaunchScreen.storyboard */; };
+		E930D9941E247F4800563F0E /* CellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E930D9931E247F4800563F0E /* CellView.xib */; };
+		E930D9961E247F7400563F0E /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E930D9951E247F7400563F0E /* CellView.swift */; };
+		E940CF5E1E27617C00E83E45 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940CF5D1E27617C00E83E45 /* LoginViewController.swift */; };
+		E940CF601E2761C700E83E45 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940CF5F1E2761C700E83E45 /* RegisterViewController.swift */; };
+		E940CF631E27654400E83E45 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940CF621E27654400E83E45 /* UserInfo.swift */; };
+		E9FA5DD61E288F97000EA3CD /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FA5DD01E288F97000EA3CD /* CollectionViewController.swift */; };
+		E9FA5DD71E288F97000EA3CD /* ContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FA5DD11E288F97000EA3CD /* ContentCollectionViewCell.swift */; };
+		E9FA5DD81E288F97000EA3CD /* ContentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9FA5DD21E288F97000EA3CD /* ContentCollectionViewCell.xib */; };
+		E9FA5DDA1E288F97000EA3CD /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FA5DD41E288F97000EA3CD /* DateCollectionViewCell.swift */; };
+		E9FA5DDB1E288F97000EA3CD /* DateCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9FA5DD51E288F97000EA3CD /* DateCollectionViewCell.xib */; };
+		E9FA5DDF1E289914000EA3CD /* CustomCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FA5DDE1E289914000EA3CD /* CustomCollectionViewLayout.swift */; };
+		E9FA5DE11E28AC11000EA3CD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9FA5DE01E28AC11000EA3CD /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		486B40CE6EA30CBF344B6F57 /* Pods-Diederick-Calkoen-Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Diederick-Calkoen-Project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Diederick-Calkoen-Project/Pods-Diederick-Calkoen-Project.debug.xcconfig"; sourceTree = "<group>"; };
+		4A3C50E2E5CDB97B253A1591 /* Pods_Diederick_Calkoen_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Diederick_Calkoen_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		93ED10A4C5EE0F3BB6D86C62 /* Pods-Diederick-Calkoen-Project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Diederick-Calkoen-Project.release.xcconfig"; path = "Pods/Target Support Files/Pods-Diederick-Calkoen-Project/Pods-Diederick-Calkoen-Project.release.xcconfig"; sourceTree = "<group>"; };
 		E930D97E1E247EB100563F0E /* Diederick-Calkoen-Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Diederick-Calkoen-Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E930D9811E247EB100563F0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E930D9831E247EB100563F0E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +38,18 @@
 		E930D9881E247EB100563F0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E930D98B1E247EB100563F0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E930D98D1E247EB100563F0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E930D9931E247F4800563F0E /* CellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellView.xib; sourceTree = "<group>"; };
+		E930D9951E247F7400563F0E /* CellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
+		E940CF5D1E27617C00E83E45 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E940CF5F1E2761C700E83E45 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		E940CF621E27654400E83E45 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		E9FA5DD01E288F97000EA3CD /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		E9FA5DD11E288F97000EA3CD /* ContentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentCollectionViewCell.swift; sourceTree = "<group>"; };
+		E9FA5DD21E288F97000EA3CD /* ContentCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContentCollectionViewCell.xib; sourceTree = "<group>"; };
+		E9FA5DD41E288F97000EA3CD /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
+		E9FA5DD51E288F97000EA3CD /* DateCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DateCollectionViewCell.xib; sourceTree = "<group>"; };
+		E9FA5DDE1E289914000EA3CD /* CustomCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewLayout.swift; sourceTree = "<group>"; };
+		E9FA5DE01E28AC11000EA3CD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +57,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B963618BF177EEEF645CCD7 /* Pods_Diederick_Calkoen_Project.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		53E3B48E31DA5AE363749E20 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				486B40CE6EA30CBF344B6F57 /* Pods-Diederick-Calkoen-Project.debug.xcconfig */,
+				93ED10A4C5EE0F3BB6D86C62 /* Pods-Diederick-Calkoen-Project.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		902FD154D50C9BCF22E1C524 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4A3C50E2E5CDB97B253A1591 /* Pods_Diederick_Calkoen_Project.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E930D9751E247EB100563F0E = {
 			isa = PBXGroup;
 			children = (
 				E930D9801E247EB100563F0E /* Diederick-Calkoen-Project */,
 				E930D97F1E247EB100563F0E /* Products */,
+				53E3B48E31DA5AE363749E20 /* Pods */,
+				902FD154D50C9BCF22E1C524 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +102,74 @@
 		E930D9801E247EB100563F0E /* Diederick-Calkoen-Project */ = {
 			isa = PBXGroup;
 			children = (
-				E930D9811E247EB100563F0E /* AppDelegate.swift */,
-				E930D9831E247EB100563F0E /* ViewController.swift */,
-				E930D9851E247EB100563F0E /* Main.storyboard */,
+				E940CF581E275F0B00E83E45 /* Controllers */,
+				E940CF561E275EB600E83E45 /* Storyboards */,
+				E940CF611E27651A00E83E45 /* Models */,
+				E940CF571E275EFC00E83E45 /* Cells */,
+				E940CF5C1E2760D600E83E45 /* Other */,
+				E940CF5A1E27608300E83E45 /* Support */,
 				E930D9881E247EB100563F0E /* Assets.xcassets */,
-				E930D98A1E247EB100563F0E /* LaunchScreen.storyboard */,
-				E930D98D1E247EB100563F0E /* Info.plist */,
 			);
 			path = "Diederick-Calkoen-Project";
+			sourceTree = "<group>";
+		};
+		E940CF561E275EB600E83E45 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				E930D9851E247EB100563F0E /* Main.storyboard */,
+				E930D98A1E247EB100563F0E /* LaunchScreen.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		E940CF571E275EFC00E83E45 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E9FA5DD11E288F97000EA3CD /* ContentCollectionViewCell.swift */,
+				E9FA5DD21E288F97000EA3CD /* ContentCollectionViewCell.xib */,
+				E9FA5DD41E288F97000EA3CD /* DateCollectionViewCell.swift */,
+				E9FA5DD51E288F97000EA3CD /* DateCollectionViewCell.xib */,
+				E930D9931E247F4800563F0E /* CellView.xib */,
+				E930D9951E247F7400563F0E /* CellView.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		E940CF581E275F0B00E83E45 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E9FA5DD01E288F97000EA3CD /* CollectionViewController.swift */,
+				E930D9831E247EB100563F0E /* ViewController.swift */,
+				E940CF5D1E27617C00E83E45 /* LoginViewController.swift */,
+				E940CF5F1E2761C700E83E45 /* RegisterViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		E940CF5A1E27608300E83E45 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				E9FA5DE01E28AC11000EA3CD /* GoogleService-Info.plist */,
+				E930D98D1E247EB100563F0E /* Info.plist */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
+		E940CF5C1E2760D600E83E45 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				E930D9811E247EB100563F0E /* AppDelegate.swift */,
+			);
+			name = Other;
+			sourceTree = "<group>";
+		};
+		E940CF611E27651A00E83E45 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E9FA5DDE1E289914000EA3CD /* CustomCollectionViewLayout.swift */,
+				E940CF621E27654400E83E45 /* UserInfo.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +179,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E930D9901E247EB100563F0E /* Build configuration list for PBXNativeTarget "Diederick-Calkoen-Project" */;
 			buildPhases = (
+				9FE56743ECE7DC27C2FF8972 /* [CP] Check Pods Manifest.lock */,
 				E930D97A1E247EB100563F0E /* Sources */,
 				E930D97B1E247EB100563F0E /* Frameworks */,
 				E930D97C1E247EB100563F0E /* Resources */,
+				D8322FF8AB5DFF5C5D60EFC1 /* [CP] Embed Pods Frameworks */,
+				744B105599C35D5AFCD4D476 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -96,7 +207,13 @@
 				TargetAttributes = {
 					E930D97D1E247EB100563F0E = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = T9MT6FXX38;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -123,21 +240,81 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9FA5DDB1E288F97000EA3CD /* DateCollectionViewCell.xib in Resources */,
+				E930D9941E247F4800563F0E /* CellView.xib in Resources */,
 				E930D98C1E247EB100563F0E /* LaunchScreen.storyboard in Resources */,
 				E930D9891E247EB100563F0E /* Assets.xcassets in Resources */,
+				E9FA5DD81E288F97000EA3CD /* ContentCollectionViewCell.xib in Resources */,
 				E930D9871E247EB100563F0E /* Main.storyboard in Resources */,
+				E9FA5DE11E28AC11000EA3CD /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		744B105599C35D5AFCD4D476 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Diederick-Calkoen-Project/Pods-Diederick-Calkoen-Project-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9FE56743ECE7DC27C2FF8972 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D8322FF8AB5DFF5C5D60EFC1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Diederick-Calkoen-Project/Pods-Diederick-Calkoen-Project-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E930D97A1E247EB100563F0E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E940CF5E1E27617C00E83E45 /* LoginViewController.swift in Sources */,
+				E940CF601E2761C700E83E45 /* RegisterViewController.swift in Sources */,
 				E930D9841E247EB100563F0E /* ViewController.swift in Sources */,
 				E930D9821E247EB100563F0E /* AppDelegate.swift in Sources */,
+				E9FA5DDA1E288F97000EA3CD /* DateCollectionViewCell.swift in Sources */,
+				E9FA5DD71E288F97000EA3CD /* ContentCollectionViewCell.swift in Sources */,
+				E9FA5DD61E288F97000EA3CD /* CollectionViewController.swift in Sources */,
+				E940CF631E27654400E83E45 /* UserInfo.swift in Sources */,
+				E9FA5DDF1E289914000EA3CD /* CustomCollectionViewLayout.swift in Sources */,
+				E930D9961E247F7400563F0E /* CellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,8 +435,10 @@
 		};
 		E930D9911E247EB100563F0E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 486B40CE6EA30CBF344B6F57 /* Pods-Diederick-Calkoen-Project.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = T9MT6FXX38;
 				INFOPLIST_FILE = "Diederick-Calkoen-Project/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.mprog.Diederick-Calkoen-Project";
@@ -270,8 +449,10 @@
 		};
 		E930D9921E247EB100563F0E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 93ED10A4C5EE0F3BB6D86C62 /* Pods-Diederick-Calkoen-Project.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = T9MT6FXX38;
 				INFOPLIST_FILE = "Diederick-Calkoen-Project/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.mprog.Diederick-Calkoen-Project";
@@ -299,6 +480,7 @@
 				E930D9921E247EB100563F0E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
