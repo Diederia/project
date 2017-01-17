@@ -13,6 +13,7 @@ Plannen van bijlessen die worden gegeven door de docenten van Zus & Zo aan versc
 *	Aanvankelijk starten met app voor iOS
 *	Programmeertaal Swift
 *	Custom UITableView Cell
+* UICollectionView
 * JTAppleCalendar
 *	JSON als gegevensformaat voor de datatransfer over het net en database
 
