@@ -60,7 +60,7 @@ De kalenderdag view, de cell met datum moet een subclass zijn van JTAppleDayCell
 De header view, de header moet een subclass zijn van de JTAppleHeaderView.
 
 ## kalenderdag
-Voor de kalenderdag is een UItableview nodig waarin de verschillende uren worden weergegeven. Elke cel in de UItableview geeft een half uur weer. Van 9:00 -22:00 kunnen er lessen worden ingepland, elke les moet minimaal een uur duren en de les kan steeds met een half uur worden verlengd.  Er moeten dus 27 rijen in de tabel komen. Om de tabel overzichtelijk te houden kunnen er maximaal 8 verschillende lessen op dezelfde tijd worden ingepland, er moeten dus 8 kolommen in de tabel komen. 
+Voor de kalenderdag is een UICollectionView nodig waarin de verschillende uren worden weergegeven. Elke cel in de UICollectioVIew geeft een half uur weer. Van 9:00 -22:00 kunnen er lessen worden ingepland, elke les moet minimaal een uur duren en de les kan steeds met een half uur worden verlengd.  Er moeten dus 27 rijen in de tabel komen. Om de tabel overzichtelijk te houden kunnen er maximaal 8 verschillende lessen op dezelfde tijd worden ingepland, er moeten dus 8 kolommen in de tabel komen. 
 
 ## Database
 Voor de database wordt er firebase gebruikt. Deze database staat volkomen los van de user, alleen de administrator zou erin kunnen om gebruikers te activeren en te deactiveren. 
