@@ -30,7 +30,3 @@
 ## Dag 7
 * De doelstelling van dag 7 is om een preview van de UICollectionView weer te geven onderaan de kalendermaand wanneer er op een kalenderdag wordt geklikt. 
 	*
-
-
-
-
