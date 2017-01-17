@@ -62,6 +62,8 @@ class CustomCollectionViewLayout: UICollectionViewLayout
         
         if (self.itemsSize == nil || self.itemsSize?.count != numberOfColumns)
         {
+            print("test")
+            print(self.calculateItemsSize())
             self.calculateItemsSize()
         }
         
@@ -89,7 +91,7 @@ class CustomCollectionViewLayout: UICollectionViewLayout
                 
                 else  if section == 0 || index == 0
                 {
-                    attributes.zIndex = 1023
+                    attributes.zIndex = 1024
                 }
                 
                 if section == 0
