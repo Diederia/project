@@ -2,10 +2,10 @@
 
 ## Dag 2
 * Implementatie van de JT Apple Calendar.
-	* De kalender werkt nog niet, dit komt doordat de mogelijkheden van de pod erg uitgebreid zijn. De komende dagen moet werking van de Calendar duidelijk worden.
+	* De kalender werkt nog niet, dit komt doordat de mogelijkheden van de pod erg uitgebreid zijn. De komende dagen moet werking van de JT Apple Calendar duidelijk worden.
 
 ## Dag 3 
-* Vervolg implementatie van de JT Apple Calendar
+* Vervolg implementatie van de JT Apple Calendar.
 	* De kalender view wordt goed weergegeven en er kan doorheen gescrold worden.
 	* Ik laat de kalender even voor wat het is en ga me nu richten op het rooster van de kalenderdag en het inlogen van de user.
 
@@ -19,7 +19,7 @@
 	* Om 14:00 werkte de UICollectionView.
 
 ## Weekend
-*In het weekend zijn er geen grote aanpassing aan de app gedaan.
+* In het weekend zijn er geen grote aanpassing aan de app gedaan.
 
 ## Dag 6
 * De doelstelling van de dag was om in de UICollectionView het mogelijk te maken om als docent/leerling een tijdstip in te plannen. 
@@ -29,6 +29,7 @@
 
 ## Dag 7
 * De doelstelling van dag 7 is om een preview van de UICollectionView weer te geven onderaan de kalendermaand wanneer er op een kalenderdag wordt geklikt. 
+	*
 
 
 
