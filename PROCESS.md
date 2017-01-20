@@ -4,24 +4,24 @@
 * Implementatie van de JT Apple Calendar.
 	* De kalender werkt nog niet, dit komt doordat de mogelijkheden van de pod erg uitgebreid zijn. De komende dagen moet werking van de JT Apple Calendar duidelijk worden.
 
-## Dag 3 | woensdag |11 januari
+## Dag 3 | woensdag | 11 januari
 * Vervolg implementatie van de JT Apple Calendar.
 	* De kalender view wordt goed weergegeven en er kan doorheen gescrold worden.
 	* Ik laat de kalender even voor wat het is en ga me nu richten op het rooster van de kalenderdag en het inlogen van de user.
 
-## Dag 4 | donderdag |12 januari
+## Dag 4 | donderdag | 12 januari
 * Register en inlogview is aangemaakt met de werkende authenticatie in FireBase.
 	* Het is nog niet helemaal duidelijk of uiteindelijk er een registerView gaat komen of dat alleen de admin in FireBase de gebruikers kan aanmaken. Er moet voorkomen worden dat er onbekende zich kunnen registeren en zo ongewenste aanpassingen in de app kunnen gaan doorvoeren.
 
-## Dag 5 | vrijdag |13 januari
+## Dag 5 | vrijdag | 13 januari
 * Ik heb lang zitten nadenken over hoe de kalenderdag het beste geïmplementeerd kan worden.
 	* Uiteindelijk heb ik voor een UICollectionView  gekozen. Deze keuze is gemaakt omdat er in de UICollectionView verschillende lessen op hetzelfde tijdstip weergegeven kunnen worden en dit oneindig uitgebreid kan worden.
 	* Om 14:00 werkte de UICollectionView.
 
-## Weekend | zaterdag/zondag |14/15 januari
+## Weekend | zaterdag/zondag | 14/15 januari
 * In het weekend zijn er geen grote aanpassing aan de app gedaan.
 
-## Dag 6 | maandag |16 januari
+## Dag 6 | maandag | 16 januari
 * De doelstelling van de dag was om in de UICollectionView het mogelijk te maken om als docent/leerling een tijdstip in te plannen.
 	* Dit vindt plaats door een UIAlertController weer te geven wanneer er op een tijdstip geklikt wordt.
 	* In de UIAlertController zit een UIPickerView waarin er gekozen kan worden hoeveel uur er ingepland wordt in het rooster.
