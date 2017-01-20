@@ -35,7 +35,7 @@ class LoginViewController: UIViewController {
                                 if error != nil {
                                     self.alert(title: "Error with loggig in", message: "Enter a valid email and password.")
                                 }
-                                userInfo.userID = FIRAuth.auth()?.currentUser?.uid
+                                userInfo.FirebaseID = FIRAuth.auth()?.currentUser?.uid
                                 self.performSegue(withIdentifier: "toHomeView", sender: self)
         }
     }

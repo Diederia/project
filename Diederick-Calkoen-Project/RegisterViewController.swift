@@ -56,7 +56,7 @@ class RegsiterViewController: UIViewController {
                 return
             }
             FIRAuth.auth()!.signIn(withEmail: self.textFieldRegisterEmail.text!, password: self.textFieldRegisterPassword.text!)
-            userInfo.userID = FIRAuth.auth()?.currentUser?.uid
+            userInfo.FirebaseID = FIRAuth.auth()?.currentUser?.uid
             
         }
         

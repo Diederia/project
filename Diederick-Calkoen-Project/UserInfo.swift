@@ -13,6 +13,12 @@ import Firebase
 struct userInfo {
     
     // MARK: User info
-    static var userEmail = FIRAuth.auth()?.currentUser?.email
-    static var userID = FIRAuth.auth()?.currentUser?.uid
+    static var FirebaseEmail = FIRAuth.auth()?.currentUser?.email
+    static var FirebaseID = FIRAuth.auth()?.currentUser?.uid
+    
+    static var id = String()
+    static var firstName = String()
+    static var surename = String()
+    static var mobileNumber = String()
+    static var image = String()
 }

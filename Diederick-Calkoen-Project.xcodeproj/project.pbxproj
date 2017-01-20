@@ -19,6 +19,9 @@
 		E940CF601E2761C700E83E45 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940CF5F1E2761C700E83E45 /* RegisterViewController.swift */; };
 		E940CF631E27654400E83E45 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940CF621E27654400E83E45 /* UserInfo.swift */; };
 		E960366E1E29D2EA008C7958 /* AnimationClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960366D1E29D2EA008C7958 /* AnimationClass.swift */; };
+		E96036931E2F4753008C7958 /* CalendarDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96036921E2F4753008C7958 /* CalendarDay.swift */; };
+		E96036951E2F8686008C7958 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96036941E2F8686008C7958 /* CollectionView.swift */; };
+		E96036991E2FD123008C7958 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96036981E2FD123008C7958 /* CustomCell.swift */; };
 		E9FA5DD61E288F97000EA3CD /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FA5DD01E288F97000EA3CD /* CollectionViewController.swift */; };
 		E9FA5DD71E288F97000EA3CD /* ContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FA5DD11E288F97000EA3CD /* ContentCollectionViewCell.swift */; };
 		E9FA5DD81E288F97000EA3CD /* ContentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9FA5DD21E288F97000EA3CD /* ContentCollectionViewCell.xib */; };
@@ -45,6 +48,9 @@
 		E940CF5F1E2761C700E83E45 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E940CF621E27654400E83E45 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		E960366D1E29D2EA008C7958 /* AnimationClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationClass.swift; sourceTree = "<group>"; };
+		E96036921E2F4753008C7958 /* CalendarDay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDay.swift; sourceTree = "<group>"; };
+		E96036941E2F8686008C7958 /* CollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
+		E96036981E2FD123008C7958 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		E9FA5DD01E288F97000EA3CD /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		E9FA5DD11E288F97000EA3CD /* ContentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentCollectionViewCell.swift; sourceTree = "<group>"; };
 		E9FA5DD21E288F97000EA3CD /* ContentCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContentCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -122,6 +128,7 @@
 				E930D9851E247EB100563F0E /* Main.storyboard */,
 				E930D98A1E247EB100563F0E /* LaunchScreen.storyboard */,
 			);
+			indentWidth = 5;
 			name = Storyboards;
 			sourceTree = "<group>";
 		};
@@ -134,6 +141,7 @@
 				E9FA5DD51E288F97000EA3CD /* DateCollectionViewCell.xib */,
 				E930D9931E247F4800563F0E /* CellView.xib */,
 				E930D9951E247F7400563F0E /* CellView.swift */,
+				E96036981E2FD123008C7958 /* CustomCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -170,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				E940CF621E27654400E83E45 /* UserInfo.swift */,
+				E96036921E2F4753008C7958 /* CalendarDay.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -177,6 +186,7 @@
 		E96036911E2DF7A3008C7958 /* Layout */ = {
 			isa = PBXGroup;
 			children = (
+				E96036941E2F8686008C7958 /* CollectionView.swift */,
 				E960366D1E29D2EA008C7958 /* AnimationClass.swift */,
 				E9FA5DDE1E289914000EA3CD /* CustomCollectionViewLayout.swift */,
 			);
@@ -321,11 +331,14 @@
 				E960366E1E29D2EA008C7958 /* AnimationClass.swift in Sources */,
 				E930D9841E247EB100563F0E /* ViewController.swift in Sources */,
 				E930D9821E247EB100563F0E /* AppDelegate.swift in Sources */,
+				E96036951E2F8686008C7958 /* CollectionView.swift in Sources */,
 				E9FA5DDA1E288F97000EA3CD /* DateCollectionViewCell.swift in Sources */,
 				E9FA5DD71E288F97000EA3CD /* ContentCollectionViewCell.swift in Sources */,
 				E9FA5DD61E288F97000EA3CD /* CollectionViewController.swift in Sources */,
+				E96036931E2F4753008C7958 /* CalendarDay.swift in Sources */,
 				E940CF631E27654400E83E45 /* UserInfo.swift in Sources */,
 				E9FA5DDF1E289914000EA3CD /* CustomCollectionViewLayout.swift in Sources */,
+				E96036991E2FD123008C7958 /* CustomCell.swift in Sources */,
 				E930D9961E247F7400563F0E /* CellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

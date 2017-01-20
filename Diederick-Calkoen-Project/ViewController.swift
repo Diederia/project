@@ -8,25 +8,36 @@
 
 import UIKit
 import JTAppleCalendar
+import Firebase
 
 class ViewController: UIViewController {
     
+    // MARK: Outlets
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var monthLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var goToCollectionView: UIButton!
     
-    let white = UIColor(colorWithHexValue: 0xECEAED)
-    let black = UIColor(colorWithHexValue: 0x000000)
-    let grey = UIColor(colorWithHexValue: 0x9f9999)
+    let white = UIColor(red: 236/255.0, green: 234/255.0, blue: 237/255.0, alpha: 1.0 )
+    let black = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1.0)
+    let blue =  UIColor(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
     let formatter = DateFormatter()
-    let testCalendar: NSCalendar! = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
+    
+    var testCalendar = Calendar.current
+    var ref = FIRDatabase.database().reference()
+    var dataRef: FIRDatabaseReference!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.isHidden = true
+        goToCollectionView.isHidden = true
         
-        formatter.dateFormat = "yyyy MM dd"
-//        testCalendar.timeZone = NSTimeZone(abbreviation: "DST")! as TimeZone
 
-        
+        TimeZone.ReferenceType.default = TimeZone(abbreviation: "UTC")!
+        formatter.timeZone = TimeZone.ReferenceType.default
+        formatter.dateFormat = "yyyy MM dd"
+        formatter.locale = testCalendar.locale
+
         calendarView.dataSource = self
         calendarView.delegate = self
         
@@ -34,13 +45,48 @@ class ViewController: UIViewController {
         calendarView.cellInset = CGPoint(x: 3, y: 3)       // default is (3,3)
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    @IBAction func buttonDidTouch(_ sender: Any) {
+    
+    // MARK - Actions
+    @IBAction func next(_ sender: Any) {
+        self.calendarView.scrollToSegment(.next) {
+            self.calendarView.visibleDates({ (visibleDates: DateSegmentInfo) in
+                self.setupViewsOfCalendar(from: visibleDates)
+            })
+        }
+    }
+    
+    @IBAction func previous(_ sender: Any) {
+        self.calendarView.scrollToSegment(.previous) {
+            self.calendarView.visibleDates({ (visibleDates: DateSegmentInfo) in
+                self.setupViewsOfCalendar(from: visibleDates)
+            })
+        }
+    }
+    
+    @IBAction func didTouchButton(_ sender: Any) {
+        
         
     }
+    
+    // MARK - Functions
+    func reloadTableView() {
+        self.tableView.reloadData()
+    }
+    
+    func setupViewsOfCalendar(from visibleDates: DateSegmentInfo) {
+        guard let startDate = visibleDates.monthDates.first else {
+            return
+        }
+        let month = testCalendar.dateComponents([.month], from: startDate).month!
+        let monthName = DateFormatter().monthSymbols[(month-1) % 12]
+        monthLabel.text = monthName
+    }
+    
 
     // Function to handle the text color of the calendar
     func handleCellTextColor(view: JTAppleDayCellView?, cellState: CellState) {
@@ -54,7 +100,7 @@ class ViewController: UIViewController {
             if cellState.dateBelongsTo == .thisMonth {
                 myCustomCell.dayLabel.textColor = white
             } else {
-                myCustomCell.dayLabel.textColor = grey
+                myCustomCell.dayLabel.textColor = blue
             }
         }
     }
@@ -72,20 +118,26 @@ class ViewController: UIViewController {
         }
     }
 }
+
+// MARK - JT Apple Calendar
 extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelegate {
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy MM dd"
         
         let startDate = formatter.date(from: "2017 01 01")! // You can use date generated from a formatter
         let endDate = formatter.date(from: "2100 02 01")!                                // You can also use dates created from this function
-        let aCalendar = Calendar.current                     // Make sure you set this up to your time zone. We'll just use default here
-        let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: 6,
-                                                 calendar: aCalendar,generateInDates: .forAllMonths, generateOutDates: .tillEndOfGrid,firstDayOfWeek: .sunday)
+        let aCalendar = Calendar.autoupdatingCurrent                     // Make sure you set this up to your time zone. We'll just use default here
+        let parameters = ConfigurationParameters(startDate: startDate,
+                                                 endDate: endDate,
+                                                 numberOfRows: 6,
+                                                 calendar: aCalendar,
+                                                 generateInDates: .forAllMonths,
+                                                 generateOutDates: .tillEndOfGrid,
+                                                 firstDayOfWeek: .sunday)
+        monthLabel.text = "January"
         return parameters
     }
     
-    
+
     
     func calendar(_ calendar: JTAppleCalendarView, willDisplayCell cell: JTAppleDayCellView, date: Date, cellState: CellState) {
         let myCustomCell = cell as! CellView
@@ -93,29 +145,105 @@ extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDele
         // Setup Cell text
         myCustomCell.dayLabel.text = cellState.text
         
+        if testCalendar.isDateInToday(date) {
+            myCustomCell.backgroundColor = black
+            myCustomCell.layer.cornerRadius =  15
+        } else {
+            myCustomCell.backgroundColor = UIColor(red: 225/255.0, green: 0/255.0, blue: 122/255.0, alpha: 0.5)
+            myCustomCell.layer.cornerRadius =  0
+        }
+
+        
         handleCellTextColor(view: cell, cellState: cellState)
         handleCellSelection(view: cell, cellState: cellState)
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleDayCellView?, cellState: CellState) {
+    
+        tableView.isHidden = false
+        goToCollectionView.isHidden = false
+        
+        let month = Int(cellState.date.description[5..<7])
+        let monthName = DateFormatter().monthSymbols[(month!-1) % 12]
+        CalendarDay.calendarDayDate = cellState.text + " " + monthName
+        
+        // retrieve data from FireBase
+        CalendarDay.dataOfDate.removeAll()
+        self.dataRef = self.ref.child("Data").child(CalendarDay.calendarDayDate)
+        
+        self.dataRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let result = snapshot.children.allObjects as? [FIRDataSnapshot] {
+                for snap in result {
+                    CalendarDay.dataOfDate[snap.key] = snap.value as! String?
+                }
+            }
+            // reload collectionView
+            self.performSelector(onMainThread: #selector(ViewController.reloadTableView), with: nil, waitUntilDone: true)
+        })
+        
         handleCellSelection(view: cell, cellState: cellState)
         handleCellTextColor(view: cell, cellState: cellState)
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleDayCellView?, cellState: CellState) {
+
         handleCellSelection(view: cell, cellState: cellState)
         handleCellTextColor(view: cell, cellState: cellState)
     }
+    
+    func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
+        self.setupViewsOfCalendar(from: visibleDates)
+        
+    }
+    
+    func scrollDidEndDecelerating(for calendar: JTAppleCalendarView) {
+        self.setupViewsOfCalendar(from: calendarView.visibleDates())
+    }
+    
 }
 
-extension UIColor {
-    convenience init(colorWithHexValue value: Int, alpha:CGFloat = 1.0){
-        self.init(
-            red: CGFloat((value & 0xFF0000) >> 16) / 255.0,
-            green: CGFloat((value & 0x00FF00) >> 8) / 255.0,
-            blue: CGFloat(value & 0x0000FF) / 255.0,
-            alpha: alpha
-        )
+// MARK - UITableView
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell") as! CustomCell
+        
+        cell.idLabel.text = "hello"
+        return cell
     }
 }
+
+
+
+extension String {
+    
+    var length: Int {
+        return self.characters.count
+    }
+    
+    subscript (i: Int) -> String {
+        return self[Range(i ..< i + 1)]
+    }
+    
+    func substring(from: Int) -> String {
+        return self[Range(min(from, length) ..< length)]
+    }
+    
+    func substring(to: Int) -> String {
+        return self[Range(0 ..< max(0, to))]
+    }
+    
+    subscript (r: Range<Int>) -> String {
+        let range = Range(uncheckedBounds: (lower: max(0, min(length, r.lowerBound)),
+                                            upper: min(length, max(0, r.upperBound))))
+        let start = index(startIndex, offsetBy: range.lowerBound)
+        let end = index(start, offsetBy: range.upperBound - range.lowerBound)
+        return self[Range(start ..< end)]
+    }
+    
+}
+
 

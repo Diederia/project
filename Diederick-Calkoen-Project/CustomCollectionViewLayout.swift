@@ -41,6 +41,7 @@ class CustomCollectionViewLayout: UICollectionViewLayout
                     
                     let attributes : UICollectionViewLayoutAttributes = self.layoutAttributesForItem(at: IndexPath(item: index, section: section))!
                     
+
                     if section == 0
                     {
                         var frame = attributes.frame
@@ -62,8 +63,6 @@ class CustomCollectionViewLayout: UICollectionViewLayout
         
         if (self.itemsSize == nil || self.itemsSize?.count != numberOfColumns)
         {
-            print("test")
-            print(self.calculateItemsSize())
             self.calculateItemsSize()
         }
         
@@ -91,7 +90,7 @@ class CustomCollectionViewLayout: UICollectionViewLayout
                 
                 else  if section == 0 || index == 0
                 {
-                    attributes.zIndex = 1024
+                    attributes.zIndex = 1023
                 }
                 
                 if section == 0
