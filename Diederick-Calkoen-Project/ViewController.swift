@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var goToCollectionView: UIButton!
+    @IBOutlet weak var registerButton: UIButton!
     
     let white = UIColor(red: 236/255.0, green: 234/255.0, blue: 237/255.0, alpha: 1.0 )
     let black = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1.0)
@@ -26,9 +27,12 @@ class ViewController: UIViewController {
     var testCalendar = Calendar.current
     var ref = FIRDatabase.database().reference()
     var dataRef: FIRDatabaseReference!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        registerButton.isHidden = true
         tableView.isHidden = true
         goToCollectionView.isHidden = true
         
@@ -56,6 +60,7 @@ class ViewController: UIViewController {
         self.calendarView.scrollToSegment(.next) {
             self.calendarView.visibleDates({ (visibleDates: DateSegmentInfo) in
                 self.setupViewsOfCalendar(from: visibleDates)
+
             })
         }
     }
@@ -68,10 +73,28 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func didTouchButton(_ sender: Any) {
-        
+    @IBAction func logoutDidTouch(_ sender: Any) {
+        let alertController = UIAlertController(title: "Logout", message:
+            "Are you sure you want to logout?", preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default,handler: nil))
+        alertController.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default,handler: {
+            (_)in
+            try! FIRAuth.auth()!.signOut()
+            self.performSegue(withIdentifier: "viewToLogin", sender: self)
+        }))
+        self.present(alertController, animated: true, completion: nil)
+    }
+
+    @IBAction func settingsDidTouch(_ sender: Any) {
+        self.performSegue(withIdentifier: "viewToSettings", sender: self)
+    }
+    
+    @IBAction func registerDidTouch(_ sender: Any) {
         
     }
+    
+
+
     
     // MARK - Functions
     func reloadTableView() {
@@ -175,7 +198,9 @@ extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDele
             if let result = snapshot.children.allObjects as? [FIRDataSnapshot] {
                 for snap in result {
                     CalendarDay.dataOfDate[snap.key] = snap.value as! String?
+                    print(CalendarDay.dataOfDate)
                 }
+                
             }
             // reload collectionView
             self.performSelector(onMainThread: #selector(ViewController.reloadTableView), with: nil, waitUntilDone: true)
@@ -211,11 +236,12 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell") as! CustomCell
         
-        cell.idLabel.text = "hello"
+            if CalendarDay.dataOfDate.keys.contains((" 0, " + String(describing: indexPath.row) + " ")) == true {
+                cell.idLabel.text = CalendarDay.dataOfDate[" 0, " + String(describing: indexPath.row) + " "]
+        }
         return cell
     }
 }
-
 
 
 extension String {

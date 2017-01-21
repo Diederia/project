@@ -12,17 +12,22 @@ import Firebase
 class CollectionViewController: UIViewController  {
     let dateCellIdentifier = "DateCellIdentifier"
     let contentCellIdentifier = "ContentCellIdentifier"
-    let timeSlots = ["9:00","9:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00"]
+    let timeSlots = ["9:00","9:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00",
+                     "13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30",
+                     "18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00"]
     
-    let hours:[String] = [" 1 uur ", " 1½ uur " , " 2 uur ", " 2½ uur "," 3 uur "," 3½ uur ", " 4 uur", "4½ uur", " 5 uur ", " 5½ uur ", " 6 uur ", " 6½ uur ", " 7 uur ", " 7½ uur ", " 8 uur ", " 8½ uur ", " 9 uur "]
+    let hours:[String] = [" 1 uur ", " 1½ uur " , " 2 uur ", " 2½ uur "," 3 uur "," 3½ uur ",
+                          " 4 uur", "4½ uur", " 5 uur ", " 5½ uur ", " 6 uur ", " 6½ uur ",
+                          " 7 uur ", " 7½ uur ", " 8 uur ", " 8½ uur ", " 9 uur "]
    
     var pickerMenu: UIPickerView = UIPickerView()
     var sampleSegment: UISegmentedControl = UISegmentedControl ()
     var alertController: UIAlertController = UIAlertController()
     var selectedRow: Int = 2
     var selectedItem = IndexPath()
-    var ref = FIRDatabase.database().reference()
-    var dataRef: FIRDatabaseReference!
+    
+//    var ref = FIRDatabase.database().reference()
+//    var dataRef: FIRDatabaseReference!
 
 
     @IBOutlet weak var collectionView: UICollectionView!
@@ -108,19 +113,19 @@ class CollectionViewController: UIViewController  {
             if self.selectedItem.section + self.selectedRow - 1 <= 28 {
                 
                 // place the use id in the cells
-                CalendarDay.dataOfDate[self.convertIndexPath(indexPath: self.selectedItem)] = userInfo.FirebaseID
+                CalendarDay.dataOfDate[self.convertIndexPath(indexPath: self.selectedItem)] = User.FirebaseID
                 for _ in 1...self.selectedRow - 1 {
                     self.selectedItem = IndexPath(row: self.selectedItem.row , section: self.selectedItem.section + 1)
-                    CalendarDay.dataOfDate[self.convertIndexPath(indexPath: self.selectedItem)] =  userInfo.FirebaseID
+                    CalendarDay.dataOfDate[self.convertIndexPath(indexPath: self.selectedItem)] =  User.FirebaseID
                 }
                 
                 // give section header the right id
                 self.selectedItem = IndexPath(row: self.selectedItem.row , section: 0)
-                CalendarDay.dataOfDate[self.convertIndexPath(indexPath: self.selectedItem)] =  userInfo.FirebaseID
+                CalendarDay.dataOfDate[self.convertIndexPath(indexPath: self.selectedItem)] =  User.FirebaseID
                 
                 // save the data of the day in FireBase
-                self.dataRef = self.ref.child("Data").child(CalendarDay.calendarDayDate)
-                self.dataRef.setValue(CalendarDay.dataOfDate)
+//                self.dataRef = self.ref.child("Data").child(CalendarDay.calendarDayDate)
+//                self.dataRef.setValue(CalendarDay.dataOfDate)
             } else {
                 self.alert(title: "Error", message: "Plan de uren binnen de roostertijden.")
             }
@@ -146,15 +151,15 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
  
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.selectedItem = indexPath
-        
-        // check if section already is used, if not user could schedule the section
         let sectionName = IndexPath(row: self.selectedItem.row , section: 0)
-        if CalendarDay.dataOfDate[(self.convertIndexPath(indexPath: sectionName))] == nil {
-                    self.pickerAlert(title: " Wilt u " + timeSlots[self.selectedItem.section - 1] +  " uur inplannen? \n\n\n\n\n\n\n\n\n", message: " U moet minimaal 1 uur inplannen.")
+        // check if section already is used, if not user could schedule the section
+        if CalendarDay.dataOfDate.values.contains(User.FirebaseID!) {
+            self.alert(title: "Error", message: "U heeft deze dag al ingepland.")
+        } else if CalendarDay.dataOfDate[(self.convertIndexPath(indexPath: sectionName))] == nil {
+            self.pickerAlert(title: " Wilt u " + timeSlots[self.selectedItem.section - 1] +  " uur inplannen? \n\n\n\n\n\n\n\n\n", message: " U moet minimaal 1 uur inplannen.")
         } else {
             self.alert(title: "Error", message: "De section is al ingepland")
         }
-
     }
     
     

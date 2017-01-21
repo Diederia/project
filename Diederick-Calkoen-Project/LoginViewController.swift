@@ -15,11 +15,27 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var textFieldLoginEmail: UITextField!
     @IBOutlet weak var textFieldLoginPassword: UITextField!
     
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
-        // Do any additional setup after loading the view.
+        
+        FIRAuth.auth()!.addStateDidChangeListener() { auth, user in
+            if user != nil {
+                
+                let ref = FIRDatabase.database().reference().child("users").child(User.FirebaseID!)
+                ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                    
+                    // Get user value
+                    let dict = snapshot.value as? NSDictionary
+                    UserDefaults.standard.set(dict, forKey: "userData")
+                    print(UserDefaults.standard.value(forKey: "userData"))
+                })
+                self.performSegue(withIdentifier: "toHomeView", sender: self)
+
+            }
+        }
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -35,8 +51,6 @@ class LoginViewController: UIViewController {
                                 if error != nil {
                                     self.alert(title: "Error with loggig in", message: "Enter a valid email and password.")
                                 }
-                                userInfo.FirebaseID = FIRAuth.auth()?.currentUser?.uid
-                                self.performSegue(withIdentifier: "toHomeView", sender: self)
         }
     }
     

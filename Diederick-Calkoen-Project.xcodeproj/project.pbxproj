@@ -17,7 +17,8 @@
 		E930D9961E247F7400563F0E /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E930D9951E247F7400563F0E /* CellView.swift */; };
 		E940CF5E1E27617C00E83E45 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940CF5D1E27617C00E83E45 /* LoginViewController.swift */; };
 		E940CF601E2761C700E83E45 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940CF5F1E2761C700E83E45 /* RegisterViewController.swift */; };
-		E940CF631E27654400E83E45 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940CF621E27654400E83E45 /* UserInfo.swift */; };
+		E940CF631E27654400E83E45 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940CF621E27654400E83E45 /* User.swift */; };
+		E95FDB221E3224020011F936 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FDB211E3224020011F936 /* SettingsViewController.swift */; };
 		E960366E1E29D2EA008C7958 /* AnimationClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960366D1E29D2EA008C7958 /* AnimationClass.swift */; };
 		E96036931E2F4753008C7958 /* CalendarDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96036921E2F4753008C7958 /* CalendarDay.swift */; };
 		E96036951E2F8686008C7958 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96036941E2F8686008C7958 /* CollectionView.swift */; };
@@ -46,7 +47,8 @@
 		E930D9951E247F7400563F0E /* CellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
 		E940CF5D1E27617C00E83E45 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E940CF5F1E2761C700E83E45 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		E940CF621E27654400E83E45 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		E940CF621E27654400E83E45 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E95FDB211E3224020011F936 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E960366D1E29D2EA008C7958 /* AnimationClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationClass.swift; sourceTree = "<group>"; };
 		E96036921E2F4753008C7958 /* CalendarDay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDay.swift; sourceTree = "<group>"; };
 		E96036941E2F8686008C7958 /* CollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				E930D9831E247EB100563F0E /* ViewController.swift */,
 				E940CF5D1E27617C00E83E45 /* LoginViewController.swift */,
 				E940CF5F1E2761C700E83E45 /* RegisterViewController.swift */,
+				E95FDB211E3224020011F936 /* SettingsViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -177,7 +180,7 @@
 		E940CF611E27651A00E83E45 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E940CF621E27654400E83E45 /* UserInfo.swift */,
+				E940CF621E27654400E83E45 /* User.swift */,
 				E96036921E2F4753008C7958 /* CalendarDay.swift */,
 			);
 			name = Models;
@@ -334,9 +337,10 @@
 				E96036951E2F8686008C7958 /* CollectionView.swift in Sources */,
 				E9FA5DDA1E288F97000EA3CD /* DateCollectionViewCell.swift in Sources */,
 				E9FA5DD71E288F97000EA3CD /* ContentCollectionViewCell.swift in Sources */,
+				E95FDB221E3224020011F936 /* SettingsViewController.swift in Sources */,
 				E9FA5DD61E288F97000EA3CD /* CollectionViewController.swift in Sources */,
 				E96036931E2F4753008C7958 /* CalendarDay.swift in Sources */,
-				E940CF631E27654400E83E45 /* UserInfo.swift in Sources */,
+				E940CF631E27654400E83E45 /* User.swift in Sources */,
 				E9FA5DDF1E289914000EA3CD /* CustomCollectionViewLayout.swift in Sources */,
 				E96036991E2FD123008C7958 /* CustomCell.swift in Sources */,
 				E930D9961E247F7400563F0E /* CellView.swift in Sources */,

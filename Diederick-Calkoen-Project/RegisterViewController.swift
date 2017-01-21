@@ -11,16 +11,22 @@ import Firebase
 
 class RegsiterViewController: UIViewController {
     
+    var ref = FIRDatabase.database().reference()
     
     // MARK: Outlets
-    @IBOutlet weak var textFieldRegisterEmail: UITextField!
-    @IBOutlet weak var textFieldRegisterPassword: UITextField!
-    @IBOutlet weak var textFieldRegisterConfirm: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var confirmTextField: UITextField!
+    @IBOutlet weak var firstNameTextField: UITextField!
+    @IBOutlet weak var surenameTextField: UITextField!
+    @IBOutlet weak var idTextField: UITextField!
+    @IBOutlet weak var mobileTextField: UITextField!
+    @IBOutlet weak var userControl: UISegmentedControl!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(userControl.selectedSegmentIndex)
         // Do any additional setup after loading the view.
     }
     
@@ -33,44 +39,55 @@ class RegsiterViewController: UIViewController {
     @IBAction func registerDidTOuch(_ sender: Any) {
         
         // Check input
-        guard textFieldRegisterEmail.text! != "" && textFieldRegisterPassword.text! != "" && textFieldRegisterConfirm.text! != "" else {
-            self.alert(title: "Error to register", message: "Enter a valid email, password and confrim password.\n Your password needs to be at least 6 character long.")
+        guard emailTextField.text! != "" && passwordTextField.text! != "" && confirmTextField.text! != "" else {
+            self.alert(title: "Error to register", message: "Enter a valid email, password and confrim password.\n Your password needs to be at least 6 character long.", actionTitle: "Dismiss")
             return
         }
         
-        guard textFieldRegisterPassword.text!.characters.count >= 6 else {
-            self.alert(title: "Error to register", message: "Your password needs to be at least 6 character long." )
+        guard passwordTextField.text!.characters.count >= 6 else {
+            self.alert(title: "Error to register", message: "Your password needs to be at least 6 character long.", actionTitle: "Dismiss")
             return
         }
         
-        guard textFieldRegisterPassword.text! == textFieldRegisterConfirm.text! else {
-            self.alert(title: "Error to register", message: "The passwords do not match" )
+        guard passwordTextField.text! == confirmTextField.text! else {
+            self.alert(title: "Error to register", message: "The passwords do not match", actionTitle: "Dismiss")
             return
         }
         
         
         // Save user in firebase
-        FIRAuth.auth()!.createUser(withEmail: self.textFieldRegisterEmail.text!, password: textFieldRegisterPassword.text!) { (user, error) in
+        FIRAuth.auth()!.createUser(withEmail: self.emailTextField.text!, password: passwordTextField.text!) { (user, error) in
             if error != nil {
-                self.alert(title: "Error to register", message: "Error with database")
+                self.alert(title: "Error to register", message: "Error with database", actionTitle: "Dismiss")
                 return
             }
-            FIRAuth.auth()!.signIn(withEmail: self.textFieldRegisterEmail.text!, password: self.textFieldRegisterPassword.text!)
-            userInfo.FirebaseID = FIRAuth.auth()?.currentUser?.uid
+            FIRAuth.auth()!.signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!)
+
+            let user = User(uid: (user?.uid)!,
+                            email: self.emailTextField.text!,
+                            id: self.idTextField.text!,
+                            userStatus: self.userControl.selectedSegmentIndex,
+                            firstName: self.firstNameTextField.text!,
+                            surename: self.surenameTextField.text!,
+                            mobile: self.mobileTextField.text!)
             
+            let userRef = self.ref.child("users").child((user.uid))
+            userRef.setValue(user.toAnyObject())
+            
+            FIRAuth.auth()!.signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!)
+            FIRAuth.auth()!.addStateDidChangeListener() { auth, user in
+            
+                // Registering completed
+                self.alert(title: "Registering compeleted", message: "You are now registered", actionTitle: "Loggin")
+                self.performSegue(withIdentifier: "registerToHomeView", sender: self)
+            }
         }
-        
-        // Registering completed
-        let alertController = UIAlertController(title: "Registering compeleted", message: "You are now registered", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Loggin", style: UIAlertActionStyle.default, handler: {
-            (_)in
-            self.performSegue(withIdentifier: "registerToHomeView", sender: self)
-        }))
-        self.present(alertController, animated: true, completion: nil)
     }
     
     // MARK: Cancel function
     @IBAction func cancelDidTouch(_ sender: Any) {
+        print(userControl.selectedSegmentIndex)
+
         let alertController = UIAlertController(title: "Cancel registering", message: "Are you sure you want to cancel registering?", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         alertController.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler:  {
@@ -81,7 +98,7 @@ class RegsiterViewController: UIViewController {
     }
     
     // MARK: Alert function
-    func alert(title: String, message: String) {
+    func alert(title: String, message: String, actionTitle: String) {
         let alertController = UIAlertController(title: title , message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         
