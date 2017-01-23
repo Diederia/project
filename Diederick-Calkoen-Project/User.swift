@@ -15,11 +15,6 @@ struct User {
 //    // MARK: User info
     static var FirebaseEmail = FIRAuth.auth()?.currentUser?.email
     static var FirebaseID = FIRAuth.auth()?.currentUser?.uid
-    static var userId = String()
-    static var status = Int()
-    static var userfirstName = String()
-    static var userSurename = String()
-    static var userMobile = String()
 
     let email: String
     let uid: String
@@ -69,7 +64,7 @@ struct User {
     func toAnyObject() -> Any {
         return [ "uid": uid,
                  "email": email,
-                 "id:": id ?? "geen id",
+                 "id": id ?? "geen id",
                  "userStatus": userStatus ?? 0,
                  "firstName": firstName ?? "voornaam onbekend",
                  "surename": surename ?? "achternaam onbekend",

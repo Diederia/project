@@ -20,22 +20,30 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         
+
+        
         FIRAuth.auth()!.addStateDidChangeListener() { auth, user in
             if user != nil {
-                
-                let ref = FIRDatabase.database().reference().child("users").child(User.FirebaseID!)
+                let userid = FIRAuth.auth()?.currentUser?.uid
+
+                let ref = FIRDatabase.database().reference().child("users").child(userid!)
                 ref.observeSingleEvent(of: .value, with: { (snapshot) in
                     
+                    // NOG KIJKEN OF DIT NODIG IS
+                    UserDefaults.standard.removeObject(forKey: "userData")
+                    UserDefaults.standard.synchronize()
+
+
                     // Get user value
                     let dict = snapshot.value as? NSDictionary
                     UserDefaults.standard.set(dict, forKey: "userData")
-                    print(UserDefaults.standard.value(forKey: "userData"))
-                })
-                self.performSegue(withIdentifier: "toHomeView", sender: self)
+                    UserDefaults.standard.synchronize()
 
+
+                    self.performSegue(withIdentifier: "toHomeView", sender: self)
+                })
             }
         }
-
     }
     
     override func didReceiveMemoryWarning() {
@@ -52,10 +60,6 @@ class LoginViewController: UIViewController {
                                     self.alert(title: "Error with loggig in", message: "Enter a valid email and password.")
                                 }
         }
-    }
-    
-    @IBAction func registerDidTouch(_ sender: Any) {
-        self.performSegue(withIdentifier: "toRegisterView", sender: self)
     }
     
     // MARK: Alert function

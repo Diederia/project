@@ -13,4 +13,8 @@ struct CalendarDay {
     // MARK: Calendar day info
     static var calendarDayDate = String()
     static var dataOfDate = [(String): String]()
+    
+    let key: String
+    let ref: FIRDatabaseReference?
+    
 }

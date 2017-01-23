@@ -61,7 +61,6 @@ class RegsiterViewController: UIViewController {
                 self.alert(title: "Error to register", message: "Error with database", actionTitle: "Dismiss")
                 return
             }
-            FIRAuth.auth()!.signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!)
 
             let user = User(uid: (user?.uid)!,
                             email: self.emailTextField.text!,
@@ -74,27 +73,15 @@ class RegsiterViewController: UIViewController {
             let userRef = self.ref.child("users").child((user.uid))
             userRef.setValue(user.toAnyObject())
             
-            FIRAuth.auth()!.signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!)
-            FIRAuth.auth()!.addStateDidChangeListener() { auth, user in
-            
-                // Registering completed
-                self.alert(title: "Registering compeleted", message: "You are now registered", actionTitle: "Loggin")
-                self.performSegue(withIdentifier: "registerToHomeView", sender: self)
-            }
+            // Registering completed
+            self.alert(title: "Registratie compleet", message: "De gebruiker is nu geregistreerd", actionTitle: "Terug")
+            self.emailTextField.text = ""
+            self.idTextField.text = ""
+            self.userControl.selectedSegmentIndex = 0
+            self.firstNameTextField.text = ""
+            self.surenameTextField.text = ""
+            self.mobileTextField.text = ""
         }
-    }
-    
-    // MARK: Cancel function
-    @IBAction func cancelDidTouch(_ sender: Any) {
-        print(userControl.selectedSegmentIndex)
-
-        let alertController = UIAlertController(title: "Cancel registering", message: "Are you sure you want to cancel registering?", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
-        alertController.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler:  {
-            (_)in
-            self.performSegue(withIdentifier: "registerToLoginView", sender: self)
-        }))
-        self.present(alertController, animated: true, completion: nil)
     }
     
     // MARK: Alert function

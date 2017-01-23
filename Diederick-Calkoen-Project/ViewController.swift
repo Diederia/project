@@ -25,18 +25,27 @@ class ViewController: UIViewController {
     let formatter = DateFormatter()
     
     var testCalendar = Calendar.current
-    var ref = FIRDatabase.database().reference()
+    var ref =  FIRDatabase.database().reference()
     var dataRef: FIRDatabaseReference!
-    
+    var userData = [String:AnyObject]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        registerButton.isHidden = true
+        print("user gegevens:")
+        print((FIRAuth.auth()?.currentUser?.email)!)
+        print((FIRAuth.auth()?.currentUser?.uid)!)
+        
+        userData = UserDefaults.standard.value(forKey: "userData") as! [String : AnyObject]
+        if userData["userStatus"] as! Int? == 2 {
+            registerButton.isHidden = false
+        } else {
+            registerButton.isHidden = true
+        }
+
         tableView.isHidden = true
         goToCollectionView.isHidden = true
         
-
         TimeZone.ReferenceType.default = TimeZone(abbreviation: "UTC")!
         formatter.timeZone = TimeZone.ReferenceType.default
         formatter.dateFormat = "yyyy MM dd"
@@ -90,7 +99,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func registerDidTouch(_ sender: Any) {
-        
+        self.performSegue(withIdentifier: "viewToRegister", sender: self)
     }
     
 
