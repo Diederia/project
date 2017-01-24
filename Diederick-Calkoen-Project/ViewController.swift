@@ -19,22 +19,24 @@ class ViewController: UIViewController {
     @IBOutlet weak var goToCollectionView: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     
-    let white = UIColor(red: 236/255.0, green: 234/255.0, blue: 237/255.0, alpha: 1.0 )
+    let white = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1.0 )
     let black = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1.0)
     let blue =  UIColor(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
     let formatter = DateFormatter()
-    
+    let timeSlots:[String] = ["9:00","9:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00",
+                              "13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30",
+                              "18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00"]
+
+    var previewIds = [String]()
+    var previewHours = [String]()
     var testCalendar = Calendar.current
     var ref =  FIRDatabase.database().reference()
     var dataRef: FIRDatabaseReference!
     var userData = [String:AnyObject]()
-
+    var counter = Int()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("user gegevens:")
-        print((FIRAuth.auth()?.currentUser?.email)!)
-        print((FIRAuth.auth()?.currentUser?.uid)!)
         
         userData = UserDefaults.standard.value(forKey: "userData") as! [String : AnyObject]
         if userData["userStatus"] as! Int? == 2 {
@@ -149,6 +151,36 @@ class ViewController: UIViewController {
             myCustomCell.selectedView.isHidden = true
         }
     }
+
+    func configuratePreview() {
+        var userId = String()
+        var begintTime = String()
+        var endTime = String()
+        
+        for i in self.counter...8 {
+            if CalendarDay.dataOfDate.keys.contains(("0, " + String(i))) == true {
+                print("i:\(i)")
+                userId = CalendarDay.dataOfDate["0, " + String(i)]!
+                for j in 1...28 {
+                    print("j:\(j)")
+                    if CalendarDay.dataOfDate.keys.contains(String(j) + ", " + String(i)) == true {
+                        begintTime = self.timeSlots[j - 1]
+                        for k in j...28 {
+                            print("k:\(j)")
+                            if CalendarDay.dataOfDate.keys.contains(String(k) + ", " + String(i)) == false {
+                                endTime = self.timeSlots[k - 2]
+                                self.previewIds.append(userId)
+                                self.previewHours.append(begintTime + " - " + endTime)
+                                self.counter += 1
+                                break
+                            }
+                        }
+                    break
+                    }
+                }
+            }
+        }
+    }
 }
 
 // MARK - JT Apple Calendar
@@ -191,7 +223,11 @@ extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDele
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleDayCellView?, cellState: CellState) {
-    
+        
+        self.previewHours.removeAll()
+        self.previewIds.removeAll()
+        self.counter = 1
+
         tableView.isHidden = false
         goToCollectionView.isHidden = false
         
@@ -201,17 +237,16 @@ extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDele
         
         // retrieve data from FireBase
         CalendarDay.dataOfDate.removeAll()
-        self.dataRef = self.ref.child("Data").child(CalendarDay.calendarDayDate)
+        self.dataRef = self.ref.child("data").child(CalendarDay.calendarDayDate)
         
         self.dataRef.observeSingleEvent(of: .value, with: { (snapshot) in
             if let result = snapshot.children.allObjects as? [FIRDataSnapshot] {
                 for snap in result {
                     CalendarDay.dataOfDate[snap.key] = snap.value as! String?
-                    print(CalendarDay.dataOfDate)
                 }
                 
             }
-            // reload collectionView
+            self.configuratePreview()
             self.performSelector(onMainThread: #selector(ViewController.reloadTableView), with: nil, waitUntilDone: true)
         })
         
@@ -236,18 +271,18 @@ extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDele
     
 }
 
+
+
 // MARK - UITableView
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.previewIds.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell") as! CustomCell
-        
-            if CalendarDay.dataOfDate.keys.contains((" 0, " + String(describing: indexPath.row) + " ")) == true {
-                cell.idLabel.text = CalendarDay.dataOfDate[" 0, " + String(describing: indexPath.row) + " "]
-        }
+        cell.idLabel.text = self.previewIds[indexPath.row]
+        cell.hoursLabel.text = self.previewHours[indexPath.row]
         return cell
     }
 }

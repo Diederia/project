@@ -45,6 +45,15 @@ struct User {
         self.key = ""
         self.ref = nil
     }
+    func toAnyObject() -> Any {
+        return [ "uid": uid,
+                 "email": email,
+                 "id": id ?? "geen id",
+                 "userStatus": userStatus ?? 0,
+                 "firstName": firstName ?? "voornaam onbekend",
+                 "surename": surename ?? "achternaam onbekend",
+                 "mobile": mobile ?? "mobielnummer onbekend" ]
+    }
     
     init(snapshot: FIRDataSnapshot) {
         self.key = snapshot.key
@@ -61,13 +70,5 @@ struct User {
         self.mobile = snapValue["mobile"] as? String
     }
     
-    func toAnyObject() -> Any {
-        return [ "uid": uid,
-                 "email": email,
-                 "id": id ?? "geen id",
-                 "userStatus": userStatus ?? 0,
-                 "firstName": firstName ?? "voornaam onbekend",
-                 "surename": surename ?? "achternaam onbekend",
-                 "mobile": mobile ?? "mobielnummer onbekend" ]
-    }
+
 }
