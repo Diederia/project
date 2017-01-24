@@ -48,5 +48,30 @@
 	* De code is verbeterd, een functie wordt nu aangeroepen om een cel van de collection view aan te maken.
 	* 
 	
+## Dag 11/12 | zaterdag/zondag | 21/22 januari
+* Usergegevens verbeterd, nog niet optimaal.
+
+## Dag 13 | maandag | 23 januari
+* De Usergegevens werken nu goed.
+	* Wachtwoorden kunnen veranderd worden.
+	* Userdefaults werkt goed
+	* automatisch inloggen gaat goed 
+	* registreren van nieuwe gebruikers gaat goed.
+* Veder heb ik bedacht hoe ik de kalenderdag wil gaan opslaan in firebase om de informatie zo goed mogelijk eruit te kunnen halen.
+
+## Dag 14 | dinsdag | 24 januari
+* implementatie van de gedachten hoe firebase moet gaan werken, wat gelukt is.
+	* Inplannen van zowel docent als leerling werkt nu goed.
+	* Preview van de kalenderdag wordt nu goed weergegeven in de kalenderView
+
+## Dag 15 | woensdag | 25 januari
+
+## Dag 16 | donderdag | 26 januari
+
+## Dag 17 | vrijdag | 27 januari 
+
+
+	
+	
 
 	
