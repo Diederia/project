@@ -2,7 +2,7 @@
 
 ## Diagram van de app
 Het diagram van de app geeft weer hoe de verschillende onderdelen van de app met elkaar in verbinding staan. 
-![alt text] (https://github.com/Diederia/Project-/blob/master/Docs/Diagram%20app.png)
+![alt text] (https://github.com/Diederia/project/blob/master/Docs/Diagram%20app.png)
 
 ## classes
 ### Admin class
