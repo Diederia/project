@@ -12,9 +12,10 @@ import Firebase
 
 struct User {
 
-//    // MARK: User info
+    // MARK: - Static variables, constants and variables
     static var FirebaseEmail = FIRAuth.auth()?.currentUser?.email
     static var FirebaseID = FIRAuth.auth()?.currentUser?.uid
+    static var admin = Int()
 
     let email: String
     let uid: String
@@ -26,7 +27,7 @@ struct User {
     var firstName: String?
     var surename: String?
     var mobile: String?
- 
+    
     init(authData: FIRUser) {
         uid = authData.uid
         email = authData.email!

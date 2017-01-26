@@ -14,16 +14,28 @@ class LoginViewController: UIViewController {
     // MARK: Outlets
     @IBOutlet weak var textFieldLoginEmail: UITextField!
     @IBOutlet weak var textFieldLoginPassword: UITextField!
+    @IBOutlet weak var registerButton: UIButton!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
+        self.registerButton.isHidden = true
         
-
+        User.admin = 0
         
+        let ref = FIRDatabase.database().reference().child("users")
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            let dict = snapshot.value as? NSDictionary
+            if dict == nil {
+                self.registerButton.isHidden = false
+                User.admin = 2
+            }
+        })
+            
         FIRAuth.auth()!.addStateDidChangeListener() { auth, user in
             if user != nil {
+
                 let userid = FIRAuth.auth()?.currentUser?.uid
 
                 let ref = FIRDatabase.database().reference().child("users").child(userid!)
@@ -60,6 +72,9 @@ class LoginViewController: UIViewController {
                                     self.alert(title: "Error with loggig in", message: "Enter a valid email and password.")
                                 }
         }
+    }
+    @IBAction func registerDidTouch(_ sender: Any) {
+        self.performSegue(withIdentifier: "toRegisterView", sender: self)
     }
     
     // MARK: Alert function

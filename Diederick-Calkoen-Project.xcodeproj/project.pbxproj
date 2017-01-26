@@ -19,9 +19,7 @@
 		E940CF601E2761C700E83E45 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940CF5F1E2761C700E83E45 /* RegisterViewController.swift */; };
 		E940CF631E27654400E83E45 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E940CF621E27654400E83E45 /* User.swift */; };
 		E95FDB221E3224020011F936 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FDB211E3224020011F936 /* SettingsViewController.swift */; };
-		E960366E1E29D2EA008C7958 /* AnimationClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960366D1E29D2EA008C7958 /* AnimationClass.swift */; };
 		E96036931E2F4753008C7958 /* CalendarDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96036921E2F4753008C7958 /* CalendarDay.swift */; };
-		E96036951E2F8686008C7958 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96036941E2F8686008C7958 /* CollectionView.swift */; };
 		E96036991E2FD123008C7958 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96036981E2FD123008C7958 /* CustomCell.swift */; };
 		E9FA5DD61E288F97000EA3CD /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FA5DD01E288F97000EA3CD /* CollectionViewController.swift */; };
 		E9FA5DD71E288F97000EA3CD /* ContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FA5DD11E288F97000EA3CD /* ContentCollectionViewCell.swift */; };
@@ -49,9 +47,7 @@
 		E940CF5F1E2761C700E83E45 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E940CF621E27654400E83E45 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E95FDB211E3224020011F936 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		E960366D1E29D2EA008C7958 /* AnimationClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationClass.swift; sourceTree = "<group>"; };
 		E96036921E2F4753008C7958 /* CalendarDay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDay.swift; sourceTree = "<group>"; };
-		E96036941E2F8686008C7958 /* CollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		E96036981E2FD123008C7958 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		E9FA5DD01E288F97000EA3CD /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		E9FA5DD11E288F97000EA3CD /* ContentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -189,8 +185,6 @@
 		E96036911E2DF7A3008C7958 /* Layout */ = {
 			isa = PBXGroup;
 			children = (
-				E96036941E2F8686008C7958 /* CollectionView.swift */,
-				E960366D1E29D2EA008C7958 /* AnimationClass.swift */,
 				E9FA5DDE1E289914000EA3CD /* CustomCollectionViewLayout.swift */,
 			);
 			name = Layout;
@@ -226,7 +220,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Diederick Calkoen";
 				TargetAttributes = {
 					E930D97D1E247EB100563F0E = {
@@ -331,10 +325,8 @@
 			files = (
 				E940CF5E1E27617C00E83E45 /* LoginViewController.swift in Sources */,
 				E940CF601E2761C700E83E45 /* RegisterViewController.swift in Sources */,
-				E960366E1E29D2EA008C7958 /* AnimationClass.swift in Sources */,
 				E930D9841E247EB100563F0E /* ViewController.swift in Sources */,
 				E930D9821E247EB100563F0E /* AppDelegate.swift in Sources */,
-				E96036951E2F8686008C7958 /* CollectionView.swift in Sources */,
 				E9FA5DDA1E288F97000EA3CD /* DateCollectionViewCell.swift in Sources */,
 				E9FA5DD71E288F97000EA3CD /* ContentCollectionViewCell.swift in Sources */,
 				E95FDB221E3224020011F936 /* SettingsViewController.swift in Sources */,
@@ -387,6 +379,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -437,6 +430,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -466,6 +460,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 486B40CE6EA30CBF344B6F57 /* Pods-Diederick-Calkoen-Project.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = T9MT6FXX38;
 				INFOPLIST_FILE = "Diederick-Calkoen-Project/Info.plist";
@@ -480,6 +475,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 93ED10A4C5EE0F3BB6D86C62 /* Pods-Diederick-Calkoen-Project.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = T9MT6FXX38;
 				INFOPLIST_FILE = "Diederick-Calkoen-Project/Info.plist";

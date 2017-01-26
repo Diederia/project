@@ -11,9 +11,7 @@ import Firebase
 
 class RegsiterViewController: UIViewController {
     
-    var ref = FIRDatabase.database().reference()
-    
-    // MARK: Outlets
+    // MARK: - Outlets
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmTextField: UITextField!
@@ -23,20 +21,26 @@ class RegsiterViewController: UIViewController {
     @IBOutlet weak var mobileTextField: UITextField!
     @IBOutlet weak var userControl: UISegmentedControl!
     
-    
+    // MARK: - Variables
+    var ref = FIRDatabase.database().reference()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(userControl.selectedSegmentIndex)
-        // Do any additional setup after loading the view.
+        
+        if User.admin == 2{
+            userControl.isHidden = true
+        } else {
+            userControl.isHidden = false
+        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: Register funtion
     @IBAction func registerDidTOuch(_ sender: Any) {
+        var userStatus = Int()
         
         // Check input
         guard emailTextField.text! != "" && passwordTextField.text! != "" && confirmTextField.text! != "" else {
@@ -54,6 +58,11 @@ class RegsiterViewController: UIViewController {
             return
         }
         
+        if User.admin == 2{
+            userStatus = 2
+        } else {
+        userStatus = self.userControl.selectedSegmentIndex
+        }
         
         // Save user in firebase
         FIRAuth.auth()!.createUser(withEmail: self.emailTextField.text!, password: passwordTextField.text!) { (user, error) in
@@ -65,7 +74,7 @@ class RegsiterViewController: UIViewController {
             let user = User(uid: (user?.uid)!,
                             email: self.emailTextField.text!,
                             id: self.idTextField.text!,
-                            userStatus: self.userControl.selectedSegmentIndex,
+                            userStatus: userStatus,
                             firstName: self.firstNameTextField.text!,
                             surename: self.surenameTextField.text!,
                             mobile: self.mobileTextField.text!)
@@ -73,14 +82,21 @@ class RegsiterViewController: UIViewController {
             let userRef = self.ref.child("users").child((user.uid))
             userRef.setValue(user.toAnyObject())
             
+            if User.admin == 2 {
+                self.performSegue(withIdentifier: "registerToLogin", sender: self)
+            }
+            
             // Registering completed
             self.alert(title: "Registratie compleet", message: "De gebruiker is nu geregistreerd", actionTitle: "Terug")
+
             self.emailTextField.text = ""
             self.idTextField.text = ""
             self.userControl.selectedSegmentIndex = 0
             self.firstNameTextField.text = ""
             self.surenameTextField.text = ""
             self.mobileTextField.text = ""
+            self.passwordTextField.text = ""
+            self.confirmTextField.text = ""
         }
     }
     

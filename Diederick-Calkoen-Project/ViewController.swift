@@ -53,8 +53,6 @@ class ViewController: UIViewController {
         tableLabelView.roundCorners(corners: [.topLeft, .topRight], radius: 10)
         previewTableView.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 10)
         
-        
-        
         userData = UserDefaults.standard.value(forKey: "userData") as! [String : AnyObject]
         
         if userData["userStatus"] as! Int? == 2 {

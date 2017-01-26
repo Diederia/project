@@ -11,6 +11,11 @@ import Firebase
 
 class CollectionViewController: UIViewController  {
     
+    // MARK: - outlets
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var dateLabel: UILabel!
+    
+    // MARK: - Constants and variables
     let dateCellIdentifier = "DateCellIdentifier"
     let contentCellIdentifier = "ContentCellIdentifier"
     let timeSlots:[String] = ["9:00","9:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00",
@@ -33,7 +38,7 @@ class CollectionViewController: UIViewController  {
     var userStatus = Int()
     var userData = [String:AnyObject]()
     
-    // MARK - colors
+    // MARK: - colors
     let white = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
     let black = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1)
     let grey = UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
@@ -44,9 +49,7 @@ class CollectionViewController: UIViewController  {
     let greyRed = UIColor(red: 230/255.0, green: 20/255.0, blue: 20/255.0, alpha: 0.5)
 
     
-    // MARK - outlets
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var dateLabel: UILabel!
+
     
     override func viewDidLoad()
     {
@@ -69,7 +72,6 @@ class CollectionViewController: UIViewController  {
         pickerMenu.tintColor =  UIColor.red
         pickerMenu.reloadAllComponents()
         
-
     }
     
     
@@ -143,19 +145,24 @@ class CollectionViewController: UIViewController  {
 
                 // check if teacher is avaible for the input of the student
                 if cell.contentLabel.text == "Vrij" {
+                    
                     for i in 0...self.selectedRow - 1 {
                         let indexPath = String(self.selectedItem.section + i) + ", " + String(self.selectedItem.row)
                         CalendarDay.dataOfDate.updateValue(self.userId, forKey: indexPath)
                     }
                     self.ref.child("data").child(CalendarDay.calendarDayDate).setValue(CalendarDay.dataOfDate)
+                    
                 } else {
                     self.alert(title: "Error", message: "De docent is niet beschikbaar op deze tijden. Check uw invoer.")
                 }
+                
             } else {
                 self.alert(title: "Error", message: "Plan de uren binnen de roostertijden.")
             }
+            
             self.collectionView.reloadData()
         }))
+        
         self.present(alertController, animated: true, completion: nil)
     }
     

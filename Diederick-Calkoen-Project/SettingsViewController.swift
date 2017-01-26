@@ -11,30 +11,35 @@ import Firebase
 
 class SettingsViewController: UIViewController {
     
-    // MARK - outlets
-    @IBOutlet weak var firstNameLabel: UILabel!
+    // MARK: - Outlets
+    @IBOutlet weak var firstAndSurenameLabel: UILabel!
     @IBOutlet weak var userLabel: UILabel!
-    @IBOutlet weak var surenameLabel: UILabel!
-    @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var idTextField: UITextField!
     @IBOutlet weak var mobileTextField: UITextField!
     @IBOutlet weak var oldPasswordTextField: UITextField!
     @IBOutlet weak var newPasswordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
+    @IBOutlet weak var idButton: UIButton!
+    @IBOutlet weak var mobileButton: UIButton!
     
+    // MARK: - Variables
     var userData = [String:AnyObject]()
     var ref = FIRDatabase.database().reference()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userData = UserDefaults.standard.value(forKey: "userData") as! [String : AnyObject]
+        mobileTextField.roundCorners(corners: [.topLeft, .bottomLeft], radius: 5)
+        idTextField.roundCorners(corners: [.topLeft, .bottomLeft], radius: 5)
+        idButton.roundCorners(corners: [.topRight, .bottomRight], radius: 5)
+        mobileButton.roundCorners(corners: [.topRight, .bottomRight], radius: 5)
         
-        firstNameLabel.text = userData["firstName"] as! String?
-        surenameLabel.text = userData["surename"] as! String?
+        userData = UserDefaults.standard.value(forKey: "userData") as! [String : AnyObject]
+        firstAndSurenameLabel.text = (userData["firstName"] as! String?)! + " " + (userData["surename"] as! String?)!
         emailLabel.text = userData["email"] as! String?
+        idTextField.text = userData["id"] as! String?
         mobileTextField.text = userData["mobile"] as! String?
-        idLabel.text = userData["id"] as! String?
         
         if userData["userStatus"] as! Int? == 0 {
             userLabel.text = "Leerling"
@@ -60,6 +65,13 @@ class SettingsViewController: UIViewController {
         
         self.present(alertController, animated: true, completion: nil)
     }
+    @IBAction func updateIdButton(_ sender: Any) {
+        let uid = User.FirebaseID
+        ref = self.ref.child("users").child(uid!)
+        ref.updateChildValues(["id": mobileTextField.text!])
+        // MISSCHIEN NOG ERROR HANDELING HIER
+        self.alert(title: "Gereed" , message: "Het id is aangepast.", actionTitle: "Terug")
+    }
     
     @IBAction func updateMobileButton(_ sender: Any) {
         let uid = User.FirebaseID
@@ -72,7 +84,7 @@ class SettingsViewController: UIViewController {
 
     @IBAction func updatePasswordButton(_ sender: Any) {
 
-        // Check input
+        // MARK: - Check input
         guard newPasswordTextField.text! != "" && confirmPasswordTextField.text! != "" else {
             self.alert(title: "Error to register", message: "Enter a valid email, password and confrim password.\n Your password needs to be at least 6 character long.", actionTitle: "Dismiss")
             return
@@ -92,7 +104,6 @@ class SettingsViewController: UIViewController {
         let newPassword = newPasswordTextField.text!
         let email = User.FirebaseEmail
         let password = oldPasswordTextField.text!
-        
         let credential = FIREmailPasswordAuthProvider.credential(withEmail: email!, password: password)
         
         firUser?.reauthenticate(with: credential) { error in
