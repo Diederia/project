@@ -57,6 +57,7 @@ class CollectionViewController: UIViewController  {
         self.userStatus = userData["userStatus"] as! Int
 
         dateLabel.text = CalendarDay.calendarDayDate
+        dateLabel.roundCorners(corners: [.topLeft, .topRight], radius: 10)
         
         self.collectionView .register(UINib(nibName: "DateCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: dateCellIdentifier)
         self.collectionView .register(UINib(nibName: "ContentCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: contentCellIdentifier)
@@ -256,7 +257,8 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
             } else {
                 if CalendarDay.dataOfDate[(self.convertIndexPath(indexPath: indexPath))] != nil {
                     return configurateCell(indexPath: indexPath,
-                                           bool: true, font: UIFont.boldSystemFont(ofSize: 13),
+                                           bool: true,
+                                           font: UIFont.boldSystemFont(ofSize: 13),
                                            textColor: UIColor.black,
                                            text: CalendarDay.dataOfDate[(self.convertIndexPath(indexPath:indexPath))]!,
                                            backgroundColor1: self.green,
@@ -264,7 +266,8 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
         
                 } else {
                     return configurateCell(indexPath: indexPath,
-                                           bool: true, font: UIFont.boldSystemFont(ofSize: 13),
+                                           bool: true,
+                                           font: UIFont.boldSystemFont(ofSize: 13),
                                            textColor: UIColor.black,
                                            text: "Vrij",
                                            backgroundColor1: self.grey,
@@ -274,7 +277,8 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
         } else {
             if indexPath.row == 0 {
                 return configurateCell(indexPath: indexPath,
-                                       bool: false, font: UIFont.boldSystemFont(ofSize: 13),
+                                       bool: false,
+                                       font: UIFont.boldSystemFont(ofSize: 13),
                                        textColor: UIColor.black,
                                        text: timeSlots[((indexPath as NSIndexPath).section) - 1],
                                        backgroundColor1: self.grey,
@@ -292,14 +296,16 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
                         color2 = self.lightRed
                     }
                     return configurateCell(indexPath: indexPath,
-                                           bool: true, font: UIFont.systemFont(ofSize: 13),
+                                           bool: true,
+                                           font: UIFont.systemFont(ofSize: 13),
                                            textColor: UIColor.black,
                                            text: CalendarDay.dataOfDate[(self.convertIndexPath(indexPath:indexPath))]!,
                                            backgroundColor1: color1,
                                            backgroundColor2: color2)
                 } else {
                     return configurateCell(indexPath: indexPath,
-                                           bool: true, font: UIFont.systemFont(ofSize: 13),
+                                           bool: true,
+                                           font: UIFont.systemFont(ofSize: 13),
                                            textColor: UIColor.black, text: "_",
                                            backgroundColor1: self.grey,
                                            backgroundColor2: self.white)

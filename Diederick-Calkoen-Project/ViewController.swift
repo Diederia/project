@@ -12,41 +12,58 @@ import Firebase
 
 class ViewController: UIViewController {
     
-    // MARK: Outlets
+    // MARK: - Outlets
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var goToCollectionView: UIButton!
     @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var teacherLabel: UILabel!
+    @IBOutlet weak var hoursLabel: UILabel!
+    @IBOutlet weak var previewStack: UIStackView!
+    @IBOutlet weak var monthView: UIView!
+    @IBOutlet weak var dayCalanderView: UIView!
+    @IBOutlet weak var tableLabelView: UIView!
+    @IBOutlet weak var previewTableView: UIView!
     
+    // MARK: - Constants and variables
     let white = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1.0 )
     let black = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1.0)
     let blue =  UIColor(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
+    let grey = UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1.0)
+    let red = UIColor(red: 148/255.0, green: 59/255.0, blue: 78/255.0, alpha: 1.0)
+    let pink = UIColor(red: 225/255.0, green: 0/255.0, blue: 122/255.0, alpha: 1.0)
+    let clearColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 0.0)
     let formatter = DateFormatter()
     let timeSlots:[String] = ["9:00","9:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00",
                               "13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30",
                               "18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00"]
-
-    var previewIds = [String]()
-    var previewHours = [String]()
+    var userData = [String:AnyObject]()
     var testCalendar = Calendar.current
     var ref =  FIRDatabase.database().reference()
     var dataRef: FIRDatabaseReference!
-    var userData = [String:AnyObject]()
-    var counter = Int()
+    var previewIds = [String]()
+    var previewHours = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        monthView.roundCorners(corners: [.topLeft, .topRight], radius: 10)
+        dayCalanderView.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 10)
+        tableLabelView.roundCorners(corners: [.topLeft, .topRight], radius: 10)
+        previewTableView.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 10)
+        
+        
+        
         userData = UserDefaults.standard.value(forKey: "userData") as! [String : AnyObject]
+        
         if userData["userStatus"] as! Int? == 2 {
             registerButton.isHidden = false
         } else {
             registerButton.isHidden = true
         }
-
-        tableView.isHidden = true
-        goToCollectionView.isHidden = true
+        
+        previewStack.isHidden = true
         
         TimeZone.ReferenceType.default = TimeZone(abbreviation: "UTC")!
         formatter.timeZone = TimeZone.ReferenceType.default
@@ -104,8 +121,6 @@ class ViewController: UIViewController {
         self.performSegue(withIdentifier: "viewToRegister", sender: self)
     }
     
-
-
     
     // MARK - Functions
     func reloadTableView() {
@@ -129,12 +144,14 @@ class ViewController: UIViewController {
         }
         
         if cellState.isSelected {
-            myCustomCell.dayLabel.textColor = black
+            myCustomCell.dayLabel.textColor = self.white
+            myCustomCell.dayLabel.font = UIFont.boldSystemFont(ofSize: 17)
+
         } else {
             if cellState.dateBelongsTo == .thisMonth {
-                myCustomCell.dayLabel.textColor = white
+                myCustomCell.dayLabel.textColor = self.black
             } else {
-                myCustomCell.dayLabel.textColor = blue
+                myCustomCell.dayLabel.textColor = self.grey
             }
         }
     }
@@ -145,7 +162,10 @@ class ViewController: UIViewController {
             return
         }
         if cellState.isSelected {
-            myCustomCell.selectedView.layer.cornerRadius =  15
+            
+            myCustomCell.selectedView.layer.cornerRadius = myCustomCell.selectedView.frame.size.width/2
+            myCustomCell.selectedView.clipsToBounds =  true
+            myCustomCell.selectedView.backgroundColor = self.black
             myCustomCell.selectedView.isHidden = false
         } else {
             myCustomCell.selectedView.isHidden = true
@@ -153,25 +173,26 @@ class ViewController: UIViewController {
     }
 
     func configuratePreview() {
+        var counter = Int()
         var userId = String()
         var begintTime = String()
         var endTime = String()
         
-        for i in self.counter...8 {
+        for i in counter...8 {
             if CalendarDay.dataOfDate.keys.contains(("0, " + String(i))) == true {
-                print("i:\(i)")
                 userId = CalendarDay.dataOfDate["0, " + String(i)]!
+                
                 for j in 1...28 {
-                    print("j:\(j)")
                     if CalendarDay.dataOfDate.keys.contains(String(j) + ", " + String(i)) == true {
                         begintTime = self.timeSlots[j - 1]
+                        
                         for k in j...28 {
-                            print("k:\(j)")
                             if CalendarDay.dataOfDate.keys.contains(String(k) + ", " + String(i)) == false {
                                 endTime = self.timeSlots[k - 2]
+                                
                                 self.previewIds.append(userId)
                                 self.previewHours.append(begintTime + " - " + endTime)
-                                self.counter += 1
+                                counter += 1
                                 break
                             }
                         }
@@ -210,13 +231,15 @@ extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDele
         myCustomCell.dayLabel.text = cellState.text
         
         if testCalendar.isDateInToday(date) {
-            myCustomCell.backgroundColor = black
-            myCustomCell.layer.cornerRadius =  15
+            
+            myCustomCell.backgroundColor = self.pink
+            myCustomCell.frame = CGRect(x: 9, y: 9, width: 35, height: 35)
+            myCustomCell.layer.cornerRadius = myCustomCell.selectedView.frame.size.width/2
+            myCustomCell.clipsToBounds =  true
         } else {
-            myCustomCell.backgroundColor = UIColor(red: 225/255.0, green: 0/255.0, blue: 122/255.0, alpha: 0.5)
+            myCustomCell.backgroundColor = self.clearColor
             myCustomCell.layer.cornerRadius =  0
         }
-
         
         handleCellTextColor(view: cell, cellState: cellState)
         handleCellSelection(view: cell, cellState: cellState)
@@ -226,10 +249,9 @@ extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDele
         
         self.previewHours.removeAll()
         self.previewIds.removeAll()
-        self.counter = 1
+        
+        previewStack.isHidden = false
 
-        tableView.isHidden = false
-        goToCollectionView.isHidden = false
         
         let month = Int(cellState.date.description[5..<7])
         let monthName = DateFormatter().monthSymbols[(month!-1) % 12]
@@ -314,6 +336,14 @@ extension String {
         return self[Range(start ..< end)]
     }
     
+}
+extension UIView {
+    func roundCorners(corners:UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        self.layer.mask = mask
+    }
 }
 
 
