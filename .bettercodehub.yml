@@ -1,4 +1,6 @@
+exclude:
+- /Pods/JTAppleCalendar/Sources/.*
 component_depth: 1
 languages:
-- swift
 - ruby
+- swift
