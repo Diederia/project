@@ -30,11 +30,48 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupRoundCorners()
+        setupText()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Functions
+    func alert(title: String, message: String, actionTitle: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: actionTitle, style: UIAlertActionStyle.default,handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func setupRoundCorners() {
         mobileTextField.roundCorners(corners: [.topLeft, .bottomLeft], radius: 5)
         idTextField.roundCorners(corners: [.topLeft, .bottomLeft], radius: 5)
         idButton.roundCorners(corners: [.topRight, .bottomRight], radius: 5)
         mobileButton.roundCorners(corners: [.topRight, .bottomRight], radius: 5)
+    }
+    
+    func checkInput() {
+        guard newPasswordTextField.text! != "" && confirmPasswordTextField.text! != "" else {
+            self.alert(title: "Error to register", message: "Enter a valid email, password and confrim password.\n Your password needs to be at least 6 character long.", actionTitle: "Dismiss")
+            return
+        }
         
+        guard newPasswordTextField.text!.characters.count >= 6 else {
+            self.alert(title: "Error to register", message: "Your password needs to be at least 6 character long.", actionTitle: "Dismiss")
+            return
+        }
+        
+        guard newPasswordTextField.text! == confirmPasswordTextField.text! else {
+            self.alert(title: "Error to register", message: "The passwords do not match", actionTitle: "Dismiss")
+            return
+        }
+    }
+    
+    func setupText() {
         userData = UserDefaults.standard.value(forKey: "userData") as! [String : AnyObject]
         firstAndSurenameLabel.text = (userData["firstName"] as! String?)! + " " + (userData["surename"] as! String?)!
         emailLabel.text = userData["email"] as! String?
@@ -47,24 +84,10 @@ class SettingsViewController: UIViewController {
             userLabel.text = "Docent"
         } else if userData["userStatus"] as! Int? == 2 {
             userLabel.text = "Admin"
-        } else {
-            userLabel.text = "Onbekend"
         }
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    // MARK: Alert function
-    func alert(title: String, message: String, actionTitle: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: actionTitle, style: UIAlertActionStyle.default,handler: nil))
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
+    // MARK: - Actions
     @IBAction func updateIdButton(_ sender: Any) {
         let uid = User.FirebaseID
         ref = self.ref.child("users").child(uid!)
@@ -85,20 +108,7 @@ class SettingsViewController: UIViewController {
     @IBAction func updatePasswordButton(_ sender: Any) {
 
         // MARK: - Check input
-        guard newPasswordTextField.text! != "" && confirmPasswordTextField.text! != "" else {
-            self.alert(title: "Error to register", message: "Enter a valid email, password and confrim password.\n Your password needs to be at least 6 character long.", actionTitle: "Dismiss")
-            return
-        }
-        
-        guard newPasswordTextField.text!.characters.count >= 6 else {
-            self.alert(title: "Error to register", message: "Your password needs to be at least 6 character long.", actionTitle: "Dismiss")
-            return
-        }
-        
-        guard newPasswordTextField.text! == confirmPasswordTextField.text! else {
-            self.alert(title: "Error to register", message: "The passwords do not match", actionTitle: "Dismiss")
-            return
-        }
+        checkInput()
         
         let firUser = FIRAuth.auth()?.currentUser
         let newPassword = newPasswordTextField.text!

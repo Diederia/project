@@ -48,31 +48,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        monthView.roundCorners(corners: [.topLeft, .topRight], radius: 10)
-        dayCalanderView.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 10)
-        tableLabelView.roundCorners(corners: [.topLeft, .topRight], radius: 10)
-        previewTableView.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 10)
-        
+        setupRoundCorners()
+        setupCalanderParameters()
+        previewStack.isHidden = true
+
         userData = UserDefaults.standard.value(forKey: "userData") as! [String : AnyObject]
-        
         if userData["userStatus"] as! Int? == 2 {
             registerButton.isHidden = false
         } else {
             registerButton.isHidden = true
         }
-        
-        previewStack.isHidden = true
-        
-        TimeZone.ReferenceType.default = TimeZone(abbreviation: "UTC")!
-        formatter.timeZone = TimeZone.ReferenceType.default
-        formatter.dateFormat = "yyyy MM dd"
-        formatter.locale = testCalendar.locale
-
-        calendarView.dataSource = self
-        calendarView.delegate = self
-        
-        calendarView.registerCellViewXib(file: "CellView") // Registering your cell is manditory
-        calendarView.cellInset = CGPoint(x: 3, y: 3)       // default is (3,3)
     }
 
     
@@ -120,9 +105,29 @@ class ViewController: UIViewController {
     }
     
     
-    // MARK - Functions
+    // MARK: - Functions
+    func setupRoundCorners() {
+        monthView.roundCorners(corners: [.topLeft, .topRight], radius: 10)
+        dayCalanderView.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 10)
+        tableLabelView.roundCorners(corners: [.topLeft, .topRight], radius: 10)
+        previewTableView.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 10)
+    }
+    
     func reloadTableView() {
         self.tableView.reloadData()
+    }
+    
+    func setupCalanderParameters() {
+        TimeZone.ReferenceType.default = TimeZone(abbreviation: "UTC")!
+        formatter.timeZone = TimeZone.ReferenceType.default
+        formatter.dateFormat = "yyyy MM dd"
+        formatter.locale = testCalendar.locale
+        
+        calendarView.dataSource = self
+        calendarView.delegate = self
+        
+        calendarView.registerCellViewXib(file: "CellView") // Registering your cell is manditory
+        calendarView.cellInset = CGPoint(x: 3, y: 3)       // default is (3,3)
     }
     
     func setupViewsOfCalendar(from visibleDates: DateSegmentInfo) {
@@ -133,6 +138,7 @@ class ViewController: UIViewController {
         let monthName = DateFormatter().monthSymbols[(month-1) % 12]
         monthLabel.text = monthName
     }
+    
     
 
     // Function to handle the text color of the calendar
@@ -171,7 +177,7 @@ class ViewController: UIViewController {
     }
 
     func configuratePreview() {
-        var counter = Int()
+        var counter = 0
         var userId = String()
         var begintTime = String()
         var endTime = String()

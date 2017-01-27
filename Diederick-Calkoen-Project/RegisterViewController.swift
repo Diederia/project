@@ -38,10 +38,15 @@ class RegsiterViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    // MARK: Register funtion
-    @IBAction func registerDidTOuch(_ sender: Any) {
-        var userStatus = Int()
+    // MARK: - Functions
+    func alert(title: String, message: String, actionTitle: String) {
+        let alertController = UIAlertController(title: title , message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func checkInput() {
         // Check input
         guard emailTextField.text! != "" && passwordTextField.text! != "" && confirmTextField.text! != "" else {
             self.alert(title: "Error to register", message: "Enter a valid email, password and confrim password.\n Your password needs to be at least 6 character long.", actionTitle: "Dismiss")
@@ -57,6 +62,24 @@ class RegsiterViewController: UIViewController {
             self.alert(title: "Error to register", message: "The passwords do not match", actionTitle: "Dismiss")
             return
         }
+    }
+    
+    func clearInputFields() {
+        self.emailTextField.text = ""
+        self.idTextField.text = ""
+        self.userControl.selectedSegmentIndex = 0
+        self.firstNameTextField.text = ""
+        self.surenameTextField.text = ""
+        self.mobileTextField.text = ""
+        self.passwordTextField.text = ""
+        self.confirmTextField.text = ""
+    }
+    
+    // MARK: - Actions
+    @IBAction func registerDidTOuch(_ sender: Any) {
+        var userStatus = Int()
+        
+        checkInput()
         
         if User.admin == 2{
             userStatus = 2
@@ -88,23 +111,7 @@ class RegsiterViewController: UIViewController {
             
             // Registering completed
             self.alert(title: "Registratie compleet", message: "De gebruiker is nu geregistreerd", actionTitle: "Terug")
-
-            self.emailTextField.text = ""
-            self.idTextField.text = ""
-            self.userControl.selectedSegmentIndex = 0
-            self.firstNameTextField.text = ""
-            self.surenameTextField.text = ""
-            self.mobileTextField.text = ""
-            self.passwordTextField.text = ""
-            self.confirmTextField.text = ""
+            self.clearInputFields()
         }
-    }
-    
-    // MARK: Alert function
-    func alert(title: String, message: String, actionTitle: String) {
-        let alertController = UIAlertController(title: title , message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
-        
-        self.present(alertController, animated: true, completion: nil)
     }
 }
