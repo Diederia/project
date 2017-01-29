@@ -65,10 +65,22 @@
 	* Preview van de kalenderdag wordt nu goed weergegeven in de kalenderView
 
 ## Dag 15 | woensdag | 25 januari
+* Het design van de kalender zag er niet goed uit, te veel roze. Dit was vandaag opgelost, ik liep echter wel tegen een aantal problemen aan. 
+	* Het uitlijnen van de verschillende buttons was een hele opgaven.
+	* Om de buitenste randen rond te krijgen moest er een aantal nieuwe views toegevoegd worden.
+* Het design van de collectionView was ook niet goed. Wanneer er nieuwe tijden werden toegevoegd werden de blokken een ander formaat wanneer de gehele view herladen werd. 
+	* Dit is opgelost door een variable uit de breedte te halen en de breedte constant te maken.
+	* Ook zijn de kleuren verbeterd.
 
 ## Dag 16 | donderdag | 26 januari
+* Wanneer er nog geen admin in de database aanwezig is kon de gehele app niet gebruikt worden. Want eerst moest er ingelogd worden voordat er iemand geregisteerd kon worden.
+	* Dit is opgelost door wanneer de database nog leeg is er eenmaal een admin user aangemaakt kan worden. Vervolgens kan de admin user leerlingen en docenten aanmaken. 
+	* Ook is de layout van het registreer en settings view verbeterd
 
 ## Dag 17 | vrijdag | 27 januari 
+* Better Code Hub uitgevoerd. 
+	* Hieruit kwam: Unit Interfaces zijn op sommige plaatsen te lang, Units of Code zijn op sommige plaatsen te lang, Keep Architecture Components Balanced, Automate Tests. De laatste twee punten weet ik niet hoe ik die moet verbeteren.
+* State restoration. Het begin van de state restoration wordt uitgevoerd, alleen wordt de data van de objecten nog niet opgeslagen.
 
 
 	
