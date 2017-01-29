@@ -41,6 +41,7 @@ class CollectionViewController: UIViewController  {
     // MARK: - colors
     let white = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
     let black = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1)
+    let pink = UIColor(red: 225/255.0, green: 0/255.0, blue: 122/255.0, alpha: 1.0)
     let grey = UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
     let green = UIColor(red: 0/255.0, green: 240/255.0, blue: 20/255.0, alpha: 1)
     let lightGreen = UIColor(red: 0/255.0, green: 200/255.0, blue: 20/255.0, alpha: 0.3)
@@ -62,12 +63,25 @@ class CollectionViewController: UIViewController  {
         dateLabel.text = CalendarDay.calendarDayDate
         dateLabel.roundCorners(corners: [.topLeft, .topRight], radius: 10)
         
+        collectionView.layer.borderWidth = 2
+        collectionView.layer.borderColor = self.pink.cgColor
+        
         self.collectionView .register(UINib(nibName: "DateCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: dateCellIdentifier)
         self.collectionView .register(UINib(nibName: "ContentCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: contentCellIdentifier)
         
         setupPickerView()
     }
     
+//    override func encodeRestorableState(with coder: NSCoder) {
+//        //1
+//        if case dateLabel.text! = CalendarDay.calendarDayDate {
+//            coder.encodeInteger(dateLabel.text!, forKey: "date")
+//        }
+//        
+//        //2
+//        super.encodeRestorableState(with: coder)
+//    }
+//    
     
     // MARk - Functions
     func convertRow (row: Int) -> String {
@@ -272,8 +286,8 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
             
         } else if CalendarDay.dataOfDate[(self.convertIndexPath(indexPath: sectionName))] == nil {
             if cell.contentLabel.text == "_" {
-                if self.userStatus == 1 {
-                    self.alertWithAction(title: " Wilt u " + timeSlots[self.selectedItem.section - 1] +  " uur inplannen? \n\n\n\n\n\n\n\n\n", message: " U moet minimaal 1 uur inplannen.", bool: true)
+                if self.userStatus == 1 || self.userStatus == 2 {
+                    self.alertWithAction(title: " Wilt u " + self.timeSlots[self.selectedItem.section - 1] +  " uur inplannen? \n\n\n\n\n\n\n\n\n", message: " U moet minimaal 1 uur inplannen.", bool: true)
                 } else {
                     self.alert(title: "Foutmelding", message: "U kunt als leerling geen beschikbare tijden invoeren.")
                 }
@@ -377,6 +391,7 @@ extension CollectionViewController: UIPickerViewDataSource, UIPickerViewDelegate
         return 36.0
     }
 }
+
 
 
 

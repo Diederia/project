@@ -15,14 +15,12 @@ class ViewController: UIViewController {
     // MARK: - Outlets
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var monthLabel: UILabel!
+    @IBOutlet weak var daysView: UIView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var goToCollectionView: UIButton!
     @IBOutlet weak var registerButton: UIButton!
-    @IBOutlet weak var teacherLabel: UILabel!
-    @IBOutlet weak var hoursLabel: UILabel!
     @IBOutlet weak var previewStack: UIStackView!
     @IBOutlet weak var monthView: UIView!
-    @IBOutlet weak var dayCalanderView: UIView!
+    @IBOutlet weak var tableDateLabel: UILabel!
     @IBOutlet weak var tableLabelView: UIView!
     @IBOutlet weak var previewTableView: UIView!
     
@@ -107,10 +105,21 @@ class ViewController: UIViewController {
     
     // MARK: - Functions
     func setupRoundCorners() {
-        monthView.roundCorners(corners: [.topLeft, .topRight], radius: 10)
-        dayCalanderView.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 10)
-        tableLabelView.roundCorners(corners: [.topLeft, .topRight], radius: 10)
-        previewTableView.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 10)
+        monthView.roundCorners(corners: [.topLeft, .topRight], radius: 5)
+        calendarView.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 5)
+        calendarView.layer.borderWidth = 2
+        calendarView.layer.borderColor = self.pink.cgColor
+        calendarView.layer.masksToBounds = true
+        tableLabelView.roundCorners(corners: [.topLeft, .topRight], radius: 5)
+        previewTableView.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 5)
+        previewTableView.layer.borderWidth = 2
+        previewTableView.layer.borderColor = self.pink.cgColor
+        previewTableView.layer.masksToBounds = true
+
+        daysView.layer.borderWidth = 2
+        daysView.layer.borderColor = self.pink.cgColor
+
+        
     }
     
     func reloadTableView() {
@@ -250,16 +259,16 @@ extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDele
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleDayCellView?, cellState: CellState) {
-        
+
         self.previewHours.removeAll()
         self.previewIds.removeAll()
-        
         previewStack.isHidden = false
 
         
         let month = Int(cellState.date.description[5..<7])
         let monthName = DateFormatter().monthSymbols[(month!-1) % 12]
         CalendarDay.calendarDayDate = cellState.text + " " + monthName
+        tableDateLabel.text = "Beschikbaarheid " + CalendarDay.calendarDayDate
         
         // retrieve data from FireBase
         CalendarDay.dataOfDate.removeAll()
@@ -311,43 +320,14 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         cell.hoursLabel.text = self.previewHours[indexPath.row]
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "viewToCollection", sender: self)
+
+    }
 }
 
 
-extension String {
-    
-    var length: Int {
-        return self.characters.count
-    }
-    
-    subscript (i: Int) -> String {
-        return self[Range(i ..< i + 1)]
-    }
-    
-    func substring(from: Int) -> String {
-        return self[Range(min(from, length) ..< length)]
-    }
-    
-    func substring(to: Int) -> String {
-        return self[Range(0 ..< max(0, to))]
-    }
-    
-    subscript (r: Range<Int>) -> String {
-        let range = Range(uncheckedBounds: (lower: max(0, min(length, r.lowerBound)),
-                                            upper: min(length, max(0, r.upperBound))))
-        let start = index(startIndex, offsetBy: range.lowerBound)
-        let end = index(start, offsetBy: range.upperBound - range.lowerBound)
-        return self[Range(start ..< end)]
-    }
-    
-}
-extension UIView {
-    func roundCorners(corners:UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        self.layer.mask = mask
-    }
-}
+
 
 

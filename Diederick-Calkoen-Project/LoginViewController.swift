@@ -32,24 +32,26 @@ class LoginViewController: UIViewController {
                 User.admin = 2
             }
         })
-            
+        
         FIRAuth.auth()!.addStateDidChangeListener() { auth, user in
             if user != nil {
 
-                let userid = FIRAuth.auth()?.currentUser?.uid
-
-                let ref = FIRDatabase.database().reference().child("users").child(userid!)
+                let userId = FIRAuth.auth()?.currentUser?.uid
+                let ref = FIRDatabase.database().reference().child("users").child(userId!)
+                
                 ref.observeSingleEvent(of: .value, with: { (snapshot) in
                     
                     // NOG KIJKEN OF DIT NODIG IS
                     UserDefaults.standard.removeObject(forKey: "userData")
                     UserDefaults.standard.synchronize()
+                   
 
 
                     // Get user value
                     let dict = snapshot.value as? NSDictionary
                     UserDefaults.standard.set(dict, forKey: "userData")
                     UserDefaults.standard.synchronize()
+                    
 
 
                     self.performSegue(withIdentifier: "toHomeView", sender: self)
@@ -61,6 +63,17 @@ class LoginViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Hide keyboard when user touches outside keyboard.
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    // MARK: - Hide keyboard when user touches return.
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     // MARK: Actions funtions
