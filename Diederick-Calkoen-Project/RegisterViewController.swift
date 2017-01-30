@@ -66,6 +66,7 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - Functions
+    // MARK: Alert function.
     func alert(title: String, message: String, actionTitle: String) {
         let alertController = UIAlertController(title: title , message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
@@ -73,24 +74,46 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    // MARK: Check the provided input for the new user.
     func checkInput() {
-        // Check input
         guard emailTextField.text! != "" && passwordTextField.text! != "" && confirmTextField.text! != "" else {
-            self.alert(title: "Error to register", message: "Enter a valid email, password and confrim password.\n Your password needs to be at least 6 character long.", actionTitle: "Dismiss")
+            self.alert(title: "Fountmelding met registreren", message: "Type een geldig emailadres, wachtwoord en bevestigings wachtwoord.\n Het wachtwoord moet minimaal 6 karakters lang zijn.", actionTitle: "Terug")
             return
         }
         
         guard passwordTextField.text!.characters.count >= 6 else {
-            self.alert(title: "Error to register", message: "Your password needs to be at least 6 character long.", actionTitle: "Dismiss")
+            self.alert(title: "Fountmelding met registreren", message: "Het wachtwoord moet minimaal 6 karakters lang zijn.", actionTitle: "Terug")
             return
         }
         
         guard passwordTextField.text! == confirmTextField.text! else {
-            self.alert(title: "Error to register", message: "The passwords do not match", actionTitle: "Dismiss")
+            self.alert(title: "Fountmelding met registreren", message: "De wachtwoorden komen niet overeen.", actionTitle: "Terug")
             return
         }
     }
     
+    // MARK: Save User in FireBase.
+    func saveUser(userStatus: Int) {
+        FIRAuth.auth()!.createUser(withEmail: self.emailTextField.text!, password: passwordTextField.text!) { (user, error) in
+            if error != nil {
+                self.alert(title: "Error to register", message: "Error with database", actionTitle: "Dismiss")
+                return
+            }
+            
+            let user = User(uid: (user?.uid)!,
+                            email: self.emailTextField.text!,
+                            id: self.idTextField.text!,
+                            userStatus: userStatus,
+                            firstName: self.firstNameTextField.text!,
+                            surename: self.surenameTextField.text!,
+                            mobile: self.mobileTextField.text!)
+            
+            let userRef = self.ref.child("users").child((user.uid))
+            userRef.setValue(user.toAnyObject())
+        }
+    }
+    
+    // MARK: Clear als texfield of the view.
     func clearInputFields() {
         self.emailTextField.text = ""
         self.idTextField.text = ""
@@ -104,39 +127,17 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Actions
     @IBAction func registerDidTOuch(_ sender: Any) {
-        var userStatus = Int()
         
+        var userStatus = Int()
         checkInput()
         
         if User.admin == 2{
             userStatus = 2
+            saveUser(userStatus: userStatus)
+            self.performSegue(withIdentifier: "registerToLogin", sender: self)
         } else {
-        userStatus = self.userControl.selectedSegmentIndex
-        }
-        
-        // Save user in firebase
-        FIRAuth.auth()!.createUser(withEmail: self.emailTextField.text!, password: passwordTextField.text!) { (user, error) in
-            if error != nil {
-                self.alert(title: "Error to register", message: "Error with database", actionTitle: "Dismiss")
-                return
-            }
-
-            let user = User(uid: (user?.uid)!,
-                            email: self.emailTextField.text!,
-                            id: self.idTextField.text!,
-                            userStatus: userStatus,
-                            firstName: self.firstNameTextField.text!,
-                            surename: self.surenameTextField.text!,
-                            mobile: self.mobileTextField.text!)
-            
-            let userRef = self.ref.child("users").child((user.uid))
-            userRef.setValue(user.toAnyObject())
-            
-            if User.admin == 2 {
-                self.performSegue(withIdentifier: "registerToLogin", sender: self)
-            }
-            
-            // Registering completed
+            userStatus = self.userControl.selectedSegmentIndex
+            saveUser(userStatus: userStatus)
             self.alert(title: "Registratie compleet", message: "De gebruiker is nu geregistreerd", actionTitle: "Terug")
             self.clearInputFields()
         }

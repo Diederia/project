@@ -20,8 +20,25 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
-        self.registerButton.isHidden = true
         
+        checkAdmin()
+        autoLogin()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: Hide keyboard when user touches outside keyboard.
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    // MARK: - functions
+    // MARK: Check if a admin user exists in FireBase.
+    func checkAdmin() {
+        self.registerButton.isHidden = true
         User.admin = 0
         
         let ref = FIRDatabase.database().reference().child("users")
@@ -32,45 +49,32 @@ class LoginViewController: UIViewController {
                 User.admin = 2
             }
         })
-        
+    }
+    
+    // MARK: Login the user automatic when it was already logged in.
+    func autoLogin() {
         FIRAuth.auth()!.addStateDidChangeListener() { auth, user in
             if user != nil {
-
+                
                 let userId = FIRAuth.auth()?.currentUser?.uid
                 let ref = FIRDatabase.database().reference().child("users").child(userId!)
                 
                 ref.observeSingleEvent(of: .value, with: { (snapshot) in
-                    
-                    // NOG KIJKEN OF DIT NODIG IS
                     UserDefaults.standard.removeObject(forKey: "userData")
                     UserDefaults.standard.synchronize()
-                   
-
-
-                    // Get user value
+                    
+                    // Get user value and save it in userDefaults
                     let dict = snapshot.value as? NSDictionary
                     UserDefaults.standard.set(dict, forKey: "userData")
                     UserDefaults.standard.synchronize()
                     
-
-
                     self.performSegue(withIdentifier: "toHomeView", sender: self)
                 })
             }
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    // MARK: - Hide keyboard when user touches outside keyboard.
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
-    // MARK: - Hide keyboard when user touches return.
+    // MARK: Hide keyboard when user touches return.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -86,6 +90,7 @@ class LoginViewController: UIViewController {
                                 }
         }
     }
+    // MARK: Go to registerView
     @IBAction func registerDidTouch(_ sender: Any) {
         self.performSegue(withIdentifier: "toRegisterView", sender: self)
     }

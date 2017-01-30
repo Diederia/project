@@ -64,62 +64,21 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK - Actions
-    @IBAction func next(_ sender: Any) {
-        self.calendarView.scrollToSegment(.next) {
-            self.calendarView.visibleDates({ (visibleDates: DateSegmentInfo) in
-                self.setupViewsOfCalendar(from: visibleDates)
-
-            })
-        }
-    }
-    
-    @IBAction func previous(_ sender: Any) {
-        self.calendarView.scrollToSegment(.previous) {
-            self.calendarView.visibleDates({ (visibleDates: DateSegmentInfo) in
-                self.setupViewsOfCalendar(from: visibleDates)
-            })
-        }
-    }
-    
-    @IBAction func logoutDidTouch(_ sender: Any) {
-        let alertController = UIAlertController(title: "Logout", message:
-            "Are you sure you want to logout?", preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default,handler: nil))
-        alertController.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default,handler: {
-            (_)in
-            try! FIRAuth.auth()!.signOut()
-            self.performSegue(withIdentifier: "viewToLogin", sender: self)
-        }))
-        self.present(alertController, animated: true, completion: nil)
-    }
-
-    @IBAction func settingsDidTouch(_ sender: Any) {
-        self.performSegue(withIdentifier: "viewToSettings", sender: self)
-    }
-    
-    @IBAction func registerDidTouch(_ sender: Any) {
-        self.performSegue(withIdentifier: "viewToRegister", sender: self)
-    }
-    
-    
     // MARK: - Functions
     func setupRoundCorners() {
         monthView.roundCorners(corners: [.topLeft, .topRight], radius: 5)
+        daysView.layer.borderWidth = 2
+        daysView.layer.borderColor = self.pink.cgColor
         calendarView.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 5)
         calendarView.layer.borderWidth = 2
         calendarView.layer.borderColor = self.pink.cgColor
         calendarView.layer.masksToBounds = true
+        
         tableLabelView.roundCorners(corners: [.topLeft, .topRight], radius: 5)
         previewTableView.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 5)
         previewTableView.layer.borderWidth = 2
         previewTableView.layer.borderColor = self.pink.cgColor
         previewTableView.layer.masksToBounds = true
-
-        daysView.layer.borderWidth = 2
-        daysView.layer.borderColor = self.pink.cgColor
-
-        
     }
     
     func reloadTableView() {
@@ -148,8 +107,6 @@ class ViewController: UIViewController {
         monthLabel.text = monthName
     }
     
-    
-
     // Function to handle the text color of the calendar
     func handleCellTextColor(view: JTAppleDayCellView?, cellState: CellState) {
         guard let myCustomCell = view as? CellView  else {
@@ -215,6 +172,44 @@ class ViewController: UIViewController {
             }
         }
     }
+
+    // MARK - Actions
+    @IBAction func next(_ sender: Any) {
+        self.calendarView.scrollToSegment(.next) {
+            self.calendarView.visibleDates({ (visibleDates: DateSegmentInfo) in
+                self.setupViewsOfCalendar(from: visibleDates)
+                
+            })
+        }
+    }
+    
+    @IBAction func previous(_ sender: Any) {
+        self.calendarView.scrollToSegment(.previous) {
+            self.calendarView.visibleDates({ (visibleDates: DateSegmentInfo) in
+                self.setupViewsOfCalendar(from: visibleDates)
+            })
+        }
+    }
+    
+    @IBAction func logoutDidTouch(_ sender: Any) {
+        let alertController = UIAlertController(title: "Logout", message:
+            "Are you sure you want to logout?", preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default,handler: nil))
+        alertController.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default,handler: {
+            (_)in
+            try! FIRAuth.auth()!.signOut()
+            self.performSegue(withIdentifier: "viewToLogin", sender: self)
+        }))
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    @IBAction func settingsDidTouch(_ sender: Any) {
+        self.performSegue(withIdentifier: "viewToSettings", sender: self)
+    }
+    
+    @IBAction func registerDidTouch(_ sender: Any) {
+        self.performSegue(withIdentifier: "viewToRegister", sender: self)
+    }
 }
 
 // MARK - JT Apple Calendar
@@ -234,8 +229,6 @@ extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDele
         monthLabel.text = "January"
         return parameters
     }
-    
-
     
     func calendar(_ calendar: JTAppleCalendarView, willDisplayCell cell: JTAppleDayCellView, date: Date, cellState: CellState) {
         let myCustomCell = cell as! CellView
@@ -305,8 +298,6 @@ extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDele
     }
     
 }
-
-
 
 // MARK - UITableView
 extension ViewController: UITableViewDataSource, UITableViewDelegate {

@@ -56,16 +56,15 @@ class CollectionViewController: UIViewController  {
     {
         super.viewDidLoad()
         
-        userData = UserDefaults.standard.value(forKey: "userData") as! [String : AnyObject]
-        self.userId = userData["id"] as! String
-        self.userStatus = userData["userStatus"] as! Int
-
         dateLabel.text = CalendarDay.calendarDayDate
-        dateLabel.roundCorners(corners: [.topLeft, .topRight], radius: 10)
-        
         collectionView.layer.borderWidth = 2
         collectionView.layer.borderColor = self.pink.cgColor
         
+        userData = UserDefaults.standard.value(forKey: "userData") as! [String : AnyObject]
+        self.userId = userData["id"] as! String
+        self.userStatus = userData["userStatus"] as! Int
+        
+
         self.collectionView .register(UINib(nibName: "DateCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: dateCellIdentifier)
         self.collectionView .register(UINib(nibName: "ContentCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: contentCellIdentifier)
         
@@ -73,15 +72,21 @@ class CollectionViewController: UIViewController  {
     }
     
 //    override func encodeRestorableState(with coder: NSCoder) {
-//        //1
-//        if case dateLabel.text! = CalendarDay.calendarDayDate {
-//            coder.encodeInteger(dateLabel.text!, forKey: "date")
+//        if let view = collectionView, let offsetValue = NSValue(CGPoint: view.contentOffset) {
+//            coder.encodeObject(offsetValue, forKey: CollectionViewContentOffsetKey)
 //        }
 //        
-//        //2
 //        super.encodeRestorableState(with: coder)
 //    }
 //    
+//    override func decodeRestorableState(with coder: NSCoder) {
+//        if let offsetValue = coder.decodeObjectForKey(CollectionViewContentOffsetKey) as? NSValue {
+//            collectionView?.setContentOffset(offsetValue.CGPointValue(), animated: false)
+//        }
+//        
+//        super.decodeRestorableState(with: coder)
+//    }
+
     
     // MARk - Functions
     func convertRow (row: Int) -> String {
