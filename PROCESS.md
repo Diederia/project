@@ -82,6 +82,23 @@
 	* Hieruit kwam: Unit Interfaces zijn op sommige plaatsen te lang, Units of Code zijn op sommige plaatsen te lang, Keep Architecture Components Balanced, Automate Tests. De laatste twee punten weet ik niet hoe ik die moet verbeteren.
 * State restoration. Het begin van de state restoration wordt uitgevoerd, alleen wordt de data van de objecten nog niet opgeslagen.
 
+## Dag 18/19 | zaterdag/zondag | 28/29 januari
+* Layout van de app is verbeterd. Er zijn borders om views aangebracht met een corner radius en kleur. 
+* Bij het invoeren van een nieuwe gebruiker beleef het keyboard op dezelfde plaats, waardoor de gebruiker niet veder kon invoeren. Dit is aangepast, er zit nu een scroll view op de view geplakt met daarop alle buttons. De scroll view beweegt omhoog zodat alle velden en buttons zichtbaar blijven.
+
+## Dag 20 | maandag | 30 januari
+* De segue van de login view naar de main view vond elke keer twee keer plaats. Dit is opgelost door de segue buiten de functie om de data op te halen te plaatsen.
+* De scroll views begonnen altijd lagen wanneer de view werd geladen. Dit kwam door de navigation bar en is opgelost.
+* Er is een functie aangemaakt om de kleur mee te geven tijdens de configuratie van de collection view. Eerst werden er onodig twee parameters meegegeven.
+
+## Dag 21 | dinsdag | 31 januari
+
+
+## Dag 22 | woensdag | 1 februari
+
+## Dag 23 | donderdag | 2 febrauri
+
+
 
 
 	
