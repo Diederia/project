@@ -19,8 +19,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var previewStack: UIStackView!
+    @IBOutlet weak var previewTitleLabel: UILabel!
     @IBOutlet weak var monthView: UIView!
-    @IBOutlet weak var tableDateLabel: UILabel!
     @IBOutlet weak var tableLabelView: UIView!
     @IBOutlet weak var previewTableView: UIView!
     
@@ -45,10 +45,15 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerButton.isHidden = true
+        previewStack.isHidden = true
         
         setupRoundCorners()
         setupCalanderParameters()
-        previewStack.isHidden = true
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
         userData = UserDefaults.standard.value(forKey: "userData") as! [String : AnyObject]
         if userData["userStatus"] as! Int? == 2 {
@@ -143,6 +148,24 @@ class ViewController: UIViewController {
     }
 
     func configuratePreview() {
+        self.previewHours.removeAll()
+        self.previewIds.removeAll()
+        getPreviewText()
+        previewStack.isHidden = false
+        print(previewHours.count)
+
+        if previewIds.count != 0 {
+            previewTitleLabel.text = "Beschikbaarheid " + CalendarDay.calendarDayDate
+        } else {
+            previewTitleLabel.text = "Geen ingeplande uren bekend op " + CalendarDay.calendarDayDate
+            if userData["userStatus"] as! Int? == 2 || userData["userStatus"] as! Int? == 1 {
+                previewIds = ["","Klik hier om tijden"]
+                previewHours = ["", " in te voeren."]
+            }
+        }
+    }
+    
+    func getPreviewText () {
         var counter = 0
         var userId = String()
         var begintTime = String()
@@ -161,7 +184,7 @@ class ViewController: UIViewController {
                                 endTime = self.timeSlots[k - 2]
                                 
                                 self.previewIds.append(userId)
-                                self.previewHours.append(begintTime + " - " + endTime)
+                                self.previewHours.append("    " + begintTime + " - " + endTime)
                                 counter += 1
                                 break
                             }
@@ -192,8 +215,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func logoutDidTouch(_ sender: Any) {
-        let alertController = UIAlertController(title: "Logout", message:
-            "Are you sure you want to logout?", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "Uiloggen", message:
+            "Weet u zeker dat u wilt uitloggen", preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default,handler: nil))
         alertController.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default,handler: {
             (_)in
@@ -216,7 +239,7 @@ class ViewController: UIViewController {
 extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelegate {
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
         
-        let startDate = formatter.date(from: "2017 01 01")! // You can use date generated from a formatter
+        let startDate = formatter.date(from: "2017 02 01")! // You can use date generated from a formatter
         let endDate = formatter.date(from: "2100 02 01")!                                // You can also use dates created from this function
         let aCalendar = Calendar.autoupdatingCurrent                     // Make sure you set this up to your time zone. We'll just use default here
         let parameters = ConfigurationParameters(startDate: startDate,
@@ -226,7 +249,7 @@ extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDele
                                                  generateInDates: .forAllMonths,
                                                  generateOutDates: .tillEndOfGrid,
                                                  firstDayOfWeek: .sunday)
-        monthLabel.text = "January"
+        monthLabel.text = "February"
         return parameters
     }
     
@@ -252,16 +275,10 @@ extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDele
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleDayCellView?, cellState: CellState) {
-
-        self.previewHours.removeAll()
-        self.previewIds.removeAll()
-        previewStack.isHidden = false
-
         
         let month = Int(cellState.date.description[5..<7])
         let monthName = DateFormatter().monthSymbols[(month!-1) % 12]
         CalendarDay.calendarDayDate = cellState.text + " " + monthName
-        tableDateLabel.text = "Beschikbaarheid " + CalendarDay.calendarDayDate
         
         // retrieve data from FireBase
         CalendarDay.dataOfDate.removeAll()
@@ -272,12 +289,10 @@ extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDele
                 for snap in result {
                     CalendarDay.dataOfDate[snap.key] = snap.value as! String?
                 }
-                
             }
             self.configuratePreview()
             self.performSelector(onMainThread: #selector(ViewController.reloadTableView), with: nil, waitUntilDone: true)
         })
-        
         handleCellSelection(view: cell, cellState: cellState)
         handleCellTextColor(view: cell, cellState: cellState)
     }

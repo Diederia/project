@@ -157,7 +157,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         let credential = FIREmailPasswordAuthProvider.credential(withEmail: email, password: oldPassword)
         let firUser = FIRAuth.auth()?.currentUser
 
-        firUser?.reauthenticate(with: credential) { error in
+        FIRAuth.auth()?.currentUser?.reauthenticate(with: credential) { error in
             if error != nil {
                 self.alert(title: "Foudmelding" , message: "Het wachtwoord kan niet aangepast worden.", actionTitle: "Terug")
             } else {

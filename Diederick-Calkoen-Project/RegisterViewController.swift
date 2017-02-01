@@ -35,13 +35,28 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        scrollView.setContentOffset(CGPoint(x:0, y:-64), animated: true)
-
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func encodeRestorableState(with coder: NSCoder) {
+        coder.encode(emailTextField.text, forKey: "email")
+        coder.encode(firstNameTextField.text, forKey: "firstName")
+        coder.encode(surenameTextField.text, forKey: "surename")
+        coder.encode(idTextField.text, forKey: "id")
+        
+        coder.encode(mobileTextField.text, forKey: "mobile")
+        super.encodeRestorableState(with: coder)
+    }
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        emailTextField.text = coder.decodeObject(forKey: "email") as! String?
+        firstNameTextField.text = coder.decodeObject(forKey: "firstName") as! String?
+        surenameTextField.text = coder.decodeObject(forKey: "surename") as! String?
+        idTextField.text = coder.decodeObject(forKey: "id") as! String?
+        mobileTextField.text = coder.decodeObject(forKey: "mobile") as! String?
+
+        super.decodeRestorableState(with: coder)
     }
     
     // MARK: - Hide keyboard when user touches return.
@@ -99,7 +114,7 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
                 self.alert(title: "Error to register", message: "Error with database", actionTitle: "Dismiss")
                 return
             }
-            
+
             let user = User(uid: (user?.uid)!,
                             email: self.emailTextField.text!,
                             id: self.idTextField.text!,
@@ -110,6 +125,8 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
             
             let userRef = self.ref.child("users").child((user.uid))
             userRef.setValue(user.toAnyObject())
+            self.alert(title: "Registratie compleet", message: "De gebruiker is nu geregistreerd", actionTitle: "Terug")
+            self.clearInputFields()
         }
     }
     
@@ -138,8 +155,6 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
         } else {
             userStatus = self.userControl.selectedSegmentIndex
             saveUser(userStatus: userStatus)
-            self.alert(title: "Registratie compleet", message: "De gebruiker is nu geregistreerd", actionTitle: "Terug")
-            self.clearInputFields()
         }
     }
 }

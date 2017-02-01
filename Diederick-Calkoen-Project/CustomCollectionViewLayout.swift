@@ -5,17 +5,21 @@
 //  Created by Diederick Calkoen on 12/01/17.
 //  Copyright © 2017 Diederick Calkoen. All rights reserved.
 //
+// http://www.brightec.co.uk/ideas/uicollectionview-using-horizontal-and-vertical-scrolling-sticky-rows-and-columns
+//
+//
+// The prepare function is from the turoial of BrighTec. 
+
+
 
 import UIKit
 
 class CustomCollectionViewLayout: UICollectionViewLayout {
 
+    // MARK: - Constants and variables
     let numberOfColumns = 8
-    
     var itemAttributes: [[UICollectionViewLayoutAttributes]]?
-    
     var itemsSize : [CGSize]?
-    
     var contentSize : CGSize!
     
     override func prepare() {
@@ -47,7 +51,6 @@ class CustomCollectionViewLayout: UICollectionViewLayout {
                     }
                 }
             }
-            
             return
         }
         

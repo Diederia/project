@@ -31,31 +31,46 @@ class CollectionViewController: UIViewController  {
     var alertController: UIAlertController = UIAlertController()
     var selectedRow: Int = 2
     var selectedItem = IndexPath()
-    
     var ref = FIRDatabase.database().reference()
-    var dataRef: FIRDatabaseReference!
     var userId = String()
     var userStatus = Int()
     var userData = [String:AnyObject]()
     
     // MARK: - colors
+    let colorDictionary: [String:UIColor] = ["lightWhite": UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1),
+    "greyWhite": UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1),
+    "green": UIColor(red: 0/255.0, green: 240/255.0, blue: 20/255.0, alpha: 1),
+    "lightGreen": UIColor(red: 0/255.0, green: 200/255.0, blue: 20/255.0, alpha: 0.3),
+    "greyGreen": UIColor(red: 0/255.0, green: 200/255.0, blue: 20/255.0, alpha: 0.5),
+    "lightRed": UIColor(red: 230/255.0, green: 20/255.0, blue: 20/255.0, alpha: 0.3),
+    "greyRed": UIColor(red: 230/255.0, green: 20/255.0, blue: 20/255.0, alpha: 0.5)]
+    
     let white = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
     let black = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1)
     let pink = UIColor(red: 225/255.0, green: 0/255.0, blue: 122/255.0, alpha: 1.0)
-    let grey = UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
-    let green = UIColor(red: 0/255.0, green: 240/255.0, blue: 20/255.0, alpha: 1)
-    let lightGreen = UIColor(red: 0/255.0, green: 200/255.0, blue: 20/255.0, alpha: 0.3)
-    let greyGreen = UIColor(red: 0/255.0, green: 200/255.0, blue: 20/255.0, alpha: 0.5)
-    let lightRed = UIColor(red: 230/255.0, green: 20/255.0, blue: 20/255.0, alpha: 0.3)
-    let greyRed = UIColor(red: 230/255.0, green: 20/255.0, blue: 20/255.0, alpha: 0.5)
 
-    
-
-    
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
+        setupCollectionView()
+        setupPickerView()
+    }
+    
+    override func encodeRestorableState(with coder: NSCoder) {
+        coder.encode(CalendarDay.dataOfDate, forKey: "data")
+        coder.encode(CalendarDay.calendarDayDate, forKey: "date")
+        super.encodeRestorableState(with: coder)
+    }
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        CalendarDay.dataOfDate = coder.decodeObject(forKey: "data") as! [(String) : String]
+        dateLabel.text = coder.decodeObject(forKey: "date") as! String?
+        collectionView.reloadData()
+        super.decodeRestorableState(with: coder)
+    }
+    
+    // MARk: - Functions
+    func setupCollectionView() {
         dateLabel.text = CalendarDay.calendarDayDate
         collectionView.layer.borderWidth = 2
         collectionView.layer.borderColor = self.pink.cgColor
@@ -64,33 +79,8 @@ class CollectionViewController: UIViewController  {
         self.userId = userData["id"] as! String
         self.userStatus = userData["userStatus"] as! Int
         
-
         self.collectionView .register(UINib(nibName: "DateCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: dateCellIdentifier)
         self.collectionView .register(UINib(nibName: "ContentCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: contentCellIdentifier)
-        
-        setupPickerView()
-    }
-    
-//    override func encodeRestorableState(with coder: NSCoder) {
-//        if let view = collectionView, let offsetValue = NSValue(CGPoint: view.contentOffset) {
-//            coder.encodeObject(offsetValue, forKey: CollectionViewContentOffsetKey)
-//        }
-//        
-//        super.encodeRestorableState(with: coder)
-//    }
-//    
-//    override func decodeRestorableState(with coder: NSCoder) {
-//        if let offsetValue = coder.decodeObjectForKey(CollectionViewContentOffsetKey) as? NSValue {
-//            collectionView?.setContentOffset(offsetValue.CGPointValue(), animated: false)
-//        }
-//        
-//        super.decodeRestorableState(with: coder)
-//    }
-
-    
-    // MARk - Functions
-    func convertRow (row: Int) -> String {
-        return timeSlots[(row - 1)]
     }
     
     func setupPickerView () {
@@ -102,29 +92,34 @@ class CollectionViewController: UIViewController  {
         pickerMenu.reloadAllComponents()
     }
     
-    func configurateCell(indexPath: IndexPath, bool: Bool, text: String, backgroundColor1: UIColor, backgroundColor2: UIColor) -> UICollectionViewCell {
-        
-        if bool == true {
+    func configurateCell(indexPath: IndexPath, contentCell: Bool, text: String, colorString: String) -> UICollectionViewCell {
+        if contentCell == true {
             let cell = collectionView .dequeueReusableCell(withReuseIdentifier: contentCellIdentifier, for: indexPath) as! ContentCollectionViewCell
             cell.contentLabel.textColor = self.black
             cell.contentLabel.text = text
-            if indexPath.section % 2 != 0 {
-                cell.backgroundColor = backgroundColor1
-            } else {
-                cell.backgroundColor = backgroundColor2
-            }
+            cell.backgroundColor = self.getColor(indexPath: indexPath, colorString: colorString)
             return cell
         } else {
             let cell = collectionView .dequeueReusableCell(withReuseIdentifier: dateCellIdentifier, for: indexPath) as! DateCollectionViewCell
             cell.dateLabel.textColor = self.black
             cell.dateLabel.text = text
-            if indexPath.section % 2 != 0 {
-                cell.backgroundColor = backgroundColor1
-            } else {
-                cell.backgroundColor = backgroundColor2
-            }
+            cell.backgroundColor = self.getColor(indexPath: indexPath, colorString: colorString)
             return cell
         }
+    }
+    
+    func getColor(indexPath: IndexPath, colorString: String) -> UIColor {
+        var color = UIColor()
+        if colorString == "green" || colorString == "white" {
+            color = self.colorDictionary[colorString]!
+        } else {
+            if indexPath.section % 2 != 0 {
+                color = self.colorDictionary["grey" + colorString]!
+            } else {
+                color = self.colorDictionary["light" + colorString]!
+            }
+        }
+        return color
     }
     
     func reloadCollectionView() {
@@ -145,14 +140,14 @@ class CollectionViewController: UIViewController  {
 
     }
     
-    func alertWithAction(title: String, message: String, bool: Bool) {
+    func alertWithPickerMenu(title: String, message: String, teacher: Bool) {
         alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.view.addSubview(pickerMenu)
         
         alertController.addAction(UIAlertAction(title: "Terug", style: UIAlertActionStyle.default,handler: nil))
         alertController.addAction(UIAlertAction(title: "Ja",style: UIAlertActionStyle.default, handler:  {
             (_)in
-            if bool == true {
+            if teacher == true {
                self.teacherPickerView()
             } else {
                 self.studentPickerView()
@@ -160,113 +155,57 @@ class CollectionViewController: UIViewController  {
             
         }))
         self.present(alertController, animated: true, completion: nil)
-        
-            
     }
     
     func teacherPickerView() {
         // check the request is within the schedule
-        if self.selectedItem.section + self.selectedRow <= 28 {
-            
-            // place the use id in the cells
-            CalendarDay.dataOfDate["0, " + String(self.selectedItem.row)]  = self.userId
-            
-            for i in 0...self.selectedRow - 1 {
-                let indexPath = IndexPath(row: self.selectedItem.row, section: self.selectedItem.section + i)
-                let stringIndexPath = self.convertIndexPath(indexPath: indexPath)
-                CalendarDay.dataOfDate[stringIndexPath] =  "Vrij"
-            }
-            
-            // save the data of the day in FireBase
-            self.ref.child("data").child(CalendarDay.calendarDayDate).setValue(CalendarDay.dataOfDate)
-            
-        } else {
+        guard self.selectedItem.section + self.selectedRow <= 28 else {
             self.alert(title: "Error", message: "Plan de uren binnen de roostertijden.")
+            return
         }
+        
+        // place the use id in the cells
+        CalendarDay.dataOfDate["0, " + String(self.selectedItem.row)]  = self.userId
+            
+        for i in 0...self.selectedRow - 1 {
+            let indexPath = IndexPath(row: self.selectedItem.row, section: self.selectedItem.section + i)
+            let stringIndexPath = self.convertIndexPath(indexPath: indexPath)
+            CalendarDay.dataOfDate[stringIndexPath] =  "Vrij"
+        }
+            
+        // save the data of the day in FireBase
+        self.ref.child("data").child(CalendarDay.calendarDayDate).setValue(CalendarDay.dataOfDate)
+        
         self.collectionView.reloadData()
     }
     
     func studentPickerView() {
-        // check the request is within the schedule
-        if self.selectedItem.section + self.selectedRow <= 28 {
-            
+        // check if the request is within the schedule
+        guard self.selectedItem.section + self.selectedRow <= 28  else {
+            self.alert(title: "Error", message: "Plan de uren binnen de roostertijden.")
+            return
+        }
+        
             let section = self.selectedItem.section + self.selectedRow - 1
             let indexPath = IndexPath(row: self.selectedItem.row, section: section)
             let cell = self.collectionView.cellForItem(at: indexPath) as! ContentCollectionViewCell
             
             // check if teacher is avaible for the input of the student
-            if cell.contentLabel.text == "Vrij" {
-                
+            guard cell.contentLabel.text == "Vrij" else {
+                self.alert(title: "Error", message: "De docent is niet beschikbaar op deze tijden. Check uw invoer.")
+                return
+            }
                 for i in 0...self.selectedRow - 1 {
                     let indexPath = String(self.selectedItem.section + i) + ", " + String(self.selectedItem.row)
                     CalendarDay.dataOfDate.updateValue(self.userId, forKey: indexPath)
                 }
                 self.ref.child("data").child(CalendarDay.calendarDayDate).setValue(CalendarDay.dataOfDate)
-                
-            } else {
-                self.alert(title: "Error", message: "De docent is niet beschikbaar op deze tijden. Check uw invoer.")
-            }
-        } else {
-            self.alert(title: "Error", message: "Plan de uren binnen de roostertijden.")
-        }
         self.collectionView.reloadData()
-    }
-    
-    func pickerAlertStudent(title: String, message: String) {
-        alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alertController.view.addSubview(pickerMenu)
-        
-        alertController.addAction(UIAlertAction(title: "Terug", style: UIAlertActionStyle.default,handler: nil))
-        alertController.addAction(UIAlertAction(title: "Ja",style: UIAlertActionStyle.default, handler:  {
-            (_)in
-            
-            
-            // check the request is within the schedule
-            if self.selectedItem.section + self.selectedRow <= 28 {
-                let section = self.selectedItem.section + self.selectedRow - 1
-
-                let indexPath = IndexPath(row: self.selectedItem.row, section: section)
-                let cell = self.collectionView.cellForItem(at: indexPath) as! ContentCollectionViewCell
-
-                // check if teacher is avaible for the input of the student
-                if cell.contentLabel.text == "Vrij" {
-                    
-                    for i in 0...self.selectedRow - 1 {
-                        let indexPath = String(self.selectedItem.section + i) + ", " + String(self.selectedItem.row)
-                        CalendarDay.dataOfDate.updateValue(self.userId, forKey: indexPath)
-                    }
-                    self.ref.child("data").child(CalendarDay.calendarDayDate).setValue(CalendarDay.dataOfDate)
-                    
-                } else {
-                    self.alert(title: "Error", message: "De docent is niet beschikbaar op deze tijden. Check uw invoer.")
-                }
-                
-            } else {
-                self.alert(title: "Error", message: "Plan de uren binnen de roostertijden.")
-            }
-            
-            self.collectionView.reloadData()
-        }))
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    func pickerAlertTeacher(title: String, message: String) {
-        alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alertController.view.addSubview(pickerMenu)
-        
-        alertController.addAction(UIAlertAction(title: "Terug", style: UIAlertActionStyle.default,handler: nil))
-        alertController.addAction(UIAlertAction(title: "Ja",style: UIAlertActionStyle.default, handler:  {
-            (_)in
-            
-
-        }))
-        self.present(alertController, animated: true, completion: nil)
     }
 }
     
 
-// MARK - UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource
 extension CollectionViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int
@@ -280,33 +219,35 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
     }
  
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         self.selectedItem = indexPath
-        let sectionName = IndexPath(row: self.selectedItem.row , section: 0)
         let cell = collectionView.cellForItem(at: indexPath) as! ContentCollectionViewCell
         
-        // check if section already is used, if not user could schedule the section
-        if CalendarDay.dataOfDate.values.contains(self.userId) {
-            self.alert(title: "Foutmelding", message: "U heeft deze dag al ingepland.")
-            
-        } else if CalendarDay.dataOfDate[(self.convertIndexPath(indexPath: sectionName))] == nil {
-            if cell.contentLabel.text == "_" {
-                if self.userStatus == 1 || self.userStatus == 2 {
-                    self.alertWithAction(title: " Wilt u " + self.timeSlots[self.selectedItem.section - 1] +  " uur inplannen? \n\n\n\n\n\n\n\n\n", message: " U moet minimaal 1 uur inplannen.", bool: true)
-                } else {
-                    self.alert(title: "Foutmelding", message: "U kunt als leerling geen beschikbare tijden invoeren.")
-                }
-
-            }
         
-        } else if cell.contentLabel.text == "Vrij" {
-            if self.userStatus == 0 {
-                self.alertWithAction(title: " Wilt u " + timeSlots[self.selectedItem.section - 1] +  " uur inplannen? \n\n\n\n\n\n\n\n\n", message: " U moet minimaal 1 uur inplannen.", bool: false)
-            } else {
-                self.alert(title: "Foutmelding", message: "U kunt als docent geen docent reserveren.")
-            }
-        } else {
+        guard cell.contentLabel.text == "Vrij" || cell.contentLabel.text == "_" else{
             self.alert(title: "Foutmelding", message: "De sectie is al ingepland")
+            return
+        }
+        
+        if cell.contentLabel.text == "Vrij" {
+            guard self.userStatus == 0 && indexPath.row != 0 else {
+                self.alert(title: "Foutmelding", message: "U kunt als docent geen docent reserveren.")
+                return
+            }
+            
+            self.alertWithPickerMenu(title: " Wilt u " + timeSlots[self.selectedItem.section - 1] +  " uur inplannen? \n\n\n\n\n\n\n\n\n", message: " U moet minimaal 1 uur inplannen.", teacher: false)
+        } else if cell.contentLabel.text == "_" {
+            
+            guard self.userStatus == 1 || self.userStatus == 2 else {
+                self.alert(title: "Foutmelding", message: "U kunt als leerling geen beschikbare tijden invoeren.")
+                return
+            }
+            
+            guard CalendarDay.dataOfDate.values.contains(self.userId) == false else {
+                self.alert(title: "Foutmelding", message: "U heeft deze dag al ingepland.")
+                return
+            }
+            
+            self.alertWithPickerMenu(title: " Wilt u " + self.timeSlots[self.selectedItem.section - 1] +  " uur inplannen? \n\n\n\n\n\n\n\n\n", message: "U moet minimaal 1 uur inplannen.", teacher: true)
         }
     }
     
@@ -316,64 +257,55 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 return configurateCell(indexPath: indexPath,
-                                       bool: false,
+                                       contentCell: false,
                                        text: "Tijd",
-                                       backgroundColor1: self.white,
-                                       backgroundColor2: self.white)
+                                       colorString: "White")
                 
             } else {
                 if CalendarDay.dataOfDate[(self.convertIndexPath(indexPath: indexPath))] != nil {
                     return configurateCell(indexPath: indexPath,
-                                           bool: true,
+                                           contentCell: true,
                                            text: CalendarDay.dataOfDate[(self.convertIndexPath(indexPath:indexPath))]!,
-                                           backgroundColor1: self.green,
-                                           backgroundColor2: self.green)
+                                           colorString: "green")
         
                 } else {
                     return configurateCell(indexPath: indexPath,
-                                           bool: true,
+                                           contentCell: true,
                                            text: "Vrij",
-                                           backgroundColor1: self.grey,
-                                           backgroundColor2: self.white)
+                                           colorString: "White")
                 }
             }
         } else {
             if indexPath.row == 0 {
                 return configurateCell(indexPath: indexPath,
-                                       bool: false,
+                                       contentCell: false,
                                        text: timeSlots[((indexPath as NSIndexPath).section) - 1],
-                                       backgroundColor1: self.grey,
-                                       backgroundColor2: self.white)
+                                       colorString: "White")
             } else {
                 if CalendarDay.dataOfDate[(self.convertIndexPath(indexPath:indexPath))] != nil {
-                    var color1 = UIColor()
-                    var color2 = UIColor()
+                    var color = String()
                     if CalendarDay.dataOfDate[(self.convertIndexPath(indexPath:indexPath))] == "Vrij"{
-                        color1 = self.greyGreen
-                        color2 = self.lightGreen
+                        color = "Green"
                     }
                     else {
-                        color1 = self.greyRed
-                        color2 = self.lightRed
+                        color = "Red"
                     }
                     return configurateCell(indexPath: indexPath,
-                                           bool: true,
+                                           contentCell: true,
                                            text: CalendarDay.dataOfDate[(self.convertIndexPath(indexPath:indexPath))]!,
-                                           backgroundColor1: color1,
-                                           backgroundColor2: color2)
+                                           colorString: color)
                 } else {
                     return configurateCell(indexPath: indexPath,
-                                           bool: true,
+                                           contentCell: true,
                                            text: "_",
-                                           backgroundColor1: self.grey,
-                                           backgroundColor2: self.white)
+                                           colorString: "White")
                 }
             }
         }
     }
 }
 
-// MARK - UIPickerViewDataSource
+// MARK: - UIPickerViewDataSource
 extension CollectionViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

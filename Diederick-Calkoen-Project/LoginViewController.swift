@@ -19,7 +19,6 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
         
         checkAdmin()
         autoLogin()
@@ -53,24 +52,21 @@ class LoginViewController: UIViewController {
     
     // MARK: Login the user automatic when it was already logged in.
     func autoLogin() {
-        FIRAuth.auth()!.addStateDidChangeListener() { auth, user in
-            if user != nil {
+        
+    if let uid = FIRAuth.auth()?.currentUser?.uid {
+        let ref = FIRDatabase.database().reference().child("users")
+        
+        ref.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.hasChildren() {
+                UserDefaults.standard.removeObject(forKey: "userData")
+                UserDefaults.standard.synchronize()
                 
-                let userId = FIRAuth.auth()?.currentUser?.uid
-                let ref = FIRDatabase.database().reference().child("users").child(userId!)
-                
-                ref.observeSingleEvent(of: .value, with: { (snapshot) in
-                    UserDefaults.standard.removeObject(forKey: "userData")
-                    UserDefaults.standard.synchronize()
-                    
-                    // Get user value and save it in userDefaults
-                    let dict = snapshot.value as? NSDictionary
-                    UserDefaults.standard.set(dict, forKey: "userData")
-                    UserDefaults.standard.synchronize()
-                    
-                    self.performSegue(withIdentifier: "toHomeView", sender: self)
-                })
-            }
+                // Get user value and save it in userDefaults
+                let dict = snapshot.value as? NSDictionary
+                UserDefaults.standard.set(dict, forKey: "userData")
+                UserDefaults.standard.synchronize()
+                }
+            })
         }
     }
     
@@ -86,11 +82,13 @@ class LoginViewController: UIViewController {
                                password: textFieldLoginPassword.text!) {
                                 (user, error) in
                                 if error != nil {
-                                    self.alert(title: "Error with loggig in", message: "Enter a valid email and password.")
+                                    self.alert(title: "Foutmelding met inloggen.", message: "Type een geldig email en wachtwoord.")
                                 }
+                                self.autoLogin()
+                                self.performSegue(withIdentifier: "toHomeView", sender: self)
         }
     }
-    // MARK: Go to registerView
+    
     @IBAction func registerDidTouch(_ sender: Any) {
         self.performSegue(withIdentifier: "toRegisterView", sender: self)
     }
@@ -98,7 +96,7 @@ class LoginViewController: UIViewController {
     // MARK: Alert function
     func alert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+        alertController.addAction(UIAlertAction(title: "Terug", style: UIAlertActionStyle.default,handler: nil))
         
         self.present(alertController, animated: true, completion: nil)
     }
