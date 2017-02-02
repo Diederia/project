@@ -5,7 +5,7 @@
 * Januari/februari 2017 
 * [![BCH compliance](https://bettercodehub.com/edge/badge/Diederia/project)](https://bettercodehub.com)
 
-De Zus & Zo app is een aplicatie voor de iphone om bijles docenten en leerlingen van Zus & Zo aanelkaar te koppelen. De docenten van Zus & Zo publiceren hun beschikbare uren in een rooster van een kalenderdag. De leerlingen kunnen vervolgens de nog niet geboekte uren reserveren. 
+De Zus & Zo app is een applicatie voor de iPhone om bijles docenten en leerlingen van Zus & Zo aan elkaar te koppelen. De docenten van Zus & Zo publiceren hun beschikbare uren in een rooster van een kalenderdag. De leerlingen kunnen vervolgens de nog niet geboekte uren reserveren. 
 
 ## Afbeeldingen van de app
 
@@ -20,9 +20,9 @@ __1 InlogView:__
 
 __2 RegisterView:__
 * Texfields voor emailadres, wachtwoord en bevestigingswachtwoord.
-* Segment controller om een leerling of docent te kiezen. Deze is niet zichtbaar wanneer een admin user zich registreerd.
+* Segment controller om een leerling of docent te kiezen. Deze is niet zichtbaar wanneer een admin user zich registreert.
 * Texfields voor voornaam, achternaam, id en mobiel.
-* Registreren button om de regristratie te voltooien.
+* Registreren button om de registratie te voltooien.
 
 __3 CalendarView: __
 * < > button om door de kalender heen te scrollen.
@@ -36,8 +36,8 @@ __6:__ ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%
 __4 CollectionView:__
 * Cellen met de uren van de dag
 * Als er in de kolomkop vrij staat is de kolom vrij, is de kolom gepland door een docent dan staat zijn ID in de kolomkop.
-* Een cell is vrij om te reserveren door een leerling wanneer die groen is.
-* Een cell is rood wanneer de leerling een uur heeft gereserveerd.
+* Een cel is vrij om te reserveren door een leerling wanneer die groen is.
+* Een cel is rood wanneer de leerling een uur heeft gereserveerd.
 
 __5 CollectionView:__
 * Alert om aanvraag van de user te verwerken.
@@ -48,10 +48,10 @@ __6 SettingsView:__
 * In de labels wordt de overige informatie over de user weergegeven.
 
 ## CopyRight statement
-Voor dit project geldt een MIT lisence. Alle code kan vrij gerbuikt worden als gerefereerd wordt naar dit poject. Veder kunt u mij niet aansprakelijk stellen. Meer informatie kunt u vinden in LISENCE. 
+Voor dit project geldt een MIT lisence. Alle code kan vrij gebruikt worden als gerefereerd wordt naar dit project. Veder kunt u mij niet aansprakelijk stellen. Meer informatie kunt u vinden in LISENCE. 
 
 ## Acknowledgements
-Voor de Zus & Zo app is er gebruik gemaakt van de JTAppleCalendar en de CustomCollectionViewLayout. De JTAppleCalendar en de CustomCollectionViewLayout hebben een MIT License en kunnen dus vrij grbuikt worden. Meer informatie over de JTAppleCalendar kunt vinden op https://github.com/patchthecode/JTAppleCalendar. Meer informatie over CustomCollectionViewLayout kunt u vinden op http://www.brightec.co.uk/ideas/uicollectionview-using-horizontal-and-vertical-scrolling-sticky-rows-and-columns.
+Voor de Zus & Zo app is er gebruik gemaakt van de JTAppleCalendar en de CustomCollectionViewLayout. De JTAppleCalendar en de CustomCollectionViewLayout hebben een MIT License en kunnen dus vrij gebuikt worden. Meer informatie over de JTAppleCalendar kunt vinden op https://github.com/patchthecode/JTAppleCalendar. Meer informatie over CustomCollectionViewLayout kunt u vinden op http://www.brightec.co.uk/ideas/uicollectionview-using-horizontal-and-vertical-scrolling-sticky-rows-and-columns.
 
 ## Built With
 * Swift 3
