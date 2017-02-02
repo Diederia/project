@@ -17,7 +17,7 @@ Plannen van bijlessen die worden gegeven door de docenten van Zus & Zo aan versc
 2: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.29.png)
 3: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.21.png)
 
-* Op de eerste afbeelding is de rooster view te zien. Op de tweede afbeelding is de picker view waarmee de uren worden gekozen te zien. Op de derde afbeelding is de instellingen view te zien.
+* Op de eerste afbeelding is het rooster te zien. Op de tweede afbeelding is de picker view waarmee de uren worden gekozen te zien. Op de derde afbeelding is de instellingen view te zien.
 
 1: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.52.png)
 2: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.49.11.png)
