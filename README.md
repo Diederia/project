@@ -11,12 +11,15 @@
 Plannen van bijlessen die worden gegeven door de docenten van Zus & Zo aan verschillende leerlingen, waarbij de docenten hun beschikbare uren publiceren en de leerlingen vervolgens daarop kunnen inboeken. 
 
 ## Afbeeldingen van de app
-![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.49.23.png)
-![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.29.png)
-![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.21.png)
-![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.52.png)
-![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.49.11.png)
-![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.39.png)
+* De eerste afbeelding is de view om in te loggen. De Tweede afbeelding de view om te registreren en derde afbeelding de view met de kalender en preview.
+1: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.49.23.png)
+2: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.29.png)
+3: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.21.png)
+
+* Op de eerste afbeelding is de rooster view te zien. Op de tweede afbeelding is de picker view waarmee de uren worden gekozen te zien. Op de derde afbeelding is de instellingen view te zien.
+1: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.52.png)
+2: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.49.11.png)
+3: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.39.png)
 
 
 
