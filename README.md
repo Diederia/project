@@ -2,7 +2,7 @@
 ## Programmeer project minor programmeren
 * Diederick Calkoen 
 * 10684883 
-* Januari 2017 
+* Januari/februari 2017 
 * [![BCH compliance](https://bettercodehub.com/edge/badge/Diederia/project)](https://bettercodehub.com)
 
 De Zus & Zo app is een aplicatie voor de iphone om bijles docenten en leerlingen van Zus & Zo aanelkaar te koppelen. De docenten van Zus & Zo publiceren hun beschikbare uren in een rooster van een kalenderdag. De leerlingen kunnen vervolgens de nog niet geboekte uren reserveren. 
