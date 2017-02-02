@@ -4,7 +4,7 @@
   * Diederick Calkoen 
   * 10684883 
   * Januari 2017 
-  [![BCH compliance](https://bettercodehub.com/edge/badge/Diederia/project)](https://bettercodehub.com)
+  * [![BCH compliance](https://bettercodehub.com/edge/badge/Diederia/project)](https://bettercodehub.com)
 
 
 ## Doelstelling van de app 
@@ -183,7 +183,3 @@ De optionele onderdelen zijn: de leerling en de docent aanpassingen kunnen maken
 
 ### Disclaimer
 Er zal geen vergoeding plaatsvinden vanuit Zus & Zo.
-
-### Better Code Hub
-[![BCH compliance](https://bettercodehub.com/edge/badge/Diederia/project)](https://bettercodehub.com)
-
