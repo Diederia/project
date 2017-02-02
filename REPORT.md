@@ -8,7 +8,7 @@ __De Zus & Zo app is een applicatie voor de iPhone om docenten en leerlingen van
 __1:__ ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.21.png)
 __2:__ ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.52.png)
 
-__1:__ Scrollen door de kalender view.
+__1:__ De kalender view met de preview van de kalenderdag.
 
 __2:__ Weergave van de kalenderdag met de ingeplande uren van docenten en leerlingen.
 
