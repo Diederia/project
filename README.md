@@ -4,7 +4,6 @@
   * Diederick Calkoen 
   * 10684883 
   * Januari 2017 
-  * [![BCH compliance](https://bettercodehub.com/edge/badge/Diederia/project)](https://bettercodehub.com)
 
 ## Doelstelling van de app 
 Plannen van bijlessen die worden gegeven door de docenten van Zus & Zo aan verschillende leerlingen, waarbij de docenten hun beschikbare uren publiceren en de leerlingen vervolgens daarop kunnen inboeken.
