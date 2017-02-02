@@ -1,205 +1,47 @@
 # Zus & Zo 
-## App voor bijles inplannen
 * Programmeer project minor programmeren
   * Diederick Calkoen 
   * 10684883 
   * Januari 2017 
   * [![BCH compliance](https://bettercodehub.com/edge/badge/Diederia/project)](https://bettercodehub.com)
 
-
-## Doelstelling van de app 
-Plannen van bijlessen die worden gegeven door de docenten van Zus & Zo aan verschillende leerlingen, waarbij de docenten hun beschikbare uren publiceren en de leerlingen vervolgens daarop kunnen inboeken. 
+De Zus & Zo app is een aplicatie voor de iphone om bijles docenten en leerlingen van Zus & Zo aan elkaar te koppelen. De docenten van Zus & Zo publiceren hun beschikbare uren in een rooster van een kalenderdag. De leerlingen kunnen vervolgens op de nog niet geboekte uren reserveren. 
 
 ## Afbeeldingen van de app
-* De eerste afbeelding is de view om in te loggen. De Tweede afbeelding de view om te registreren en derde afbeelding de view met de kalender en preview.
+
 
 1: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.49.23.png)
 2: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.29.png)
 3: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.21.png)
 
-* Op de eerste afbeelding is het rooster te zien. Op de tweede afbeelding is de picker view waarmee de uren worden gekozen te zien. Op de derde afbeelding is de instellingen view te zien.
+1 InlogView: 
+* Textfields voor emailadres en wachtwoord.
+* Login button om in te loggen.
+* Registreer button om te registreren. De regristratie button is alleen zichtbaar wanneer er nog geen admin user bekent is in de database.
+2 RegisterView:
+* Texfields voor emailadres, wachtwoord en bevestigingswachtwoord.
+* Segment controller om een leerling of docent te kiezen. Deze is niet zichtbaar wanneer een admin user zich registreerd.
+* Texfields voor voornaam, achternaam, id en mobiel.
+* Registreren button om de regristratie te voltooien. 
+3 CalendarView: 
+* < > button om door de kalender heen te scrollen.
+* Kalenderdagen kunnen aangeklikt worden en dan wordt er een preview van weergegeven.
+* In de preview worden alle docenten weergeven die zichzelf hebben ingeroosterd op de kalenderdag.
 
-1: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.52.png)
-2: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.49.11.png)
-3: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.39.png)
+4: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.52.png)
+5: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.49.11.png)
+6: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.39.png)
+
+5 CollectionView:
+* 
+*
 
 
+## CopyRight statement
+Voor dit project geldt een MIT lisence. Alle code kan vrij gerbuikt worden als gerefereerd wordt naar dit poject. Veder kunt u mij niet aansprakelijk stellen. Meer informatie kunt u vinden in LISENCE. 
 
-### Technische omgeving  
-*	Database in de cloud
-*	Database: Firebase
-*	Programmeertaal Swift
-*	Custom UITableView Cell
-* UICollectionView
-* JTAppleCalendar
-*	JSON als gegevensformaat voor de datatransfer over het net en database
-
-### Gebruikers van de app 
-1.	Admin
-2.	Docent
-3.	Leerling
-
-### Gegevens vast te leggen van 
-1.	 Docenten
-2.	 Leerlingen
-3.	 Scholen
-4.	 Leslocaties
-5.	 Type opleidingen
-6.	 Klassen
-7.	 Vakken
-8.	 Tarieven docenten (de kosten voor Zus & Zo)
-9. 	Tarieven leerlingen (wat de leerling betaald voor de les)
-10. Lesbeoordeling
-
-### Wie doet wat?
-#### a) Admin
-1.	Invoeren en deactiveren docenten
-2.	Invoeren en deactiveren leerlingen
-3.	Algemeen blokkeren les data en uren
-4.	Toegang als docent om lesuren aan te passen
-5.	Toegang als leerling om lesuren aan te passen
-6. Handmatig aanpassen boetebedragen als gevolg ontijdig afzeggen
-
-#### b)	Docent
-1. Openstellen van lesuren
-2.	Inzien van geboekte uren
-3.	Boeken, aanpassen of verwijderen geboekte uren als leerling
-4.	Aangeven of een les heeft plaatsgehad als afgesproken
-
-#### c)	Leerling
-1.	Boeken van lessen (ten minste één uur en te verlengen met blokken van 30 minuten)
-2.	Inzien van geboekte uren
-3.	Aanpassen of verwijderen geboekte uren als leerling
-*	Tot 72 uur vooraf, vrij aanpasbaar
-*	Tot 24 uur vooraf, aanpasbaar maar tegen boetebedrag (half geld)
-*	Na 24 uur vooraf: niet meer aanpasbaar, vol tarief betalen
-4.	Kwaliteit les beoordelen (1 – 5), achteraf – facultatief
-
-### 1.	Gebruik van de app door Admin
-#### Invoeren leslocaties (maximaal 4)
-*	locatie1, locatie2, locatie3, locatie4
-*	Straat
-*	Huisnummer
-*	Postcode
-* Plaats
-
-#### Invoeren standaard gegevens van docent
-* Docent-nummer
-* Docent-wachtwoord
-* Voornaam
-* Tussenvoegsel
-* Achternaam
-* Straat (zichtbaar – niet zichtbaar)
-* Huisnummer (zichtbaar – niet zichtbaar)
-* Postcode (zichtbaar – niet zichtbaar)
-* Plaats (zichtbaar – niet zichtbaar)
-* Mobiel nummer
-* Email-adres
-* Bijlesvakken (maximaal 6)
-* Mogelijke leslocaties (thuis, locatie1, locatie2, locatie3, locatie4)
-* Tarief inkoop
-* Tarief klant
-* Foto
-
-#### Blokkeren data
-*	Blokkeren data waarop geen bijlessen geboekt kunnen worden
-*	Blokkeren kan alleen in toekomst (vanaf opvolgende dag)
-
-#### Inzien welke lessen zijn geboekt
-*	Alleen per docent inzien, dus niet alle docenten tegelijk
-
-#### Optreden als administrator
-*	In staat zijn lessen te verwijderen en aan te passen zoals een docent dat kan doen
-
-#### Invoeren standaard gegevens van leerling
-*	Leerling-nummer
-*	Leerling-wachtwoord
-*	Voornaam
-*	Tussenvoegsel
-*	Achternaam
-*	Straat
-*	Huisnummer
-*	Postcode
-*	Plaats
-*	Mobiel nummer leerling
-*	Mobiel nummer moeder
-*	Mobiel nummer vader
-*	Email-adres leerling
-*	Email-adres ouders (factuur-email-adres)
-*	Naam school
-*	Type opleiding
-*	klas
-
-#### Algemene gegevens
-*	Scholen
-*	Type opleidingen
-*	Klassen
-*	Vakken
-
-### 2.	Gebruik van de app door de docent
-#### Invoeren beschikbare uren door docent
-*	Docent opent de kalender (specificatie tot kwartieren).
-*	Docent geeft beschikbare lestijden aan door groene kleuring van uren.
-*	Mogelijke locatie aangeven van de les (thuis, locatie1, locatie2, locatie3, locatie4)
-
-#### Uitlezen geboekte lesuren door leerlingen
-*	Docent kan scrollen door agenda en ziet welke uren les gegeven moet worden aan wie
-*	Geboekte lessen staan in oranje
-*	Informatie geboekte lessen (naam leerling, mobiel leerling, onderwerp les)
-
-#### Verwijderen geboekte les
-*	Docent kan les verwijderen
-*	Docent kan vervolgens uur tonen als geblokkeerd of juist open staand voor een 
-
-#### Docent gebruikt app als leerling
-*	Docent krijgt permissie van leerling om app voor hem/haar te benaderen
-*	Docent vult geboekte uren zelf in
-
-### 3.	Gebruik van de app door de leerling
-#### Boeken lessen door leerling
-* Leerling opent de kalender (specificatie tot kwartieren).
-* Leerling boekt lessen door groene kleuring van uren.
-* Locatie aangeven van de les (kiezen uit beschikbare locaties zoals opgegeven door docent).
-
-#### Uitlezen geboekte lesuren door leerlingen
-*	Leerling kan scrollen door agenda en zien welke lesuren door hem/haar zijn geboekt.
-*	Geboekte lessen staan in oranje
-*	Informatie geboekte lessen (naam leerling, mobiel leerling, onderwerp les)
-
-#### Verwijderen geboekte les
-* Leerling kan les verwijderen
-  * Tot 72 uur vooraf, vrij aanpasbaar
-  * Tot 24 uur vooraf, aanpasbaar maar tegen boetebedrag (half geld)
-  * Na 24 uur vooraf: niet meer aanpasbaar, vol tarief betalen
-*	Email-bericht (liever sms) aan docent dat les is gecanceld
-*	Uren blijven wel geblokt staan, pas weer te boeken als docent ze opnieuw heeft opengesteld
-
-#### Docent gebruikt app als leerling
-*	Docent krijgt permissie van leerling om app voor hem/haar te benaderen
-*	Docent vult geboekte uren zelf in
-
-### Visual sketch
-![alt text] (https://github.com/Diederia/project/blob/master/Docs/schets%20views%20app.PNG)
-
-User    | inlogView | inputView | calenderView | cellView | verwijdering |
-------- | --------- | --------- | ------------ | -------- | -----------  |
-Admin   | YES       | YES       | YES          | YES      | YES          |
-Docent  | YES       | YES       | YES          | YES      | REQUEST      |
-leerling| YES       | YES       | YES          | YES      | CONDITIONALLY|
-
-### Technical problems or limitations
-De gebruikers van de app moeten veel data invoeren om een bijles tot stand te laten komen, dit wordt als vervelend ervaren. Om dit te voorkomen wordt er veel grafisch weergegeven en vooraf ingevuld.
-
-### Similar applications
-InPlanning App is een voorbeeld van een inplannings app, alleen hierbij gaat het om inplannen van werkroosters. Er kan niet verschillende gebruikers aan elkaar gekoppeld worden en zo een les ingepland worden. Ook kan er geen keuze gemaakt worden in welke les er gevolgd wilt worden. 
-
-### Minimum viable product
-De minimale voorwaarden waaraan de app moet voldoen aan het einde van het project zijn: de leerling moet een bijles kunnen inplannen bij een docent. De admin moet deze kunnen verwijderen. 
-De optionele onderdelen zijn: de leerling en de docent aanpassingen kunnen maken, boetebedrag wordt verrekent bij te late afmelding. Uitgebreide beschrijving van leerling en docent. 
-
-### External Code
-* JTAppleCalendar: The MIT License (MIT). Copyright (c) 2016 JayT <patchthecode@gmail.com>, permission is granted and free of charge.
-* CustomCollectionViewLayout: The MIT License (MIT). Copyright (c) 2014 brightec, permission is granted and free of charge.
+## Acknowledgements
+Voor de Zus & Zo app is er gebruik gemaakt van de JTAppleCalendar en de CustomCollectionViewLayout. De JTAppleCalendar en de CustomCollectionViewLayout hebben een MIT License en kunnen dus vrij grbuikt worden. Meer informatie over de JTAppleCalendar kunt vinden op https://github.com/patchthecode/JTAppleCalendar. Meer informatie over CustomCollectionViewLayout kunt u vinden op http://www.brightec.co.uk/ideas/uicollectionview-using-horizontal-and-vertical-scrolling-sticky-rows-and-columns.
 
 ### Disclaimer
 Er zal geen vergoeding plaatsvinden vanuit Zus & Zo.
