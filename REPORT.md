@@ -9,6 +9,7 @@ __1:__ ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%
 __2:__ ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.52.png)
 
 __1:__ Scrollen door de kalender view.
+
 __2:__ Weergave van de kalenderdag met de ingeplande uren van docenten en leerlingen.
 
 ## Design
