@@ -5,6 +5,8 @@
 //  Created by Diederick Calkoen on 10/01/17.
 //  Copyright © 2017 Diederick Calkoen. All rights reserved.
 //
+// This view controller shows the calendar and the preview of the calendar day.
+// From this view controller is it also possible to got to settings, register (if you are an admin user) and log-out.
 
 import UIKit
 import JTAppleCalendar
@@ -43,6 +45,7 @@ class ViewController: UIViewController {
     var previewIds = [String]()
     var previewHours = [String]()
     
+    // MARK: - Override functions
     override func viewDidLoad() {
         super.viewDidLoad()
         registerButton.isHidden = true
@@ -70,6 +73,7 @@ class ViewController: UIViewController {
     }
     
     // MARK: - Functions
+    // function to give the rirgt layout to the views.
     func setupRoundCorners() {
         monthView.roundCorners(corners: [.topLeft, .topRight], radius: 5)
         daysView.layer.borderWidth = 2
@@ -90,6 +94,7 @@ class ViewController: UIViewController {
         self.tableView.reloadData()
     }
     
+    // Function to handle the parameters of the JTAppleCalendar.
     func setupCalanderParameters() {
         TimeZone.ReferenceType.default = TimeZone(abbreviation: "UTC")!
         formatter.timeZone = TimeZone.ReferenceType.default
@@ -99,10 +104,11 @@ class ViewController: UIViewController {
         calendarView.dataSource = self
         calendarView.delegate = self
         
-        calendarView.registerCellViewXib(file: "CellView") // Registering your cell is manditory
-        calendarView.cellInset = CGPoint(x: 3, y: 3)       // default is (3,3)
+        calendarView.registerCellViewXib(file: "CellView")
+        calendarView.cellInset = CGPoint(x: 3, y: 3)
     }
     
+    // Function to setup the view with the given parameters.
     func setupViewsOfCalendar(from visibleDates: DateSegmentInfo) {
         guard let startDate = visibleDates.monthDates.first else {
             return
@@ -112,7 +118,7 @@ class ViewController: UIViewController {
         monthLabel.text = monthName
     }
     
-    // Function to handle the text color of the calendar
+    // Function to handle the text color of the calendar.
     func handleCellTextColor(view: JTAppleDayCellView?, cellState: CellState) {
         guard let myCustomCell = view as? CellView  else {
             return
@@ -131,7 +137,7 @@ class ViewController: UIViewController {
         }
     }
     
-    // Function to handle the calendar selection
+    // Function to handle the calendar selection.
     func handleCellSelection(view: JTAppleDayCellView?, cellState: CellState) {
         guard let myCustomCell = view as? CellView  else {
             return
@@ -147,12 +153,12 @@ class ViewController: UIViewController {
         }
     }
 
+    // Function to generate the preview table view of the calendar day.
     func configuratePreview() {
         self.previewHours.removeAll()
         self.previewIds.removeAll()
         getPreviewText()
         previewStack.isHidden = false
-        print(previewHours.count)
 
         if previewIds.count != 0 {
             previewTitleLabel.text = "Beschikbaarheid " + CalendarDay.calendarDayDate
@@ -165,6 +171,7 @@ class ViewController: UIViewController {
         }
     }
     
+    // Function to convert the data of the database to an array of strings.
     func getPreviewText () {
         var counter = 0
         var userId = String()
@@ -235,13 +242,13 @@ class ViewController: UIViewController {
     }
 }
 
-// MARK - JT Apple Calendar
+// MARK: - JT Apple Calendar
 extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelegate {
+    
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
-        
-        let startDate = formatter.date(from: "2017 02 01")! // You can use date generated from a formatter
-        let endDate = formatter.date(from: "2100 02 01")!                                // You can also use dates created from this function
-        let aCalendar = Calendar.autoupdatingCurrent                     // Make sure you set this up to your time zone. We'll just use default here
+        let startDate = formatter.date(from: "2017 02 01")!
+        let endDate = formatter.date(from: "2100 02 01")!
+        let aCalendar = Calendar.autoupdatingCurrent
         let parameters = ConfigurationParameters(startDate: startDate,
                                                  endDate: endDate,
                                                  numberOfRows: 6,
@@ -275,12 +282,11 @@ extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDele
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleDayCellView?, cellState: CellState) {
-        
         let month = Int(cellState.date.description[5..<7])
         let monthName = DateFormatter().monthSymbols[(month!-1) % 12]
         CalendarDay.calendarDayDate = cellState.text + " " + monthName
         
-        // retrieve data from FireBase
+        // Retrieve data from FireBase
         CalendarDay.dataOfDate.removeAll()
         self.dataRef = self.ref.child("data").child(CalendarDay.calendarDayDate)
         
@@ -290,6 +296,7 @@ extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDele
                     CalendarDay.dataOfDate[snap.key] = snap.value as! String?
                 }
             }
+            // Place the data of the day in the preview
             self.configuratePreview()
             self.performSelector(onMainThread: #selector(ViewController.reloadTableView), with: nil, waitUntilDone: true)
         })
@@ -314,7 +321,7 @@ extension ViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDele
     
 }
 
-// MARK - UITableView
+// MARK: - UITableView for the preview
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.previewIds.count

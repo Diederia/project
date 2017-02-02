@@ -5,6 +5,7 @@
 //  Created by Diederick Calkoen on 12/01/17.
 //  Copyright © 2017 Diederick Calkoen. All rights reserved.
 //
+// In this view the admin user could register a new user. All the data of the new user is saved in FireBase.
 
 import UIKit
 import Firebase
@@ -35,6 +36,7 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // MARK: - Override functions
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -44,7 +46,6 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
         coder.encode(firstNameTextField.text, forKey: "firstName")
         coder.encode(surenameTextField.text, forKey: "surename")
         coder.encode(idTextField.text, forKey: "id")
-        
         coder.encode(mobileTextField.text, forKey: "mobile")
         super.encodeRestorableState(with: coder)
     }
@@ -59,12 +60,14 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
         super.decodeRestorableState(with: coder)
     }
     
-    // MARK: - Hide keyboard when user touches return.
+    // MARK: - Functions
+    // Hide keyboard when user touches return.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
+    // Scoll the scroll view in to the right place when the user starts typing.
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
         if textField == firstNameTextField  || textField == surenameTextField  || textField == idTextField || textField == mobileTextField {
@@ -74,14 +77,14 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // Scoll the scroll view in to the right place when the user end typing.
     func textFieldDidEndEditing(_ textField: UITextField) {
         scrollView.setContentOffset(CGPoint(x:0, y:0), animated: true)
         textField.resignFirstResponder()
 
     }
     
-    // MARK: - Functions
-    // MARK: Alert function.
+    // Function to make an alert.
     func alert(title: String, message: String, actionTitle: String) {
         let alertController = UIAlertController(title: title , message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
@@ -89,7 +92,7 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    // MARK: Check the provided input for the new user.
+    // Check the provided input for the new user.
     func checkInput() {
         guard emailTextField.text! != "" && passwordTextField.text! != "" && confirmTextField.text! != "" else {
             self.alert(title: "Fountmelding met registreren", message: "Type een geldig emailadres, wachtwoord en bevestigings wachtwoord.\n Het wachtwoord moet minimaal 6 karakters lang zijn.", actionTitle: "Terug")
@@ -107,7 +110,7 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    // MARK: Save User in FireBase.
+    // Save User in FireBase.
     func saveUser(userStatus: Int) {
         FIRAuth.auth()!.createUser(withEmail: self.emailTextField.text!, password: passwordTextField.text!) { (user, error) in
             if error != nil {
@@ -130,7 +133,7 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    // MARK: Clear als texfield of the view.
+    // Clear all texfields of the view.
     func clearInputFields() {
         self.emailTextField.text = ""
         self.idTextField.text = ""

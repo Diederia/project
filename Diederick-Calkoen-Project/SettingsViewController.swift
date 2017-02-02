@@ -5,6 +5,7 @@
 //  Created by Diederick Calkoen on 20/01/17.
 //  Copyright © 2017 Diederick Calkoen. All rights reserved.
 //
+// In this view it is possible to see and change settings of there own account. You could change your password, id and mobile number.
 
 import UIKit
 import Firebase
@@ -35,9 +36,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     var userData = [String:AnyObject]()
     var ref = FIRDatabase.database().reference()
 
+    // MARK: - Override functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupText()
         setupRoundCorners()
         setupBorders()
@@ -51,7 +52,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
 
     
     // MARK: - Functions
-    // MARK: Setup the text in the labels and texfields.
+    // Setup the text in the labels and texfields.
     func setupText() {
         userData = UserDefaults.standard.value(forKey: "userData") as! [String : AnyObject]
         
@@ -69,7 +70,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    // MARK: Give the corners a radius of 5.
+    // Give the corners a radius of 5.
     func setupRoundCorners() {
         nameLabel.roundCorners(corners: [.topLeft, .bottomLeft], radius: 5)
         firstAndSurenameLabel.roundCorners(corners: [.topRight, .bottomRight], radius: 5)
@@ -87,7 +88,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         mobileButton.roundCorners(corners: [.topRight, .bottomRight], radius: 5)
     }
     
-    // MARK: Give the borders a width, radius and color
+    // Give the borders a width, radius and color
     func setupBorders(){
         settingsLabel.layer.cornerRadius = 5
         settingsLabel.layer.borderWidth = 2
@@ -105,13 +106,13 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         userLabel.layer.borderColor = UIColor.white.cgColor
     }
     
-    // MARK: Hide keyboard when user touches return.
+    // Hide keyboard when user touches return.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    // MARK: Scroll the view up, so you users sees the textfield.
+    // Scroll the view up, so you users sees the textfield.
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
         if textField == idTextField  || textField == mobileTextField  || textField == oldPasswordTextField || textField == newPasswordTextField || textField == confirmPasswordTextField {
@@ -121,12 +122,12 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    // MARK: Scroll the view down.
+    // Scroll the view down when the ends editing.
     func textFieldDidEndEditing(_ textField: UITextField) {
         scrollView.setContentOffset(CGPoint(x:0, y:0), animated: true)
     }
     
-    // MARK: Alert function.
+    // Function to make an alert.
     func alert(title: String, message: String, actionTitle: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: actionTitle, style: UIAlertActionStyle.default,handler: nil))
@@ -134,7 +135,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    // MARK: Check the provided input for the new password.
+    // Function to check the provided input for the new password.
     func checkInput() {
         guard newPasswordTextField.text! != "" && confirmPasswordTextField.text! != "" else {
             self.alert(title: "Fountmelding met registreren", message: "Type een geldig emailadres, wachtwoord en bevestigings wachtwoord.\n Het wachtwoord moet minimaal 6 karakters lang zijn.", actionTitle: "Terug")
@@ -152,7 +153,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    // MARK: Reauthenticate and update password.
+    // Function to reauthenticate and update password.
     func updatePassword(email: String, oldPassword: String, newPassword: String) {
         let credential = FIREmailPasswordAuthProvider.credential(withEmail: email, password: oldPassword)
         let firUser = FIRAuth.auth()?.currentUser

@@ -5,6 +5,7 @@
 //  Created by Diederick Calkoen on 12/01/17.
 //  Copyright © 2017 Diederick Calkoen. All rights reserved.
 //
+// This view controller shows the schedule of the calendar day. As stundent, teacher or admin user you could schedule yourself in the collection view. All the data of the collection view is saved in FireBase.
 
 import UIKit
 import Firebase
@@ -36,7 +37,7 @@ class CollectionViewController: UIViewController  {
     var userStatus = Int()
     var userData = [String:AnyObject]()
     
-    // MARK: - colors
+    // MARK: - Colors
     let colorDictionary: [String:UIColor] = ["lightWhite": UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1),
     "greyWhite": UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1),
     "green": UIColor(red: 0/255.0, green: 240/255.0, blue: 20/255.0, alpha: 1),
@@ -44,11 +45,11 @@ class CollectionViewController: UIViewController  {
     "greyGreen": UIColor(red: 0/255.0, green: 200/255.0, blue: 20/255.0, alpha: 0.5),
     "lightRed": UIColor(red: 230/255.0, green: 20/255.0, blue: 20/255.0, alpha: 0.3),
     "greyRed": UIColor(red: 230/255.0, green: 20/255.0, blue: 20/255.0, alpha: 0.5)]
-    
     let white = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
     let black = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1)
     let pink = UIColor(red: 225/255.0, green: 0/255.0, blue: 122/255.0, alpha: 1.0)
 
+    // MARK: - Override functions
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -70,6 +71,7 @@ class CollectionViewController: UIViewController  {
     }
     
     // MARk: - Functions
+    // Setup all items for the use of the collection view.
     func setupCollectionView() {
         dateLabel.text = CalendarDay.calendarDayDate
         collectionView.layer.borderWidth = 2
@@ -83,6 +85,7 @@ class CollectionViewController: UIViewController  {
         self.collectionView .register(UINib(nibName: "ContentCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: contentCellIdentifier)
     }
     
+    // Function to setup the picker view for the input of the user.
     func setupPickerView () {
         pickerMenu = UIPickerView(frame: CGRect(x: 10.0, y: 40.0, width: 250, height: 170))
         pickerMenu.delegate =  self;
@@ -92,6 +95,7 @@ class CollectionViewController: UIViewController  {
         pickerMenu.reloadAllComponents()
     }
     
+    // Function to handle all the parameters to configurate the cell of the collection view.
     func configurateCell(indexPath: IndexPath, contentCell: Bool, text: String, colorString: String) -> UICollectionViewCell {
         if contentCell == true {
             let cell = collectionView .dequeueReusableCell(withReuseIdentifier: contentCellIdentifier, for: indexPath) as! ContentCollectionViewCell
@@ -108,6 +112,7 @@ class CollectionViewController: UIViewController  {
         }
     }
     
+    // Function the get the right background color of the cell.
     func getColor(indexPath: IndexPath, colorString: String) -> UIColor {
         var color = UIColor()
         if colorString == "green" || colorString == "white" {
@@ -126,6 +131,7 @@ class CollectionViewController: UIViewController  {
         self.collectionView.reloadData()
     }
     
+    // Function to convert the index path to a string without brackets for FireBase.
     func convertIndexPath (indexPath: IndexPath) -> String {
         var stringIndexPath = String(describing: indexPath)
         stringIndexPath = stringIndexPath.replacingOccurrences(of: "[", with: "")
@@ -133,6 +139,7 @@ class CollectionViewController: UIViewController  {
         return stringIndexPath
     }
     
+    // Function for an alert.
     func alert(title: String, message: String) {
         alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Terug", style: UIAlertActionStyle.default,handler: nil))
@@ -140,6 +147,7 @@ class CollectionViewController: UIViewController  {
 
     }
     
+    // Function for an alert with a picker view.
     func alertWithPickerMenu(title: String, message: String, teacher: Bool) {
         alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.view.addSubview(pickerMenu)
@@ -157,6 +165,7 @@ class CollectionViewController: UIViewController  {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    // The picker view function when a teacher clicks on a cell.
     func teacherPickerView() {
         // check the request is within the schedule
         guard self.selectedItem.section + self.selectedRow <= 28 else {
@@ -166,7 +175,6 @@ class CollectionViewController: UIViewController  {
         
         // place the use id in the cells
         CalendarDay.dataOfDate["0, " + String(self.selectedItem.row)]  = self.userId
-            
         for i in 0...self.selectedRow - 1 {
             let indexPath = IndexPath(row: self.selectedItem.row, section: self.selectedItem.section + i)
             let stringIndexPath = self.convertIndexPath(indexPath: indexPath)
@@ -175,10 +183,10 @@ class CollectionViewController: UIViewController  {
             
         // save the data of the day in FireBase
         self.ref.child("data").child(CalendarDay.calendarDayDate).setValue(CalendarDay.dataOfDate)
-        
         self.collectionView.reloadData()
     }
     
+    // The picker view function when a student clicks on a cell.
     func studentPickerView() {
         // check if the request is within the schedule
         guard self.selectedItem.section + self.selectedRow <= 28  else {
@@ -186,26 +194,26 @@ class CollectionViewController: UIViewController  {
             return
         }
         
-            let section = self.selectedItem.section + self.selectedRow - 1
-            let indexPath = IndexPath(row: self.selectedItem.row, section: section)
-            let cell = self.collectionView.cellForItem(at: indexPath) as! ContentCollectionViewCell
-            
-            // check if teacher is avaible for the input of the student
-            guard cell.contentLabel.text == "Vrij" else {
-                self.alert(title: "Error", message: "De docent is niet beschikbaar op deze tijden. Check uw invoer.")
-                return
-            }
-                for i in 0...self.selectedRow - 1 {
-                    let indexPath = String(self.selectedItem.section + i) + ", " + String(self.selectedItem.row)
-                    CalendarDay.dataOfDate.updateValue(self.userId, forKey: indexPath)
-                }
-                self.ref.child("data").child(CalendarDay.calendarDayDate).setValue(CalendarDay.dataOfDate)
+        let section = self.selectedItem.section + self.selectedRow - 1
+        let indexPath = IndexPath(row: self.selectedItem.row, section: section)
+        let cell = self.collectionView.cellForItem(at: indexPath) as! ContentCollectionViewCell
+        
+        // check if teacher is avaible for the input of the student
+        guard cell.contentLabel.text == "Vrij" else {
+            self.alert(title: "Error", message: "De docent is niet beschikbaar op deze tijden. Check uw invoer.")
+            return
+        }
+        for i in 0...self.selectedRow - 1 {
+            let indexPath = String(self.selectedItem.section + i) + ", " + String(self.selectedItem.row)
+            CalendarDay.dataOfDate.updateValue(self.userId, forKey: indexPath)
+        }
+        self.ref.child("data").child(CalendarDay.calendarDayDate).setValue(CalendarDay.dataOfDate)
         self.collectionView.reloadData()
     }
 }
     
 
-// MARK: - UICollectionViewDataSource
+// MARK: - UICollectionView
 extension CollectionViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int
@@ -228,15 +236,16 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
             return
         }
         
+        // Check if it's a student and setup picker view.
         if cell.contentLabel.text == "Vrij" {
             guard self.userStatus == 0 && indexPath.row != 0 else {
                 self.alert(title: "Foutmelding", message: "U kunt als docent geen docent reserveren.")
                 return
             }
-            
             self.alertWithPickerMenu(title: " Wilt u " + timeSlots[self.selectedItem.section - 1] +  " uur inplannen? \n\n\n\n\n\n\n\n\n", message: " U moet minimaal 1 uur inplannen.", teacher: false)
-        } else if cell.contentLabel.text == "_" {
             
+        // Check if it's a teacher and setup picker view.
+        } else if cell.contentLabel.text == "_" {
             guard self.userStatus == 1 || self.userStatus == 2 else {
                 self.alert(title: "Foutmelding", message: "U kunt als leerling geen beschikbare tijden invoeren.")
                 return
@@ -246,14 +255,11 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
                 self.alert(title: "Foutmelding", message: "U heeft deze dag al ingepland.")
                 return
             }
-            
             self.alertWithPickerMenu(title: " Wilt u " + self.timeSlots[self.selectedItem.section - 1] +  " uur inplannen? \n\n\n\n\n\n\n\n\n", message: "U moet minimaal 1 uur inplannen.", teacher: true)
         }
     }
-    
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 return configurateCell(indexPath: indexPath,
@@ -305,7 +311,7 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
     }
 }
 
-// MARK: - UIPickerViewDataSource
+// MARK: - UIPickerView
 extension CollectionViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
