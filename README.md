@@ -165,6 +165,8 @@ Plannen van bijlessen die worden gegeven door de docenten van Zus & Zo aan versc
 *	Docent vult geboekte uren zelf in
 
 ### Visual sketch
+![alt text] (https://github.com/Diederia/project/blob/master/Docs/schets%20views%20app.PNG)
+
 User    | inlogView | inputView | calenderView | cellView | verwijdering |
 ------- | --------- | --------- | ------------ | -------- | -----------  |
 Admin   | YES       | YES       | YES          | YES      | YES          |
