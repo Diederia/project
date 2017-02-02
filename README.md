@@ -53,5 +53,9 @@ Voor dit project geldt een MIT lisence. Alle code kan vrij gerbuikt worden als g
 ## Acknowledgements
 Voor de Zus & Zo app is er gebruik gemaakt van de JTAppleCalendar en de CustomCollectionViewLayout. De JTAppleCalendar en de CustomCollectionViewLayout hebben een MIT License en kunnen dus vrij grbuikt worden. Meer informatie over de JTAppleCalendar kunt vinden op https://github.com/patchthecode/JTAppleCalendar. Meer informatie over CustomCollectionViewLayout kunt u vinden op http://www.brightec.co.uk/ideas/uicollectionview-using-horizontal-and-vertical-scrolling-sticky-rows-and-columns.
 
-### Disclaimer
+## Built With
+* Swift 3
+* Xcode version 8.2.1 
+
+## Disclaimer
 Er zal geen vergoeding plaatsvinden vanuit Zus & Zo.
