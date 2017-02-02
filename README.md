@@ -24,7 +24,7 @@ __2 RegisterView:__
 * Texfields voor voornaam, achternaam, id en mobiel.
 * Registreren button om de regristratie te voltooien.
 
-3 CalendarView: 
+__3 CalendarView: __
 * < > button om door de kalender heen te scrollen.
 * Kalenderdagen kunnen aangeklikt worden en dan wordt er een preview van weergegeven.
 * In de preview worden alle docenten weergeven die zichzelf hebben ingeroosterd op de kalenderdag.
