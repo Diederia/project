@@ -222,10 +222,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func logoutDidTouch(_ sender: Any) {
-        let alertController = UIAlertController(title: "Uiloggen", message:
+        let alertController = UIAlertController(title: "Uitloggen", message:
             "Weet u zeker dat u wilt uitloggen", preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default,handler: nil))
-        alertController.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default,handler: {
+        alertController.addAction(UIAlertAction(title: "Terug", style: UIAlertActionStyle.default,handler: nil))
+        alertController.addAction(UIAlertAction(title: "Ja", style: UIAlertActionStyle.default,handler: {
             (_)in
             try! FIRAuth.auth()!.signOut()
             self.performSegue(withIdentifier: "viewToLogin", sender: self)

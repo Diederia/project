@@ -10,7 +10,7 @@
 		0B963618BF177EEEF645CCD7 /* Pods_Diederick_Calkoen_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3C50E2E5CDB97B253A1591 /* Pods_Diederick_Calkoen_Project.framework */; };
 		E92C53D01E3B613100530A9D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92C53CF1E3B613100530A9D /* Extensions.swift */; };
 		E930D9821E247EB100563F0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E930D9811E247EB100563F0E /* AppDelegate.swift */; };
-		E930D9841E247EB100563F0E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E930D9831E247EB100563F0E /* HomeViewController.swift */; };
+		E930D9841E247EB100563F0E /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E930D9831E247EB100563F0E /* CalendarViewController.swift */; };
 		E930D9871E247EB100563F0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E930D9851E247EB100563F0E /* Main.storyboard */; };
 		E930D9891E247EB100563F0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E930D9881E247EB100563F0E /* Assets.xcassets */; };
 		E930D98C1E247EB100563F0E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E930D98A1E247EB100563F0E /* LaunchScreen.storyboard */; };
@@ -38,7 +38,7 @@
 		E92C53CF1E3B613100530A9D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E930D97E1E247EB100563F0E /* Diederick-Calkoen-Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Diederick-Calkoen-Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E930D9811E247EB100563F0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E930D9831E247EB100563F0E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		E930D9831E247EB100563F0E /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		E930D9861E247EB100563F0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E930D9881E247EB100563F0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E930D98B1E247EB100563F0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				E940CF5D1E27617C00E83E45 /* LoginViewController.swift */,
-				E930D9831E247EB100563F0E /* HomeViewController.swift */,
+				E930D9831E247EB100563F0E /* CalendarViewController.swift */,
 				E9FA5DD01E288F97000EA3CD /* CollectionViewController.swift */,
 				E940CF5F1E2761C700E83E45 /* RegisterViewController.swift */,
 				E95FDB211E3224020011F936 /* SettingsViewController.swift */,
@@ -328,7 +328,7 @@
 			files = (
 				E940CF5E1E27617C00E83E45 /* LoginViewController.swift in Sources */,
 				E940CF601E2761C700E83E45 /* RegisterViewController.swift in Sources */,
-				E930D9841E247EB100563F0E /* HomeViewController.swift in Sources */,
+				E930D9841E247EB100563F0E /* CalendarViewController.swift in Sources */,
 				E930D9821E247EB100563F0E /* AppDelegate.swift in Sources */,
 				E9FA5DDA1E288F97000EA3CD /* DateCollectionViewCell.swift in Sources */,
 				E9FA5DD71E288F97000EA3CD /* ContentCollectionViewCell.swift in Sources */,

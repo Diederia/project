@@ -10,9 +10,11 @@ import UIKit
 
 class CustomCell: UITableViewCell {
 
+    // MARK: - Outlets
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var hoursLabel: UILabel!
     
+    // MARK: - Override functions
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

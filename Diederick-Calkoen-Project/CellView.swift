@@ -10,6 +10,8 @@ import Foundation
 import JTAppleCalendar
 
 class CellView: JTAppleDayCellView {
+    
+    // MARK: - Outlets
     @IBOutlet var dayLabel: UILabel!
     @IBOutlet var selectedView: UIView!
 }

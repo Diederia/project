@@ -87,7 +87,7 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
     // Function to make an alert.
     func alert(title: String, message: String, actionTitle: String) {
         let alertController = UIAlertController(title: title , message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+        alertController.addAction(UIAlertAction(title: actionTitle, style: UIAlertActionStyle.default,handler: nil))
         
         self.present(alertController, animated: true, completion: nil)
     }
@@ -114,7 +114,7 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
     func saveUser(userStatus: Int) {
         FIRAuth.auth()!.createUser(withEmail: self.emailTextField.text!, password: passwordTextField.text!) { (user, error) in
             if error != nil {
-                self.alert(title: "Error to register", message: "Error with database", actionTitle: "Dismiss")
+                self.alert(title: "Foutmelding met registreren", message: "Foutmelding met de database.", actionTitle: "Terug")
                 return
             }
 
@@ -128,8 +128,12 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
             
             let userRef = self.ref.child("users").child((user.uid))
             userRef.setValue(user.toAnyObject())
-            self.alert(title: "Registratie compleet", message: "De gebruiker is nu geregistreerd", actionTitle: "Terug")
             self.clearInputFields()
+            if User.admin == 2{
+                self.performSegue(withIdentifier: "registerToLogin", sender: self)
+            } else {
+                self.alert(title: "Registratie compleet", message: "De gebruiker is nu geregistreerd", actionTitle: "Terug")
+            }
         }
     }
     
@@ -154,7 +158,6 @@ class RegsiterViewController: UIViewController, UITextFieldDelegate {
         if User.admin == 2{
             userStatus = 2
             saveUser(userStatus: userStatus)
-            self.performSegue(withIdentifier: "registerToLogin", sender: self)
         } else {
             userStatus = self.userControl.selectedSegmentIndex
             saveUser(userStatus: userStatus)

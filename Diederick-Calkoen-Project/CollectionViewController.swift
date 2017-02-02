@@ -148,21 +148,35 @@ class CollectionViewController: UIViewController  {
     }
     
     // Function for an alert with a picker view.
-    func alertWithPickerMenu(title: String, message: String, teacher: Bool) {
+    func alertWithPickerMenu(title: String, message: String, user: Int) {
         alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.view.addSubview(pickerMenu)
         
         alertController.addAction(UIAlertAction(title: "Terug", style: UIAlertActionStyle.default,handler: nil))
         alertController.addAction(UIAlertAction(title: "Ja",style: UIAlertActionStyle.default, handler:  {
             (_)in
-            if teacher == true {
-               self.teacherPickerView()
-            } else {
+            if user == 0 {
                 self.studentPickerView()
+            } else if user == 1 {
+                self.teacherPickerView()
+            } else {
+                self.adminPickerView()
             }
             
         }))
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    // Remove teacher id from the database when all hours are deleted.
+    func removeTeacherId(){
+        for i in 1...17 {
+            let indexPath = (String(i) + ", " + String(self.selectedItem.row))
+            if CalendarDay.dataOfDate[indexPath] != nil {
+                return
+            }
+        }
+        CalendarDay.dataOfDate.removeValue(forKey: String(0) + ", " + String(self.selectedItem.row))
+        
     }
     
     // The picker view function when a teacher clicks on a cell.
@@ -193,7 +207,6 @@ class CollectionViewController: UIViewController  {
             self.alert(title: "Error", message: "Plan de uren binnen de roostertijden.")
             return
         }
-        
         let section = self.selectedItem.section + self.selectedRow - 1
         let indexPath = IndexPath(row: self.selectedItem.row, section: section)
         let cell = self.collectionView.cellForItem(at: indexPath) as! ContentCollectionViewCell
@@ -207,6 +220,29 @@ class CollectionViewController: UIViewController  {
             let indexPath = String(self.selectedItem.section + i) + ", " + String(self.selectedItem.row)
             CalendarDay.dataOfDate.updateValue(self.userId, forKey: indexPath)
         }
+        self.ref.child("data").child(CalendarDay.calendarDayDate).setValue(CalendarDay.dataOfDate)
+        self.collectionView.reloadData()
+    }
+    
+    func adminPickerView() {
+        guard self.selectedItem.section + self.selectedRow <= 28  else {
+            self.alert(title: "Foudmelding", message: "Verwijder binnen de uren van de roostertijden.")
+            return
+        }
+        let section = self.selectedItem.section + self.selectedRow - 1
+        let indexPath = IndexPath(row: self.selectedItem.row, section: section)
+        let cell = self.collectionView.cellForItem(at: indexPath) as! ContentCollectionViewCell
+        
+        // check if teacher is avaible for the input of the student
+        guard cell.contentLabel.text != "_" else {
+            self.alert(title: "Foudmelding", message: "Deze uren kunnen niet verwijderd worden. Let op het aantal uren te verwijderen.")
+            return
+        }
+        for i in 0...self.selectedRow - 1 {
+            let indexPath = String(self.selectedItem.section + i) + ", " + String(self.selectedItem.row)
+            CalendarDay.dataOfDate.removeValue(forKey: indexPath)
+        }
+        removeTeacherId()
         self.ref.child("data").child(CalendarDay.calendarDayDate).setValue(CalendarDay.dataOfDate)
         self.collectionView.reloadData()
     }
@@ -227,9 +263,16 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
     }
  
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            return
+        }
         self.selectedItem = indexPath
         let cell = collectionView.cellForItem(at: indexPath) as! ContentCollectionViewCell
         
+        // Check if it's an admin user and if the cell is not empty.
+        if self.userStatus == 2 && cell.contentLabel.text != "_" {
+            self.alertWithPickerMenu(title: " Wilt u " + timeSlots[self.selectedItem.section - 1] +  " verwijderen? \n\n\n\n\n\n\n\n\n", message: " U moet minimaal 1 uur verwijderen.", user: self.userStatus)
+        }
         
         guard cell.contentLabel.text == "Vrij" || cell.contentLabel.text == "_" else{
             self.alert(title: "Foutmelding", message: "De sectie is al ingepland")
@@ -242,11 +285,11 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
                 self.alert(title: "Foutmelding", message: "U kunt als docent geen docent reserveren.")
                 return
             }
-            self.alertWithPickerMenu(title: " Wilt u " + timeSlots[self.selectedItem.section - 1] +  " uur inplannen? \n\n\n\n\n\n\n\n\n", message: " U moet minimaal 1 uur inplannen.", teacher: false)
+            self.alertWithPickerMenu(title: " Wilt u " + timeSlots[self.selectedItem.section - 1] +  " uur inplannen? \n\n\n\n\n\n\n\n\n", message: " U moet minimaal 1 uur inplannen.", user: self.userStatus)
             
         // Check if it's a teacher and setup picker view.
         } else if cell.contentLabel.text == "_" {
-            guard self.userStatus == 1 || self.userStatus == 2 else {
+            guard self.userStatus == 1 else {
                 self.alert(title: "Foutmelding", message: "U kunt als leerling geen beschikbare tijden invoeren.")
                 return
             }
@@ -255,7 +298,7 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
                 self.alert(title: "Foutmelding", message: "U heeft deze dag al ingepland.")
                 return
             }
-            self.alertWithPickerMenu(title: " Wilt u " + self.timeSlots[self.selectedItem.section - 1] +  " uur inplannen? \n\n\n\n\n\n\n\n\n", message: "U moet minimaal 1 uur inplannen.", teacher: true)
+            self.alertWithPickerMenu(title: " Wilt u " + self.timeSlots[self.selectedItem.section - 1] +  " uur inplannen? \n\n\n\n\n\n\n\n\n", message: "U moet minimaal 1 uur inplannen.", user: self.userStatus)
         }
     }
 
