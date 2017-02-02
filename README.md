@@ -9,16 +9,16 @@ De Zus & Zo app is een aplicatie voor de iphone om bijles docenten en leerlingen
 
 ## Afbeeldingen van de app
 
-1: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.49.23.png)
-2: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.29.png)
-3: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.21.png)
+__1:__ ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.49.23.png)
+__2:__ ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.29.png)
+__3:__ ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.21.png)
 
-1 InlogView: 
+__1 InlogView:__ 
 * Textfields voor emailadres en wachtwoord.
 * Login button om in te loggen.
 * Registreer button om te registreren. De regristratie button is alleen zichtbaar wanneer er nog geen admin user bekent is in de database.
 
-2 RegisterView:
+__2 RegisterView:__
 * Texfields voor emailadres, wachtwoord en bevestigingswachtwoord.
 * Segment controller om een leerling of docent te kiezen. Deze is niet zichtbaar wanneer een admin user zich registreerd.
 * Texfields voor voornaam, achternaam, id en mobiel.
@@ -29,19 +29,19 @@ De Zus & Zo app is een aplicatie voor de iphone om bijles docenten en leerlingen
 * Kalenderdagen kunnen aangeklikt worden en dan wordt er een preview van weergegeven.
 * In de preview worden alle docenten weergeven die zichzelf hebben ingeroosterd op de kalenderdag.
 
-4: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.52.png)
-5: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.49.11.png)
-6: ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.39.png)
+__4:__ ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.52.png)
+__5:__ ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.49.11.png)
+__6:__ ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.39.png)
 
-4 CollectionView:
+__4 CollectionView:__
 * Cellen met de uren van de dag
 * Als er in de kolomkop vrij staat is de kolom vrij, is de kolom gepland door een docent dan staat zijn ID in de kolomkop.
 
-5 CollectionView:
+__5 CollectionView:__
 * Alert om aanvraag van de user te verwerken.
 * In de pickerview kunnen het aantal te plannen uren gekozen worden, er moet minimaal 1 uur ingepland worden.
 
-6 SettingsView:
+__6 SettingsView:__
 * Texfields om ID, mobiel en wachtwoord aan te kunnen passen.
 * In de labels wordt de overige informatie over de user weergegeven.
 
