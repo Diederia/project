@@ -36,6 +36,8 @@ __6:__ ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%
 __4 CollectionView:__
 * Cellen met de uren van de dag
 * Als er in de kolomkop vrij staat is de kolom vrij, is de kolom gepland door een docent dan staat zijn ID in de kolomkop.
+* Een cell is vrij om te reserveren door een leerling wanneer die groen is.
+* Een cell is rood wanneer de leerling een uur heeft gereserveerd.
 
 __5 CollectionView:__
 * Alert om aanvraag van de user te verwerken.
