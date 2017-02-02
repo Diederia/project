@@ -3,7 +3,7 @@
 * 10684883
 * Januari/februari 2017
 
-__De Zus & Zo app is een applicatie voor de iPhone om docenten en leerlingen van Zus & Zo aan elkaar te koppelen. De docenten van Zus & Zo publiceren hun beschikbare uren in een rooster van een kalenderdag. De leerlingen kunnen vervolgens de nog niet geboekte uren reserveren. De admin gebruiker kan nieuwe docenten en leerlingen toevoegen. __
+__De Zus & Zo app is een applicatie voor de iPhone om docenten en leerlingen van Zus & Zo aan elkaar te koppelen. De docenten van Zus & Zo publiceren hun beschikbare uren in een rooster van een kalenderdag. De leerlingen kunnen vervolgens de nog niet geboekte uren reserveren. De admin gebruiker kan nieuwe docenten en leerlingen toevoegen.__
 
 __1:__ ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.21.png)
 __2:__ ![alt text] (https://github.com/Diederia/project/blob/master/Docs/Screen%20Shot%202017-02-02%20at%2012.48.52.png)
@@ -81,7 +81,6 @@ De String extension is gebruikt om het kalendermaandnummer te kunnen converten n
 
 ## UIView
 De UIView extension gebruikt om ronde randen te geven aan een view. Er kan aan alle randen een cornerRadius gegeven worden met swift, maar niet aan gepaalde hoeken. Zoals links en rechtsboven. Dit kan wel met de UIView extension.
-
 
 ## Challenges in process
 ### Week 1 | 10 t/m 15 januari
