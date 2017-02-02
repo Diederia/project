@@ -5,7 +5,7 @@
 * Januari/februari 2017 
 * [![BCH compliance](https://bettercodehub.com/edge/badge/Diederia/project)](https://bettercodehub.com)
 
-De Zus & Zo app is een applicatie voor de iPhone om bijles docenten en leerlingen van Zus & Zo aan elkaar te koppelen. De docenten van Zus & Zo publiceren hun beschikbare uren in een rooster van een kalenderdag. De leerlingen kunnen vervolgens de nog niet geboekte uren reserveren. 
+__De Zus & Zo app is een applicatie voor de iPhone om docenten en leerlingen van Zus & Zo aan elkaar te koppelen. De docenten van Zus & Zo publiceren hun beschikbare uren in een rooster van een kalenderdag. De leerlingen kunnen vervolgens de nog niet geboekte uren reserveren. De admin gebruiker kan nieuwe docenten en leerlingen toevoegen.__
 
 ## Afbeeldingen van de app
 
