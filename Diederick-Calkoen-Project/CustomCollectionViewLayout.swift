@@ -5,11 +5,9 @@
 //  Created by Diederick Calkoen on 12/01/17.
 //  Copyright © 2017 Diederick Calkoen. All rights reserved.
 //
+//
+// The CustomCollectionViewLayout comes from the tutorial of BrighTec.
 // http://www.brightec.co.uk/ideas/uicollectionview-using-horizontal-and-vertical-scrolling-sticky-rows-and-columns
-//
-//
-// The prepare function is from the turoial of BrighTec. 
-
 
 
 import UIKit

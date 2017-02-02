@@ -46,7 +46,6 @@
 ## Dag 10 | vrijdag | 20 januari
 * De doelstelling van de dag is de code te verbeteren in configuratie van de collection view. Ook moet de preview van de dag nu goed worden weergeven.
 	* De code is verbeterd, een functie wordt nu aangeroepen om een cel van de collection view aan te maken.
-	* 
 	
 ## Dag 11/12 | zaterdag/zondag | 21/22 januari
 * Usergegevens verbeterd, nog niet optimaal.
@@ -92,12 +91,15 @@
 * Er is een functie aangemaakt om de kleur mee te geven tijdens de configuratie van de collection view. Eerst werden er onodig twee parameters meegegeven.
 
 ## Dag 21 | dinsdag | 31 januari
-
+* Door een begrafenis heb ik helaas niks aan het project kunnne  doen.
 
 ## Dag 22 | woensdag | 1 februari
+* Er was een probleem met het invoeren van nieuwe tijden in een kalenderdag waar nog niks gepland was. De kalenderdag was niet toegankelijk. 
+    * Is opgelost door in de tableView al tekst te plaatsen.
+* State restoration ging fout door het automatisch inloggen, segue naar de homeView werd altijd uitgevoerd.
 
 ## Dag 23 | donderdag | 2 febrauri
-
+* D
 
 
 
