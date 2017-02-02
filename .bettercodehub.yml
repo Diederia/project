@@ -1,5 +1,6 @@
 exclude:
 - /Pods/JTAppleCalendar/Sources/.*
+- /Diederick-Calkoen-Project/CustomCollectionViewLayout.swift
 component_depth: 1
 languages:
 - ruby
