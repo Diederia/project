@@ -183,5 +183,9 @@ InPlanning App is een voorbeeld van een inplannings app, alleen hierbij gaat het
 De minimale voorwaarden waaraan de app moet voldoen aan het einde van het project zijn: de leerling moet een bijles kunnen inplannen bij een docent. De admin moet deze kunnen verwijderen. 
 De optionele onderdelen zijn: de leerling en de docent aanpassingen kunnen maken, boetebedrag wordt verrekent bij te late afmelding. Uitgebreide beschrijving van leerling en docent. 
 
+### External Code
+* JTAppleCalendar: The MIT License (MIT). Copyright (c) 2016 JayT <patchthecode@gmail.com>, permission is granted and free of charge.
+* CustomCollectionViewLayout: The MIT License (MIT). Copyright (c) 2014 brightec, permission is granted and free of charge.
+
 ### Disclaimer
 Er zal geen vergoeding plaatsvinden vanuit Zus & Zo.
